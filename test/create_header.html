@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<!--
+	 PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"
+	xml:lang="fr"
+-->
+
+	<head>
+		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
+		<title>Acceuil - Gestionnaire </title>
+		<link rel="stylesheet" href="style.css"/>
+		<link rel="shortcut icon" type="image/png" href="imageAndLogo/#" />
+
+	</head>
+
+	<body>
+		<script>
+			let menu = document.getElementById('menu');
+			let check = document.getElementById('check');
+			function change_css(menu){
+				if( menu.style.left == '-100%'){
+					menu.style.left = '0' ;    
+				}else{
+					menu.style.left ='-100%';
+			}}
+			check.addEventListener('click',change_css(menu) );
+		</script>
+	
+		<header>
+			<nav>
+			
+				<div class ="logoAndTitle">
+					<!-- <img src="#" alt="logo de la page"/> -->
+					<h1>Bibliothèque</h1>
+				</div>
+				
+				<div class='menu' >
+					<label for="check" class="checkbtn">
+						<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="svg-inline--fa fa-bars fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+						<input type="checkbox" name='check' id='check' />
+					</label>
+		
+				</div>
+	
+				<ul id = "menu">
+					<li><a href="#" id="active">Acceuil</a></li>
+					<li><a href="#">Gestion des livres</a></li>
+					<li><a href="#">Gestion des clients</a></li>
+					<li><a href="#" id="connect">Deconnexion</a></li>
+				</ul>
+				
+			</nav>
+		</header>
+
+
+	
+
+		
+	</body>
+
+</html>
