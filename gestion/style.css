@@ -1,0 +1,28 @@
+
+table
+{
+	border-collapse: collapse;
+	font-family: serif;
+	width:70%;
+	
+}
+
+td, th
+{
+	border: 1px solid black;
+	text-align: center;
+	height:50px;
+}
+
+td{
+	font-size: 1em;
+}
+
+th{
+	font-size: 1.2em;
+	
+}
+
+
+	
+

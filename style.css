@@ -1,0 +1,14 @@
+*{
+	padding:0;
+	margin: 0;
+}
+html, body{
+	min-height:100vh;
+	/*font-family: 'Sansita Swashed', cursive; page d'acceuil visiteur*/
+	font-family: 'Roboto', sans-serif;
+}
+
+footer{
+	position:absolute;
+	bottom: 0;
+}

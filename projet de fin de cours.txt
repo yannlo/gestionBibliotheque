@@ -1,0 +1,480 @@
+
+
+							systeme de gestion d'une bibliotheque
+
+
+
+inscription:
+	lire, enprunter:
+			date de retour, de sorti
+			confirmation de retour(verification d'etat d'etat)
+			historique d'emprunt d'eleve (en fonction d'une periode T, par date)
+
+admin:
+	enregistrer des livre(type d'oeuvre,categorie, auteur, date d'édition, editeur, etat)
+		historique d'enprunter generale, historique d'enprun en cour, emprunt terminé
+		liste de membre, de stock disponible
+
+liste et membre:
+Dje; Carimu; Ehui
+
+
+/////////////////////////// utilisateur ///////////////////////////////////
+
+client:
+	procedure d'inscription(nom, prenom, date de naissance, mail) Obligatoire
+
+	Action:
+	  demander un enprunter, rendre un livre 
+	  noter un livre
+	  voir son historique d'emprunt
+
+	prossedure:
+
+	    emprunt:
+		date d'emprunt a specifié
+		date de retour a spécifié
+		controle de l'etat
+	
+	    restitution:
+		verification date de retour a spécifié (respect du delais)
+		controle de l'etat
+		note de livre
+
+
+	
+
+
+Admin:
+	procedure d'enregistrement(nom, prenom, date de naissance, mail, poste dans la bibliothèque) Obligatoire
+	historique:
+		d'emprunt General(nom du livre, nom du client, date et etat d'emprunt, date et etat de restitution,
+		 comfirmation de restitution)
+		d'emprunt par utilisateur( nom du livre, date et etat d'emprunt, date et etat de restitution, comfirmation de restitution )
+
+	Action:
+		ajouter, supprimer un client
+		ajouter, supprimer un livre
+		voir l'historique de d'emprunt general
+		voir l'historique de d'emprunt par utilisateur
+		liste des utilisateurs(par nom) avec barre de rechercher
+		liste des livres (systeme de classage: par nom, categorie, type, auteur, date d'edition, editeur, note) avec barre de recherche
+		comfirmer un emprunt ou effectuer un emprunt au nom d'un client
+		confirmer une restitution
+
+
+//////////////////////////// prossessus /////////////////////////////////////////
+
+Ajout d'oeuvre:
+
+	specifier auteur(liste Oeuvre) -> caracteristique d'oeuvre -> caracteristique exemplaire:
+
+		caracteristique d'oeuvre:
+		  - stock
+		  - type oeuvre
+		  - categorie d'oeuvre
+
+		caracteristique exemplaire:
+		  - etat
+		  - date de parution
+		  - editeur
+
+///////////////////////////// les antités /////////////////////////////////////////
+
+les clients
+ Caracteristique :ID, matricule, nom, prenom, date de naissance, mail, mot de passe, contact 1, contact 2
+
+les gestionnaire
+ Caracteristique :ID, nom, prenom, date de naissance, mail, mot de passe, poste dans la bibliothèque, actif(bool)
+
+
+
+Auteur:
+  id, auteur
+
+oeuvre:
+  id, titre, stock, Note(variante)
+
+exemplaire:
+  id, nom, date d'édition, editeur
+
+
+//////// entités partiels
+
+structure
+  Caracteristique: ID, nom
+
+type-livre ( romman, poeme, teatre)
+  Caracteristique: ID, nom
+
+categorie-livre
+  Caracteristique: ID, nom
+
+Etat-livre
+  Caracteristique: ID, nom
+		
+
+/////////////////////////////// Repartition des Pages en relative //////////////////////////////////////////////
+
+non-connecté:
+
+	page d'acceuil: (ok)
+	     Contenu:
+		-> presentation de la bibliotheque
+		-> presentation des nouveaux livre reçu
+		-> les livres les plus emprunter
+
+
+
+	page de livre:
+	     contenu:
+		-> zone de recherche pour un livre
+		-> Classement des livres par categories 
+
+
+	     Sous-page:
+		-> page de documentation sur un livre
+			contenu:
+			    -> la photo de couverture du livre
+			    -> caracteristique du livre
+			    -> resumé du livre 
+			    -> note du livre
+			    -> proposition d'emprunt(condition: qu'il en aie a quantité sufisante)
+
+
+client connecté:
+
+	page d'acceuil:
+	     Contenu:
+		-> presentation de la bibliotheque
+		-> presentation des nouveaux livre reçu
+		-> les livres les plus emprunter
+
+
+
+
+	page de livre:
+	     contenu:
+		-> zone de recherche pour un livre
+		-> Classement des livres par categories 
+
+	     Sous-page:
+		-> page de documentation sur un livre:
+			contenu:
+			    -> la photo de couverture du livre
+			    -> caracteristique du livre
+			    -> resumé du livre
+			    -> note du livre
+			    -> proposition d'emprunt(condition: qu'il en aie a quantité sufisante)
+
+		-> page de demande d'enprunt:
+			contenu:
+			    -> section d'envoi de te demande pour se livre
+			    -> date de debut d'emprunt presumé (facultative)
+			Sous page:
+			   -> page de confirmation d'envoie de demande
+				contenu:
+				    -> texte indiquant l'envoie de la demande ou une erreur(ex: depassé le nombre limite de demande)
+
+
+
+
+
+
+	page d'emprunt:
+	     Contenu:
+		-> liste general compilant tout les autre(demande en cour, emprunt en cour)
+		-> historique des emprunts precedants: nom du livre, type de livre, date de debut de l'emprunt, etat initial et final,
+		   date de restitution
+		-> liste demande d'emprunt en cour de traitement (classé par date de demande) : nom du livre, date de la demande
+		-> liste d'emprunt en cour (classé par date de restitution et indique si le delais de restitution n'as pas été respecté):
+		   nom du livre, type de livre, date de debut de l'emprunt, etat initial, date de restitution presumé
+
+
+
+
+
+
+
+
+admin connecté:
+
+	page d'acceuil:
+
+	     Contenu:
+		-> section liste des demandes d'emprunt envoyé (OK)
+		-> confirmer une restitution de livre (OK)
+		-> section liste des retard de restitution (OK)
+		-> section gestion du stock (OK)
+		-> section ajout de nouveaux client (OK)
+
+
+
+
+
+	page gestion des livres:
+
+	     contenu:
+		-> zone de recherche pour un livre
+		-> ajout de nouveau livre
+		-> suppression de livre
+		-> gestion de stock et d'etat
+		-> modification de la page de documentation d'un livre(lien vers la sous²-page de modif dans la sous-page
+		   de documentation )
+
+	     Sous-page:
+		-> page de documentation sur un livre:
+
+			contenu:
+			    -> la photo de couverture du livre
+			    -> caracteristique du livre
+			    -> resumé du livre
+			    -> stock total, note, disponible a l'emprunt, en cour d'emprunt, controle d'etat 
+			    -> option modification de documentation
+
+			Sous page:
+			    -> page de modification de document:
+
+			    	contenu:
+				    -> Nom du livre
+				    -> categorie du livre
+				    -> type de livre
+				    -> auteur
+				    -> date d'edition
+				    -> editeur
+				    -> Stock et etat
+				    -> la photo de couverture du livre
+				    -> caracteristique du livre
+				    -> resumé du livre
+				
+				Sous-page:
+			    	    -> page de confirmation de modification:
+			    		contenu:
+				    	    -> message de confirmation de la modification de l'element dans le stock ou d'erreur
+
+
+		-> page d'ajout de livre:
+
+			Contenu:
+			    -> champs auteur(parti 1)
+			    -> champs categorie oeuvre(parti 2)
+			    -> champs categorie exemplaire(parti 3)
+
+
+			Sous-page:
+			    -> page de confirmation d'ajout:
+			    	contenu:
+				    -> message de confirmation de l'ajout de l'element dans le stock ou d'erreur
+
+
+		-> page de supression de livre:
+			Contenu:
+			    -> barre de recherche du livre
+			    -> checkbox de confirmation d'action
+
+			Sous-page:
+			    -> page de confirmation de suppression:
+			    	contenu:
+				    -> message de confirmation de l'suppression de l'element dans le stock ou d'erreur
+
+
+		-> page de gestion des stocks et d'etats:
+
+			Contenu:
+			    -> section ajouter Stock
+			    -> section supprimer du stock
+
+			Sous page:
+
+			    -> page ajoute de Stock et controle d'etat:
+
+			    	contenu:
+				    -> quantité
+				    -> etat par nombre d'element
+
+				Sous page:
+
+				    -> page de confirmation d'ajout:
+
+				    	contenu:
+					    -> message de confirmation de l'ajout de l'element dans le stock ou d'erreur
+
+			    -> section supprimer du stock:
+
+			    	contenu:
+				    -> quantité
+				    -> etat par nombre d'element
+				    -> checkbox de confirmation
+
+				Sous page:
+
+				    -> page de confirmation d'ajout:
+
+				    	contenu:
+					    -> message de confirmation de l'ajout de l'element dans le stock ou d'erreur
+				
+
+			
+
+
+
+
+
+	
+	page gestion des clients:
+
+	     Contenu:
+		-> zone de recherche pour un client(permet d'acceder a la documentation sur un client)
+	   	-> comfirmation de restitution de livre
+		-> ajout de nouveau client
+		-> suppression de client
+		-> liste des empruntes en cour exostive de tout les clients(en fonction de la date de restitution) classé par date de demande :
+		   nom du livre, date de la demande
+		-> historique d'emprunt de tout les client(classé par date) classé par date de restitution et indique si le delais de restitution
+		   n'as pas été respecté): nom du livre, type de livre, date de debut de l'emprunt, etat initial, date de restitution presumé
+
+	     Sous page:
+		-> page de documentation sur un client:
+			Contenu:
+			    -> information du client
+			    -> historique de ces emprunts
+			Sous page:
+			    page d'emprunt du client:
+	     			Contenu:
+			   	   -> liste general compilant tout les autre(demande en cour, emprunt en cour)
+				   -> historique des emprunts precedants: nom du livre, type de livre, date de debut de l'emprunt, etat initial et final,
+				      date de restitution
+				   -> liste demande d'emprunt en cour de traitement (classé par date de demande) : nom du livre, date de la demande
+				   -> liste d'emprunt en cour (classé par date de restitution et indique si le delais de restitution n'as pas été respecté):
+				      nom du livre, type de livre, date de debut de l'emprunt, etat initial, date de restitution presumé
+
+
+		-> page d'ajout de client:
+			Contenu:
+			    -> Nom
+			    -> prenom
+			    -> date de naissance
+			    -> mail
+			    -> mot de passe et confirmation
+			    -> type d'abonnement
+
+			Sous-page:
+			    -> page de confirmation d'ajout:
+			    	contenu:
+				    -> message de confirmation de l'ajout d'un nouveau client et de l'envoie d'un mail de confirmation ou d'erreur
+
+
+		-> page de suppression de client:
+			Contenu:
+			    -> barre de recherche du client
+			    -> checkbox de confirmation d'action
+
+			Sous-page:
+			    -> page de confirmation de suppression:
+			    	contenu:
+				    -> message de confirmation de la suppression du client ou d'erreur
+
+		-> page de liste d'emprunt:
+			Contenu:
+			    -> liste des demandes d'emprunt globale
+			    -> liste des emprunts en cours globale
+			    -> historique global des emprunt precedant (par date de restitution)
+			    -> liste des retards de depots globale
+			Sous page:
+			    -> page de confirmation de demande d'emprunt:
+	     			Contenu:
+			   	   -> nom du client et nom du livre de la demande
+				   -> section de validation
+			   	   -> historique demandes d'emprunt des 2 dernier moix
+				   -> liste des emprunts en cour
+			
+
+		-> page de confirmation de restitution de livre:
+			Contenu:
+			    -> zone de recherche pour la phase d'identification(nom du client -> livre en cour d'enprunt -> nom/selection du livre)
+			    -> date de restitution et etat
+			Sous-page:
+			    -> page de confirmation de restitution:
+			    	contenu:
+				    -> message de confirmation de la restitutoin du livre par le client dans le stock ou erreur
+
+
+
+	
+
+			
+
+
+////////////////////////////////////////// liste des page /////////////////////////////////////////////
+
+ -> page d'acceuil									 1
+ -> page de livre									 2
+ -> page de documentation de livre (avec modification en admin)				 3
+
+///// acces connecté
+
+
+ -> page de demande d'emprunt							
+ -> page de confirmation(de demande d'emprunt)(modification, ajout, suppression )	 5
+ -> page d'emprunt									 6
+
+///// acces admin
+
+ -> page de gestion de livre								 7
+ -> page de modification de livre							 8
+ -> page d'ajout de livre								 9
+ -> page de suppression de livre							10
+ -> page de gestion de stock et d'etat							11
+ -> page d'ajout de stock et d'etat							12
+ -> page de suppression de stock							13
+ -> page de gestion client								14
+ -> page de documentation client							15
+ -> page d'ajout client									16
+ -> page de suppression client								17
+ -> page de liste d'emprunt								18
+ -> page de confirmation de demande d'emprunt						19
+ -> page de de restitution de livre emprunté						20
+
+
+
+
+//////////////////////////// extension /////////////////////////////////
+
+
+page gestion des admins:
+
+	     Contenu:
+		-> ajout de nouveau client
+		-> suppression de client
+		-> liste des admins
+
+	     Sous-page:
+
+		-> page d'ajout d'admin:
+			Contenu:
+			    -> Nom
+			    -> prenom
+			    -> date de naissance
+			    -> mail
+			    -> mot de passe et confirmation
+			    -> poste dans la bibliotheque
+
+			Sous-page:
+			    -> page de confirmation d'ajout:
+			    	contenu:
+				    -> message de confirmation de l'ajout d'un nouveau admin et de l'envoie d'un mail de confirmation ou d'erreur
+
+
+		-> page de suppression de admin:
+			Contenu:
+			    -> barre de recherche du admin
+			    -> checkbox de confirmation d'action
+
+			Sous-page:
+			    -> page de confirmation de suppression:
+			    	contenu:
+				    -> message de confirmation de la suppression de l'admin ou d'erreur
+
+
+
+				 
