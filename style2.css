@@ -1,0 +1,129 @@
+
+*{
+    padding:0;
+    margin:0;
+    border-collapse: collapse;
+}
+
+html, body{
+    width:100%;
+    min-height: 100;
+}
+
+/* footer of the page */
+footer{
+    position: fixed;
+    bottom: 0;
+    background-color:#0066CC;
+    width:100%;
+}
+footer div.footer-content{
+    display: flex;
+    margin: 0 5%;
+}
+
+footer .part{
+    padding: 30px ;
+    width:100%;
+}
+
+footer .part h2{
+    margin: 0 0  7px  4% ;
+    color:#33CCFF;
+    font-size: 1.7em;
+    font-weight: 800;
+}
+
+footer .part p{
+    
+    color:rgb(255, 255, 255);
+    font-size: 1.2em;
+    text-align: justify;
+}
+
+
+/* specifique footer client */
+
+footer .part form p{
+    
+    color:rgb(255, 255, 255);
+    font-size: 1.2em;
+    text-align: justify;
+    margin:10px 0;
+}
+
+footer .part form textarea{
+    border:2px solid #818181;
+    width: 80%;
+    height: 100px;
+}
+
+
+
+footer .part form input[type="email"]{
+    display: inline-block;
+    border:2px solid #818181;
+}
+
+footer .part form input[type="submit"]{
+    display: inline-block;
+    height: 40px;
+    width:40%;
+    overflow: visible;
+    margin: 0  0 0  20% ;
+    background-color: #3399FF;
+    border: 0;
+    border-radius:10px;
+    font-size: 1.2em;
+    color: #fff;
+    transition: all .4s;
+}
+
+footer .part form input[type="submit"]:hover {
+     background:#33CCFF;
+     transition: all .4s;
+}
+
+    /* specific footer gestionnaire */
+
+    footer ul li{
+        list-style:none;
+        padding:5px 0;
+    }
+
+    footer ul li a{
+        text-decoration:none;
+        color:white;
+        font-size: 1.2em;
+        transition: all .4s;
+    }
+
+    footer ul li a:hover{
+        color:#3399FF;
+        font-weight: bold;
+        text-decoration:underline;
+        transition: all .4s;
+    }
+
+
+
+
+    /* copyright */
+
+footer p.copyright{
+    display: inline-block;
+    bottom: 0;
+    text-align: center;
+    width:100%;
+    background-color:#184b7e;
+    color:rgb(150, 150, 150);
+    font-weight: bolder;
+}
+
+/* responsive footer */
+
+@media (max-width:800px){
+	footer div.footer-content{
+		flex-direction:column;
+	}
+}

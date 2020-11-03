@@ -45,8 +45,7 @@
 		<?php
 
 		}
-		elseif($_SESSION['type'] == 'user')
-			{
+		else{
 				?>
 					<footer>
 			<div class="footer-content">
