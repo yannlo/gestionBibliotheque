@@ -21,8 +21,9 @@
 	</head>
 
 	<body>
-	<?php include("headerAndFooter/header.php") ?>
-	
+		<header>
+			<?php include("headerAndFooter/menu.php") ?>
+		</header>
 	
 		
 	<?php include("headerAndFooter/footer.php") ?>
