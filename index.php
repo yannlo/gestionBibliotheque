@@ -1,7 +1,4 @@
 <?php
-session_start();
-
-$_SESSION['type']='admin';
 
 ?>
 
@@ -13,16 +10,17 @@ $_SESSION['type']='admin';
 	xml:lang="fr"
 >
 	<head>
-
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>Acceuil - Gestionnaire </title>
 		<link rel="stylesheet" href="style2.css"/>
-		
+		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	
 	</head>
 
 	<body>
-	<?php include("headerAndFooter/header.php") ?>
-	
+		<header>
+			<?php include("headerAndFooter/menu.php") ?>
+		</header>
 	
 		
 	<?php include("headerAndFooter/footer.php") ?>

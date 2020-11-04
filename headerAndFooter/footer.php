@@ -92,4 +92,50 @@
 
 		}
 	}
+	if(!isset($_SESSION['type']))	{
+		?>
+			<footer>
+	<div class="footer-content">
+
+		<div class =" part p1" >
+			
+			<h2>Bibliotheque presentation</h2>
+			<p>
+				la bibliotheque de l'ESATIC offre un grand nombre de livre
+				et propose des enprunt pour tout les membres afin de rendre 
+				accecible a tous la cultures et la connaissance. 
+				la bibliotheque de l'ESATIC offre un grand nombre de livre
+				et propose des enprunt pour tout les membres afin de rendre 
+				accecible a tous la cultures et la connaissance. 
+			</p>
+			
+
+		</div>
+		
+		<div class ="part p2" >
+			
+			<h2>Contactez-nous</h2>
+			<form action="">
+				<p>
+					<label for="mail">enter votre email:*</label> <br/>
+					<input type="email" name="mail" id="mail" placeholder="mon.mail@exemple.com" required="required" />
+				</p> 
+				<p>
+					<label for="message">enter votre message:*</label> <br/>
+					<textarea type="email" name="message" id="message" placeholder="max 255 caracteres" required="required"></textarea>
+				</p>
+				<input type="submit" name="valider" value="valider" />
+			</form>
+			
+		</div>
+		
+	</div>
+
+
+	<p class="copyright">copyright 2020 Bibliotheque Project All right reserved</p>
+</footer>
+
+	<?php
+
+}
 ?>
