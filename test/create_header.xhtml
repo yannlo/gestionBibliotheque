@@ -1,37 +1,83 @@
-<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html 
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"
-	xml:lang="fr"
->
-	<head>
-		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
-		<title>Acceuil - Gestionnaire </title>
-		<link rel="stylesheet" href="style.css"/>
-		<link rel="shortcut icon" type="image/png" href="imageAndLogo/#" />
-		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-	</head>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd" xml:lang="fr">
 
-	<body>
-	
-		<header>
-			<nav>
-				<input type="checkbox" id="check"/>
-				<label for="check" class="checkbtn">
-				  <i class="fas fa-bars"></i>
-				</label>
-				<label class="logo">Bibliothèque</label>
+<head>
+	<meta http-equiv="content-type" content="text/html" charset="utf-8" />
+	<title>Acceuil - Gestionnaire </title>
+	<link rel="stylesheet" href="style.css" />
+	<!-- <link rel="shortcut icon" type="image/png" href="imageAndLogo/#" /> -->
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<!-- <script src="script.js"></script> -->
+</head>
+
+<body>
+
+	<header>
+		<nav>
+			<input type="checkbox" id="check" />
+			<label for="check" class="checkbtn">
+				<spa class="fas fa-bars"></spa>
+			</label>
+			<label class="logo">Bibliothèque</label>
+			<div class="menu">
 				<ul>
-				  <li><a class="active" href="#">Acceuil</a></li>
-				  <li><a href="#">Gestion des livres</a></li>
-				  <li><a href="#">Gestion des clients</a></li>
-				  <li><a href="#" class="connect">Deconnexion</a></li>
-				</ul>
-			</nav>
-		</header>
+					<li><a class="active" href="#">Acceuil</a></li>
+					<li>
+						<label for="btn-1" class="show1" >
+							<a id= "link1">Gestion des livres     <i id ="fleche-1" class="fas fa-angle-down"></i></a>
+						</label>
 
-	
-	</body>
+						<input type="checkbox" id="btn-1" onclick="changed_angle('fleche-1','link1','list1');" />
+						<ul id = 'list1'>
+							<li><a href="#">Pages 1</a></li>
+							<li><a href="#">Elementsc2</a></li>
+							<li><a href="#">Iconsc3</a></li>
+						</ul>
+					</li>
+					<li>
+						<label for="btn-2" class="show2">
+							<a id='link2'>Gestion des clients     <i id ="fleche-2" class="fas fa-angle-down"></i></a>
+						</label>
+						<input type="checkbox" id="btn-2" onclick="changed_angle('fleche-2','link2','list2');" />
+						<ul id="list2">
+							<li><a href="#">Pagesc2</a></li>
+							<li><a href="#">Elementsé 2</a></li>
+							<li><a href="#">Icons "3</a></li>
+						</ul>
+					</li>
+					<li><a href="#" class="connect">Deconnexion</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<script>
+		function changed_angle(fleche,link,list) {
+			/**
+			 * move up and down for all angle
+			*/
+			const elt = document.getElementById(fleche);
+			const elt2 = document.getElementById(link);
+			const elt3= document.getElementById(list);
+			if(elt.className == 'fas fa-angle-down'){
+				elt.setAttribute("class", "fas fa-angle-up");
+				elt2.style.background="#0066ff";
+				elt3.style.visibility="visible";
+				elt3.style.opacity= '1';
+				elt3.style.top= '70px';
+			}else if(elt.className == 'fas fa-angle-up'){
+				elt.setAttribute("class", "fas fa-angle-down");
+				elt2.style.background="none";
+				elt3.style.visibility="hidden";
+				elt3.style.opacity= '0';
+				elt3.style.top= '90px';
+			}
+		}
+		
+	</script>
+
+</body>
 
 </html>

@@ -88,12 +88,18 @@ nav{
     display: inline-block;
     line-height: 80px;
     margin: 0 5px;
+    list-style: none;
+  }
+  label i {
+    color: #ffff;
+    font-size: 25px;
   }
   nav ul li a{
     color: white;
     font-size: 1.2em;
     padding: 7px 13px 23px 13px;
-    border-radius: 3px;
+    border-radius: 5px;
+  
 	text-transform: uppercase;
 	text-decoration: none;
 	font-weight: bold;
@@ -107,6 +113,48 @@ nav{
     background: #0066ff;
     transition: .4s;
   }
+
+  nav ul ul{
+    position :absolute;
+    top:90px;
+    opacity: 0;
+    visibility: hidden;
+  transition: top .3s;
+  background: #0066ff;
+  width: 250px;
+  padding: 0 ;
+  }
+
+  nav ul ul li{
+    line-height: 50px;
+    display: inline-block;width: 100%;
+  }
+
+  nav ul ul li a{
+    margin:0;
+    padding: 0;
+    font-size:1.1em;
+  }
+
+  nav ul ul li a:hover{
+    color: #3366FF
+  }
+
+  /* nav ul li:hover > ul{
+    top: 70px;
+    opacity: 1;
+    visibility: visible;
+  } */
+
+  nav ul ul li{
+    position: relative;
+    margin: 0px;
+    width:100%;
+    float: none;
+    text-align: center;
+    display: list-item;
+  }
+
   .checkbtn{
     font-size: 30px;
     color: white;
@@ -120,23 +168,80 @@ nav{
     display: none;
   }
 
-  @media (max-width: 1200px){
+  .menu{
+    margin:0;
+    float: right;
+  }
+
+
+  [id^=btn]{
+    display: none;
+  }
+
+  @media (max-width: 1260px){
+
+    .menu{
+      top:80px;
+      position: fixed;
+      width: 100%;
+      left: -100%;
+      transition: all .5s;
+    }
     nav .checkbtn{
+      position:relative;
       display: block;
     }
+
+  nav ul li ul {
+      display:none;
+  }
+
+  [id^=btn]:checked + ul{
+    display: block;
+    height: 170px;
+    transition: all .5s;
+    
+  }
+  nav ul ul{
+  position :inherit;
+  top:0;
+  opacity: 1;
+  visibility: visible;
+  transition: top .3s;
+  background: none;
+  width: 100%;
+  padding:0;
+  }
+
+
+  nav ul ul li a:hover{
+    color: #3366FF
+  }
+
+
+
+  nav ul ul li{
+    position: relative;
+    margin: 0px;
+    width: 100%;
+    float: none;
+    display: block;
+  }
+
+  nav ul ul li {
+    line-height:40px;
+  }
+
     nav ul{
-      position: fixed;
       width: 100%;
       height: 100vh;
       background: #0066ff;
-      top: 80px;
-      left: -100%;
       text-align: center;
-      transition: all .5s;
+      margin:0;
     }
     nav ul li{
       display: block;
-      margin: 50px 0;
+      margin: 40px 0;
       line-height: 30px;
     }
     nav ul li a{
@@ -149,11 +254,12 @@ nav{
 		font-weight: bold;
 	  }
 
-    nav a:hover, nav a.active{
+    nav a:hover, nav a.active {
       background: none;
       color: #33ccff;
     }
-    #check:checked ~ ul{
+    #check:checked ~ .menu{
       left: 0;
+      transition: all .5s;
     }
   }

@@ -6,9 +6,16 @@
 	xml:lang="fr"
 >
 	<head>
-
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>Acceuil - Gestionnaire </title>
+
+
+
+
+
+		
+
+
 		<?php include("styleAndFavicon.php") ?>
 		
 	</head>
