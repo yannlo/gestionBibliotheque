@@ -13,7 +13,7 @@ if(isset($_SESSION['type'])){
 				<label class="logo">Bibliothèque</label>
 				<div class="menu">
 					<ul>
-						<li><a class="active" href="../index.php">Acceuil</a></li>
+						<li><a id='id-link1' class="active" href="../index.php">Acceuil</a></li>
 						<li>
 							<label for="btn-1" class="show1">
 								<a id="link1">Gestion des livres <i id="fleche-1" class="fas fa-angle-down"></i></a>
@@ -57,7 +57,7 @@ if(isset($_SESSION['type'])){
 				<label class="logo">Bibliothèque</label>
 				<div class="menu">
 					<ul>
-						<li><a class="active" href="../index.php">Acceuil</a></li>
+						<li><a id='id-link1'  href="../index.php">Acceuil</a></li>
 						<li>
 							<label for="btn-1" class="show1">
 								<a id="link1">Nos livres <i id="fleche-1" class="fas fa-angle-down"></i></a>
@@ -69,7 +69,7 @@ if(isset($_SESSION['type'])){
 								<li><a href="#">Demander un emprunt</a></li>
 							</ul>
 						</li>
-						<li><a href="#">Vos emprunts</a></li>
+						<li><a href="#" id='link2'>Vos emprunts</a></li>
 						<li><a href="#" class="connect">Deconnexion</a></li>
 					</ul>
 				</div>
@@ -88,9 +88,9 @@ if(isset($_SESSION['type'])){
 			<label class="logo">Bibliothèque</label>
 			<div class="menu">
 				<ul>
-					<li><a class="active" href="../index.php">Acceuil</a></li>
-					<li><a  href="#">Nos livres</a></li>
-					<li><a href="../connection.php" class="connect">Connexion</a></li>
+					<li><a  href="../index.php" id='id-link1'>Acceuil</a></li>
+					<li><a  href="#" id='id-link2'>Nos livres</a></li>
+					<li><a href="../connection.php"  id="id-link-connect" class="connect">Connexion</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -110,9 +110,9 @@ if(isset($_SESSION['type'])){
 			<label class="logo">Bibliothèque</label>
 			<div class="menu">
 				<ul>
-					<li><a class="active" href="../index.php">Acceuil</a></li>
-					<li><a  href="#">Nos livres</a></li>
-					<li><a href="../connection.php" class="connect">Connexion</a></li>
+					<li><a id='id-link1' href="../index.php">Acceuil</a></li>
+					<li><a  href="#" id='id-link2' >Nos livres</a></li>
+					<li><a href="../connection.php"  id="id-link-connect" class="connect">Connexion</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -145,4 +145,40 @@ if(isset($_SESSION['type'])){
 			elt3.style.top = '90px';
 		}
 	}
+
+	function actived_link_page(valeur){
+		const link1 = document.getElementById('id-link1');
+		const link2 = document.getElementById('id-link2');
+		const link3 = document.getElementById('id-link-connect');
+		const link4 = document.getElementById('link1');
+		const link5 = document.getElementById('link2');
+		switch (valeur) {
+			case 'index':
+				link1.setAttribute("class", "active");
+				console.log('ok');
+				break;
+			case 'book':
+				link2.setAttribute("class", "active");
+				console.log('ok');
+				break;
+			case 'connect-book':
+				link4.setAttribute("class", "active");
+				console.log('ok');
+				break;
+			case 'client':
+				link5.setAttribute("class", "active");
+				console.log('ok');
+				break;
+			case 'connect':
+				link3.setAttribute("class", "active");
+				console.log('ok');
+				break;
+		
+			default:
+				console.log('error');
+				break;
+		}
+
+	}
+	
 </script>

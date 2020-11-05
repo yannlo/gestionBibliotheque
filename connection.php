@@ -19,7 +19,7 @@
 
     <div class="center">
         <div class="container">
-            <div class="text">Connexion</div>
+            <div class="text">Connectez-vous</div>
             <form action="#">
                 <div class="data">
                     <label for="mail">Entrer votre mail:</label>
@@ -39,7 +39,10 @@
             </form>
         </div>
     </div>
-
+    <script>
+		const identifation_page ='connect';
+        actived_link_page(identifation_page);
+	</script>
 </body>
 
 </html>

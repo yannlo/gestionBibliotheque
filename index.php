@@ -14,7 +14,7 @@
 		<title>Acceuil - Gestionnaire </title>
 		<link rel="stylesheet" href="style4.css"/>
 		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-	
+		
 	</head>
 
 	<body>
@@ -1468,6 +1468,11 @@
 
 			<?php include("headerAndFooter/footer.php") ?>
 		</div>
+		<script>
+			const identifation_page ='index';
+       		actived_link_page(identifation_page);
+		</script>
 	</body>
+
 
 </html>
