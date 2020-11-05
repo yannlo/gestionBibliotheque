@@ -80,7 +80,7 @@ if(isset($_SESSION['type'])){
 
 
 		?>
-			<nav>
+		<nav>
 			<input type="checkbox" id="check" />
 			<label for="check" class="checkbtn">
 				<span class="fas fa-bars"></span>
@@ -90,7 +90,7 @@ if(isset($_SESSION['type'])){
 				<ul>
 					<li><a class="active" href="#">Acceuil</a></li>
 					<li><a  href="#">Nos livres</a></li>
-					<li><a href="#" class="connect">Connexion</a></li>
+					<li><a href="../connection.php" class="connect">Connexion</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -112,7 +112,7 @@ if(isset($_SESSION['type'])){
 				<ul>
 					<li><a class="active" href="#">Acceuil</a></li>
 					<li><a  href="#">Nos livres</a></li>
-					<li><a href="#" class="connect">Connexion</a></li>
+					<li><a href="../connection.php" class="connect">Connexion</a></li>
 				</ul>
 			</div>
 		</nav>

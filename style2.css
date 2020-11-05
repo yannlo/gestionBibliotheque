@@ -124,7 +124,7 @@ nav{
 	font-weight: bold;
   }
 
-  a.active,a:hover{
+  header a.active, header a:hover{
     background: #0066ff;
     transition: .4s;
   }
@@ -347,7 +347,6 @@ footer .part form textarea{
 
 footer .part form input[type="email"]{
     display: inline-block;
-    border:2px solid #818181;
 }
 
 footer .part form input[type="submit"]{
