@@ -1,3 +1,34 @@
+<?php 
+		if (isset($_POST['mail']) AND isset($_POST['password'])){
+			$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+			$reponse = $bdd->query('SELECT email , motDePasse FROM gestionnaire');
+			$validation =array('valide_email'=>false,'valide_password'=>false);
+			while($donnees = $reponse->fetch()){
+				if($donnees['email'] == $_POST['mail']){
+					$validation['valide_email'] = true;
+					break;
+				}
+			}
+			while($donnees = $reponse->fetch()){
+				if($donnees['motDePasse'] == $_POST['valide_password']){
+					$validation['valide_password'] = true;
+					break;
+				}
+			}
+			if($validation['valide_email'] == true AND $validation['valide_password'] == true ){
+				session_start();
+				$_SESSION['type'] = 'admin';
+				header('Location: index.php');
+				exit();
+			}else{
+				echo '<script language="Javascript">
+						alert ("email ou mot de passe erronée");
+					</script>';
+
+			}
+		}
+?>
+
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -20,7 +51,7 @@
     <div class="center">
         <div class="container">
             <div class="text">Connectez-vous</div>
-            <form action="#">
+            <form method="post" action="index.php">
                 <div class="data">
                     <label for="mail">Entrer votre mail:</label>
                     <input type="email" name="mail" id="mail" placeholder="mon.mail@exemple.com" required="required" />
