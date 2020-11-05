@@ -13,7 +13,7 @@ if(isset($_SESSION['type'])){
 				<label class="logo">Bibliothèque</label>
 				<div class="menu">
 					<ul>
-						<li><a class="active" href="#">Acceuil</a></li>
+						<li><a class="active" href="../index.php">Acceuil</a></li>
 						<li>
 							<label for="btn-1" class="show1">
 								<a id="link1">Gestion des livres <i id="fleche-1" class="fas fa-angle-down"></i></a>
@@ -57,7 +57,7 @@ if(isset($_SESSION['type'])){
 				<label class="logo">Bibliothèque</label>
 				<div class="menu">
 					<ul>
-						<li><a class="active" href="#">Acceuil</a></li>
+						<li><a class="active" href="../index.php">Acceuil</a></li>
 						<li>
 							<label for="btn-1" class="show1">
 								<a id="link1">Nos livres <i id="fleche-1" class="fas fa-angle-down"></i></a>
@@ -88,7 +88,7 @@ if(isset($_SESSION['type'])){
 			<label class="logo">Bibliothèque</label>
 			<div class="menu">
 				<ul>
-					<li><a class="active" href="#">Acceuil</a></li>
+					<li><a class="active" href="../index.php">Acceuil</a></li>
 					<li><a  href="#">Nos livres</a></li>
 					<li><a href="../connection.php" class="connect">Connexion</a></li>
 				</ul>
@@ -110,7 +110,7 @@ if(isset($_SESSION['type'])){
 			<label class="logo">Bibliothèque</label>
 			<div class="menu">
 				<ul>
-					<li><a class="active" href="#">Acceuil</a></li>
+					<li><a class="active" href="../index.php">Acceuil</a></li>
 					<li><a  href="#">Nos livres</a></li>
 					<li><a href="../connection.php" class="connect">Connexion</a></li>
 				</ul>
