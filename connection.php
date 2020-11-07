@@ -15,7 +15,7 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
 	while($donnees = $recherche->fetch()){
 
 		if(($donnees['email'] === $_POST['mail']) AND ($donnees['pass_word'] === $_POST['password'])){
-
+            echo"<p style='background:white'> OK </p>";
             $verifcation -> execute(array(
                 'id' => $donnees['id_type_compte']
             ));
@@ -47,7 +47,7 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
                     
                     while($admin = $admin_lists->fetch()){
 
-                        if($admin['active'] === true){
+                        if($admin['active'] == true ){
 
                             $validation['valide_email'] = true;
                             $validation['valide_password'] = true;

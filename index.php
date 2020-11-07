@@ -12,6 +12,23 @@
 		<title>Acceuil - Gestionnaire </title>
 		<link rel="stylesheet" href="style4.css"/>
 		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+		<?php 
+		if(isset($_SESSION['type'])){
+			if($_SESSION['type'] == 'admin'){	
+				echo'
+				<link rel="stylesheet" href="gestion/style.css"/>
+				<link rel="stylesheet" href="general-style-element.css" />
+				';
+			}
+			else if($_SESSION['type'] == 'user'){
+				include("clientConnect/indexClientConnect.php");	
+			}
+		}else{
+			include("clientNoConnect/indexClientNoConnect.php");	
+		}
+
+		?>
+		
 		
 	</head>
 
@@ -30,7 +47,10 @@
 			else if($_SESSION['type'] == 'user'){
 				include("clientConnect/indexClientConnect.php");	
 			}
-		}else{
+
+		}
+		
+		else{
 			include("clientNoConnect/indexClientNoConnect.php");	
 		}
 
