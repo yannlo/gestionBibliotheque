@@ -1,32 +1,89 @@
 <?php 
-		if (isset($_POST['mail']) AND isset($_POST['password'])){
-			$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-			$reponse = $bdd->query('SELECT email , motDePasse FROM gestionnaire');
-			$validation =array('valide_email'=>false,'valide_password'=>false);
-			while($donnees = $reponse->fetch()){
-				if($donnees['email'] == $_POST['mail']){
-					$validation['valide_email'] = true;
-					break;
-				}
-			}
-			while($donnees = $reponse->fetch()){
-				if($donnees['motDePasse'] == $_POST['valide_password']){
-					$validation['valide_password'] = true;
-					break;
-				}
-			}
-			if($validation['valide_email'] == true AND $validation['valide_password'] == true ){
-				session_start();
-				$_SESSION['type'] = 'admin';
-				header('Location: index.php');
-				exit();
-			}else{
-				echo '<script language="Javascript">
-						alert ("email ou mot de passe erronée");
-					</script>';
+if (isset($_POST['mail']) AND isset($_POST['password'])){
 
-			}
-		}
+    $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    
+	$recherche = $bdd->query('SELECT id, id_type_compte, id_other_information, email, pass_word, first_name, last_name
+                            FROM all_comptes');
+
+    $verifcation = $bdd -> prepare('SELECT nom FROM type_compte WHERE id = :id');
+
+    $validation = array('valide_email'=>false,'valide_password' => false);
+
+    $user_name = array();
+
+	while($donnees = $recherche->fetch()){
+
+		if(($donnees['email'] === $_POST['mail']) AND ($donnees['pass_word'] === $_POST['password'])){
+
+            $verifcation -> execute(array(
+                'id' => $donnees['id_type_compte']
+            ));
+
+            while($type_name = $verifcation->fetch()){
+
+                if($type_name['nom'] === 'user'){
+
+                    $validation['valide_email'] = true;
+                    $validation['valide_password'] = true;
+                    $user_name['first'] = $donnees['nom'];
+                    $user_name['last'] = $donnees['prenom'];
+                    session_start();
+                    $_SESSION['id_user'] = $donnees['id'];
+                    $_SESSION['type'] = $type_name['nom'] ;
+                    $_SESSION['user_name'] = $user_name;
+                    header('Location: index.php');
+                    exit();
+
+                }
+
+                else if($type_name['nom'] === 'admin'){
+
+                    $admin_lists = $bdd -> prepare('SELECT active FROM admins WHERE id = :id');
+
+                    $admin_lists -> execute(array(
+                        'id' => $donnees['id_other_information']
+                    ));
+                    
+                    while($admin = $admin_lists->fetch()){
+
+                        if($admin['active'] === true){
+
+                            $validation['valide_email'] = true;
+                            $validation['valide_password'] = true;
+                            $user_name['first'] = $donnees['nom'];
+                            $user_name['last'] = $donnees['prenom'];
+                            echo $user_name;
+                            session_start();
+                            $_SESSION['id_user'] = $donnees['id'];
+                            $_SESSION['type'] = $type_name['nom'] ;
+                            $_SESSION['user_name'] = $user_name;
+                            header('Location: index.php');
+                            exit();
+
+                        }
+
+                        else{
+
+                            echo'<script language="Javascript">
+			                    alert ("Ce gestionnaire n\'ai plus actif");
+                                </script>';
+
+                        }
+                    }
+                }
+            }
+        break;
+        }
+        else{
+            echo'<script language="Javascript">
+            alert ("email ou mot de passe erronée");
+            </script>';
+        }
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html
@@ -51,7 +108,7 @@
     <div class="center">
         <div class="container">
             <div class="text">Connectez-vous</div>
-            <form method="post" action="index.php">
+            <form method="post" action="connection.php">
                 <div class="data">
                     <label for="mail">Entrer votre mail:</label>
                     <input type="email" name="mail" id="mail" placeholder="mon.mail@exemple.com" required="required" />
