@@ -13,7 +13,7 @@ if(isset($_SESSION['type'])){
 				<label class="logo">Bibliothèque</label>
 				<div class="menu">
 					<ul>
-						<li><a id='id-link1' class="active" href="../index.php">Acceuil</a></li>
+						<li><a id='id-link1' href="index.php">Acceuil</a></li>
 						<li>
 							<label for="btn-1" class="show1">
 								<a id="link1">Gestion des livres <i id="fleche-1" class="fas fa-angle-down"></i></a>
@@ -22,7 +22,7 @@ if(isset($_SESSION['type'])){
 							<input type="checkbox" id="btn-1" onclick="changed_angle('fleche-1','link1','list1');" />
 							<ul id='list1'>
 								<li><a href="#">Documentation d'un livre</a></li>
-								<li><a href="#">Ajout de livre</a></li>
+								<li><a href="add_book.php">Ajout de livre</a></li>
 								<li><a href="#">Gestion des stocks et d'etats</a></li>
 							</ul>
 						</li>
@@ -39,7 +39,7 @@ if(isset($_SESSION['type'])){
 								<li><a href="#">Confirmation de restitution de livre</a></li>
 							</ul>
 						</li>
-						<li><a href="../deconnection.php" class="connect">Deconnexion</a></li>
+						<li><a href="deconnection.php" class="connect">Deconnexion</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -57,7 +57,7 @@ if(isset($_SESSION['type'])){
 				<label class="logo">Bibliothèque</label>
 				<div class="menu">
 					<ul>
-						<li><a id='id-link1'  href="../index.php">Acceuil</a></li>
+						<li><a id='id-link1'  href="index.php">Acceuil</a></li>
 						<li>
 							<label for="btn-1" class="show1">
 								<a id="link1">Nos livres <i id="fleche-1" class="fas fa-angle-down"></i></a>
@@ -70,7 +70,7 @@ if(isset($_SESSION['type'])){
 							</ul>
 						</li>
 						<li><a href="#" id='link2'>Vos emprunts</a></li>
-						<li><a href="../deconnection.php" class="connect">Deconnexion</a></li>
+						<li><a href="deconnection.php" class="connect">Deconnexion</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -88,9 +88,9 @@ if(isset($_SESSION['type'])){
 			<label class="logo">Bibliothèque</label>
 			<div class="menu">
 				<ul>
-					<li><a  href="../index.php" id='id-link1'>Acceuil</a></li>
+					<li><a  href="index.php" id='id-link1'>Acceuil</a></li>
 					<li><a  href="#" id='id-link2'>Nos livres</a></li>
-					<li><a href="../connection.php"  id="id-link-connect" class="connect">Connexion</a></li>
+					<li><a href="connection.php"  id="id-link-connect" class="connect">Connexion</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -110,9 +110,9 @@ if(isset($_SESSION['type'])){
 			<label class="logo">Bibliothèque</label>
 			<div class="menu">
 				<ul>
-					<li><a id='id-link1' href="../index.php">Acceuil</a></li>
+					<li><a id='id-link1' href="index.php">Acceuil</a></li>
 					<li><a  href="#" id='id-link2' >Nos livres</a></li>
-					<li><a href="../connection.php"  id="id-link-connect" class="connect">Connexion</a></li>
+					<li><a href="connection.php"  id="id-link-connect" class="connect">Connexion</a></li>
 				</ul>
 			</div>
 		</nav>

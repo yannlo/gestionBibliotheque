@@ -60,6 +60,8 @@
 			<?php include("headerAndFooter/footer.php") ?>
 		</div>
 		<script>
+			const center = document.getElementsByClassName('center')[0];
+			center.style.padding = '100px 0px';
 			const identifation_page ='index';
        		actived_link_page(identifation_page);
 		</script>

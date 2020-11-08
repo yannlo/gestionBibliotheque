@@ -1,19 +1,19 @@
 <?php
-include('../../../../function/verified_session.php');
-$_SESSION['type']='admin';
-include('../../../../function/acces_admin_verification.php');
-if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST['categorie_oeuvre']) AND isset($_POST['stock_exemplaire']) AND isset($_POST['description_oeuvre'])){
+include('function/verified_session.php');
+include('function/acces_admin_verification.php');
+include('function/count_stock_element.php');
+if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST['categorie_oeuvre']) AND isset($_POST['auteur_oeuvre']) AND isset($_POST['stock_exemplaire']) AND isset($_POST['description_oeuvre'])){
 
     $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
-    $request =  $bdd -> prepare('INSERT INTO liste_oeuvre (nom, id_type, id_categorie, description_oeuvre) VALUES (:nom, :id_type, :id_categorie, :description_oeuvre)');
+    $request =  $bdd -> prepare('INSERT INTO liste_oeuvre (nom, id_type, id_categorie, description_oeuvre, id_auteur) VALUES (:nom, :id_type, :id_categorie, :description_oeuvre, :id_auteur)');
 
     $search = $bdd->query('SELECT nom FROM liste_oeuvre');
 
-
+    $repeter_valeur = false;
     while ($donnee = $search->fetch() ){
         if(preg_match('#'.$donnee['nom'].'#i',$_POST['nom_oeuvre'])){
-            echo'<script> alert("cette oeuvre existe deja"); </script>';
+            $repeter_valeur = true;
             header('Location: add_book.php');
             exit();
         }
@@ -24,7 +24,8 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
         'nom' => htmlspecialchars($_POST['nom_oeuvre']),
         'id_type' => $_POST['type_oeuvre'],
         'id_categorie' => $_POST['categorie_oeuvre'],
-        'description_oeuvre' => htmlspecialchars($_POST['description_oeuvre'])
+        'description_oeuvre' => htmlspecialchars($_POST['description_oeuvre']),
+        'id_auteur' => $_POST['auteur_oeuvre']
     ));
     $_SESSION['exemplaire'] = array();
     $search = $bdd->prepare('SELECT id FROM liste_oeuvre WHERE nom = :nom');
@@ -39,8 +40,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
 
     $_SESSION['exemplaire']['nombre_finale'] = $_POST['stock_exemplaire'];
 
-    header('Location: add_exemplaire_2.php');
-
+    header('Location:add_book/add_exemplaire_2.php');
     exit();
 
 
@@ -50,13 +50,15 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
     $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
     $request =  $bdd -> prepare('INSERT INTO liste_exemplaire (id_oeuvre, id_etat, editeur) VALUES (:id_oeuvre, :id_etat, :editeur)');
-    $compteur_ajout =  $bdd -> prepare('INSERT INTO liste_exemplaire (stock_exemplaire) VALUES (:stock_exemplaire)');
+
     $request -> execute(array(
         'id_oeuvre' => $_POST['nom_oeuvre'],
         'id_etat' => $_POST['etat_oeuvre'],
         'editeur' => htmlspecialchars($_POST['editeur_exemplaire'])
     ));
-    $compteur_ajout-> execute(array('stock_exemplaire' => $compteur));
+
+    update_stock($_POST['nom_oeuvre']);
+
 }
 ?>
 
@@ -70,9 +72,9 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../../../style4.css" />
-    <link rel="stylesheet" href="../../../../general-style-element.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style4.css" />
+    <link rel="stylesheet" href="general-style-element.css" />
+    <link rel="stylesheet" href="add_book/style_add_parti.css" />
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <title>Ajout de livre - Gestionnaire</title>
@@ -82,7 +84,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
     <div id="container">
   
         <head>
-            <?php include('../../../../headerAndFooter/menu.php'); ?>
+            <?php include('headerAndFooter/menu.php'); ?>
         </head>
         
         
@@ -216,7 +218,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
 
         </div>
         
-        <?php include('../../../../headerAndFooter/footer.php'); ?>
+        <?php include('headerAndFooter/footer.php'); ?>
         
     </div>
 
@@ -239,6 +241,18 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
             }
         }
     </script>
+
+    <script>
+        <?php 
+        if ($repeter_valeur === true) {
+            echo "alert('Cette oeuvre existe deja. veuillez en saisir une autre');";
+        }
+        ?>
+    </script>
+    <script>
+		const identifation_page ='connect-book';
+       	actived_link_page(identifation_page);
+	</script>
 
 
 </body>

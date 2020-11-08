@@ -1,8 +1,14 @@
 
+.center{
+	width: 100%;
+	min-height:100vh;
+	padding-top:150px;
+}
 
 .center> section:nth-child(odd){
 	background-color:#33ccff;
 }
+
 
 .center> section:nth-child(odd) h2{
 	color: #FFF;
