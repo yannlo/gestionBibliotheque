@@ -1,0 +1,66 @@
+
+.center{
+	padding-top:100px;
+}
+#choose_form {
+    min-height: 200px;
+}
+
+.radio-style{
+    display: flex;
+    width:100%;
+    padding: 10px 0;
+}
+
+
+
+
+.radio-style label{
+    width:100%;
+    margin:0;
+    font-size:1.2em;
+}
+
+form {
+    width:100%;
+}
+
+form p{
+	padding:10px 0;
+}
+form input,form select, form textarea{
+    display:block;
+	border: 2px solid #CCC;
+    height: 45px;
+    font-size:1em; 
+	padding:0 20px;
+	border-radius: 5px;
+	width: 100%;
+	max-width: 700px;
+}
+
+form textarea{
+    height: 250px;
+}
+
+input[type="submit"]{
+	border: none;
+	font-weight: bold;
+	color: white;
+	background-color: #3366ff;
+	border-radius: 30px;
+	text-align: center;
+    text-transform : uppercase;
+    display: inline-block;
+	margin:30px 20%;
+	height: 40px;
+	font-style: uppercase;
+	font-size: 1.15em;
+	width:200px;
+
+}	
+input[type="submit"]:hover{
+	background:#0066ff;
+	transition: all .6s;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.548);
+}

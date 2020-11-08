@@ -39,7 +39,7 @@ if(isset($_SESSION['type'])){
 								<li><a href="#">Confirmation de restitution de livre</a></li>
 							</ul>
 						</li>
-						<li><a href="" class="connect">Deconnexion</a></li>
+						<li><a href="../deconnection.php" class="connect">Deconnexion</a></li>
 					</ul>
 				</div>
 			</nav>

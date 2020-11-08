@@ -304,7 +304,7 @@ nav{
 }
 section{
   width: 100%;
-  padding: 0px 20% 100px 20%;
+  padding: 0px 20% 60px 20%;
   min-height:500px ;
   height: 100%;
 }
@@ -332,7 +332,7 @@ h1{
     padding: 20px 10%;
   }
   section{
-    padding: 0px 4% 40px 4%;
+    padding: 0px 4% 60px 4%;
   }
 }
 
