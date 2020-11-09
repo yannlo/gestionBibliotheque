@@ -10,10 +10,16 @@
 
 #search_book_zone{
     padding-top:10px;
-    max-height:200px;
     height: 100%;
     min-height: 100px;
 }
+#search_book_zone form p{
+    padding: 10px 0;
+}
+
+
+
+
 
 input[type="submit"]{
 	border: none;
@@ -37,14 +43,16 @@ input[type="submit"]:hover{
 	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.548);
 }
 
-label[for='search_nom_oeuvre']{
+
+
+label[for='search_nom_oeuvre'], label[for='type_oeuvre'],label[for='categorie_oeuvre'],label[for='auteur_oeuvre']{
 	font-size:1.15em;
 }
 
-#search_nom_oeuvre{
+#search_nom_oeuvre, #type_oeuvre, #categorie_oeuvre, #auteur_oeuvre{
 	display: block;
 	margin-top: 10px;
-	padding:15px;
+	padding: 0 15px;
 	font-size: 1.2em;
 	border: 2px solid #ccc;
 	border-radius: 5px;
@@ -100,4 +108,36 @@ label[for='search_nom_oeuvre']{
 #list_oeuvre  a:hover > .oeuvre {
     box-shadow: 10px 10px 50px rgba(75, 75, 75, 0.856);
     transition: all .5s;
+}
+
+
+.links_search_page {
+    font-size: 1.2em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.links_search_page > * {
+    grid-auto-rows: minmax(100px, auto);
+    justify-content: space-between;
+
+}
+
+.links_search_page a{
+    color: #0066ff ;
+    font-weight: bold;
+}
+
+.links_search_page .previous{
+    text-align: left;
+}
+
+.links_search_page .next{
+text-align: right;
+}
+
+.links_search_page p{
+    padding: 27px 0 ;
+    text-align: center;
 }
