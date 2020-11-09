@@ -1,8 +1,8 @@
 <?php
-include('../function/verified_session.php');
+include('function/verified_session.php');
 // print_r($_SESSION['exemplaire']);
-include('../function/acces_admin_verification.php');
-include('../function/count_stock_element.php');
+include('function/acces_admin_verification.php');
+include('function/count_stock_element.php');
  
 if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST['editeur_exemplaire'])){
     $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -22,7 +22,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST
     if($_SESSION['exemplaire']['nombre'] >= $_SESSION['exemplaire']['nombre_finale']){
         echo "finished";
         $_SESSION['exemplaire']=NULL;
-        header('Location: ../add_book.php');
+        header('Location:  add_book.php');
     }else{
         $_SESSION['exemplaire']['nombre']++;
     }
@@ -43,9 +43,9 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../style4.css" />
-    <link rel="stylesheet" href="../general-style-element.css" />
-    <link rel="stylesheet" href="style_add_parti.css" />
+    <link rel="stylesheet" href=" style4.css" />
+    <link rel="stylesheet" href=" general-style-element.css" />
+    <link rel="stylesheet" href="add_book/style_add_parti.css" />
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <title>Ajout de livre - Gestionnaire</title>
@@ -55,7 +55,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST
     <div id="container">
   
         <head>
-            <?php include('../headerAndFooter/menu.php'); ?>
+            <?php include('headerAndFooter/menu.php'); ?>
         </head>
         
         
@@ -108,7 +108,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST
 
         </div>
         
-        <?php include('../headerAndFooter/footer.php'); ?>
+        <?php include('headerAndFooter/footer.php'); ?>
         
     </div>
     <script>

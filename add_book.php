@@ -40,7 +40,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
 
     $_SESSION['exemplaire']['nombre_finale'] = $_POST['stock_exemplaire'];
 
-    header('Location:add_book/add_exemplaire_2.php');
+    header('Location: add_exemplaire_2.php');
     exit();
 
 

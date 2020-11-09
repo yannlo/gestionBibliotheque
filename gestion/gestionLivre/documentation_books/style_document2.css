@@ -21,6 +21,8 @@
 
 
 
+
+
 input[type="submit"]{
 	border: none;
 	font-weight: bold;
@@ -84,6 +86,8 @@ label[for='search_nom_oeuvre'], label[for='type_oeuvre'],label[for='categorie_oe
 
 .oeuvre p{
     text-align: justify;
+    max-height: 200px;
+    overflow: hidden;
 
 }
 
@@ -109,6 +113,8 @@ label[for='search_nom_oeuvre'], label[for='type_oeuvre'],label[for='categorie_oe
     box-shadow: 10px 10px 50px rgba(75, 75, 75, 0.856);
     transition: all .5s;
 }
+
+
 
 
 .links_search_page {
@@ -140,4 +146,76 @@ text-align: right;
 .links_search_page p{
     padding: 27px 0 ;
     text-align: center;
+}
+#information_oeuvre{
+    padding-bottom: 200px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#information_oeuvre .parti1{
+    display: flex;
+    padding-top: 30px;
+    flex-direction:row;
+}
+#information_oeuvre .parti2{
+    padding: 15px 0;
+    width:100%;
+}
+
+#information_oeuvre img {
+    margin-right: 3%;
+    margin-bottom: 40px;
+    width: 350px;
+}
+
+
+#information_oeuvre h2 {
+    margin-right: 0;
+    margin-left: 2%;
+    color: black;
+    font-size: 1.5em;
+    padding: 8px 0;
+    width:100%;
+
+
+}
+
+
+#information_oeuvre .parti2 h2 strong {
+    display: block;
+    font-size:1.06em;
+    color:#33a7ff;
+    padding-bottom: 3px;
+}
+#information_oeuvre .parti3 h2{
+ padding:3px 2%;
+
+}
+
+#information_oeuvre .parti3 p{
+    max-width:900px;
+    text-align: justify;
+}
+
+@media (min-width:1550px) {
+    #information_oeuvre{
+        padding-bottom: 200px;
+        padding-top: 10px;
+        padding-left:  27%;
+        padding-right: 27%;
+    }
+    .h1_doc_liv{
+        padding:10px 32%;
+    }
+}
+.parti3 h2{
+    margin-top:20px;
+}
+.parti3 h2 strong {
+    color:#33a7ff;
+    font-size:1.14em;
+
+
 }

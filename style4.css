@@ -441,6 +441,7 @@ footer .part form input[type="submit"]:hover {
   /* copyright */
 
 footer p.copyright{
+  font-size: 0.9em;
   display: inline-block;
   bottom: 0;
   text-align: center;

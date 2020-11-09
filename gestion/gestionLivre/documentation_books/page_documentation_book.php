@@ -17,7 +17,7 @@ $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', ar
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>documentation de livre - Gestionnaire </title>
         <link rel="stylesheet" href="../../../style4.css"/>
-        <link rel="stylesheet" href="style_document1.css"/>
+        <link rel="stylesheet" href="style_document2.css"/>
         <link rel="stylesheet" href="../../../general-style-element.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
