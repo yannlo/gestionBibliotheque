@@ -131,18 +131,23 @@ if(isset($_SESSION['type'])){
 		const elt = document.getElementById(fleche);
 		const elt2 = document.getElementById(link);
 		const elt3 = document.getElementById(list);
-		if (elt.className == 'fas fa-angle-down') {
-			elt.setAttribute("class", "fas fa-angle-up");
+		if(elt.className !='active'){
+			if (elt.className == 'fas fa-angle-down') {
+				elt.setAttribute("class", "fas fa-angle-up");
+				elt2.style.background = "#0066ff";
+				elt3.style.visibility = "visible";
+				elt3.style.opacity = '1';
+				elt3.style.top = '70px';
+			} else if (elt.className == 'fas fa-angle-up') {
+				elt.setAttribute("class", "fas fa-angle-down");
+				elt2.style.background = "none";
+				elt3.style.visibility = "hidden";
+				elt3.style.opacity = '0';
+				elt3.style.top = '90px';
+			}
+		}else{
 			elt2.style.background = "#0066ff";
-			elt3.style.visibility = "visible";
-			elt3.style.opacity = '1';
-			elt3.style.top = '70px';
-		} else if (elt.className == 'fas fa-angle-up') {
-			elt.setAttribute("class", "fas fa-angle-down");
-			elt2.style.background = "none";
-			elt3.style.visibility = "hidden";
-			elt3.style.opacity = '0';
-			elt3.style.top = '90px';
+
 		}
 	}
 
@@ -180,5 +185,7 @@ if(isset($_SESSION['type'])){
 		}
 
 	}
+
+
 	
 </script>

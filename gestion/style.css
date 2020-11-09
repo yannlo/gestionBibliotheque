@@ -2,7 +2,7 @@
 .center{
 	width: 100%;
 	min-height:100vh;
-	padding-top:150px;
+	padding-top:100px;
 }
 
 .center> section:nth-child(odd){
@@ -16,6 +16,10 @@
 
 .center> section:nth-child(odd) p{
 	color: rgb(46, 46, 46);
+}
+
+#listDemande {
+	padding-top: 20px;
 }
 
 label[for='search']{

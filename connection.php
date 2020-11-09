@@ -1,4 +1,6 @@
 <?php 
+
+$error ='';
 if (isset($_POST['mail']) AND isset($_POST['password'])){
 
     $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -65,9 +67,7 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
 
                         else{
 
-                            echo'<script language="Javascript">
-			                    alert ("Ce gestionnaire n\'ai plus actif");
-                                </script>';
+                            $error ='inactif';
 
                         }
                     }
@@ -76,9 +76,7 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
         break;
         }
         else{
-            echo'<script language="Javascript">
-            alert ("email ou mot de passe erronée");
-            </script>';
+            $error ='erronner';
         }
     }
 }
@@ -130,7 +128,31 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
     <script>
 		const identifation_page ='connect';
         actived_link_page(identifation_page);
-	</script>
+    </script>
+    
+    <?php 
+    
+    if($error == 'inactif'){
+
+    ?>
+        <script language="Javascript">
+			alert ("Ce gestionnaire n\'ai plus actif");
+        </script>'
+
+    <?php
+    }elseif($error =='erronner'){
+        
+    ?>
+
+        <script language="Javascript">
+            alert ("email ou mot de passe erronée");
+        </script>
+
+
+    <?php 
+    }
+
+    ?>
 </body>
 
 </html>

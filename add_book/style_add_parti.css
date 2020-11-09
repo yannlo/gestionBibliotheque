@@ -3,7 +3,8 @@
 	padding-top:100px;
 }
 #choose_form {
-    min-height: 200px;
+	min-height: 200px;
+	padding-top:10px;
 }
 
 .radio-style{

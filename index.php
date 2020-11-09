@@ -11,14 +11,12 @@
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>Acceuil - Gestionnaire </title>
 		<link rel="stylesheet" href="style4.css"/>
+		<link rel="stylesheet" href="general-style-element.css" />
 		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 		<?php 
 		if(isset($_SESSION['type'])){
 			if($_SESSION['type'] == 'admin'){	
-				echo'
-				<link rel="stylesheet" href="gestion/style.css"/>
-				<link rel="stylesheet" href="general-style-element.css" />
-				';
+				echo' <link rel="stylesheet" href="gestion/style.css"/>';
 			}
 			else if($_SESSION['type'] == 'user'){
 				include("clientConnect/indexClientConnect.php");	
@@ -60,8 +58,8 @@
 			<?php include("headerAndFooter/footer.php") ?>
 		</div>
 		<script>
-			const center = document.getElementsByClassName('center')[0];
-			center.style.padding = '100px 0px';
+			// const center = document.getElementsByClassName('center')[0];
+			// center.style.padding = '100px 0px';
 			const identifation_page ='index';
        		actived_link_page(identifation_page);
 		</script>
