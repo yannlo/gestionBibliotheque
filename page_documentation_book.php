@@ -111,7 +111,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                 $sql_request .= ' WHERE ';
             }
             else{
-                $sql_request .= ' AND ';
+                $sql_request .= ' OR ';
             }
             $sql_request .= ' nom LIKE \'%'. $element . '%\' ';
             $increment++;

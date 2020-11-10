@@ -2,6 +2,8 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 include('function/count_stock_element.php');
+$_SESSION['total_error']['error']= false;
+$_SESSION['total_error']['repeter_valeur'] = false;
 if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST['categorie_oeuvre']) AND isset($_POST['auteur_oeuvre']) AND isset($_POST['stock_exemplaire']) AND isset($_POST['description_oeuvre'])){
 
     $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));

@@ -5,9 +5,11 @@ include('function/geturl.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND isset($_POST['categorie_oeuvre_mod'])  AND isset($_POST['auteur_oeuvre_mod']) AND isset($_POST['description_oeuvre_mod'])) {
+    $_SESSION['total_error']['error']= false;
+    $_SESSION['total_error']['repeter_valeur'] = false;
     $image = $_FILES['photo_oeuvre_mod'];
-    if($image['error'] == 4 ){
-        
+    $search1 = $bdd->query('SELECT nom FROM liste_oeuvre');
+    if($image['error'] == 4 ){   
         $modifie_oeuvre_request = $bdd -> prepare('UPDATE liste_oeuvre SET nom = :nom, id_type = :id_type, id_auteur = :id_auteur, id_categorie = :id_categorie, description_oeuvre = :description_oeuvre
         WHERE id = :id ');
 
@@ -19,6 +21,20 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
             $key_val = $key;
             $value = $nom_oeuvre_mod;
         }
+
+        
+        $search2 = $bdd->query("SELECT nom FROM liste_oeuvre WHERE id = $key_val ");
+
+    
+            while ($donnee1 = $search1->fetch() ){
+                while ($donnee2 = $search2->fetch() ){
+                    if($donnee1['nom'] == $_POST['nom_oeuvre_mod'] AND $donnee2['nom'] != $_POST['nom_oeuvre_mod']){
+                        $_SESSION['total_error']['repeter_valeur']= true;
+                        header('Location: page-mpage_modifie_documentation.phpodifie_documentation.php');
+                        exit();
+                    }
+                }
+            }
 
         $id_oeuvre = 0;
         foreach($_SESSION['oeuvre'] as $key => $value){
@@ -50,9 +66,19 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
                         
     }
     else if($image['error'] == 1) {
-        $error = 'L\'image envoyer est trop lourd';
+
+        $_SESSION['total_error']['error'] = true; //'L\'image envoyer est trop lourd';
     }
     else if($image['error'] == 0) {
+
+        while ($donnee = $search1->fetch() ){
+            if($donnee['nom'] == $_POST['nom_oeuvre_mod']){
+                $_SESSION['total_error']['repeter_valeur']= true;
+                header('Location: page_modifie_documentation.php');
+                exit();
+            }
+        }
+
         $modifie_oeuvre_request = $bdd -> prepare('UPDATE liste_oeuvre SET nom = :nom, id_type = :id_type, id_auteur = :id_auteur, id_categorie = :id_categorie,  nom_photo_couverture = :nom_photo_couverture, description_oeuvre = :description_oeuvre
         WHERE id = :id ');
 
@@ -69,6 +95,22 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
                 $valeur_key = $value;
             }
             $fichier_partiel_nom = str_replace(' ','_',$key_val);
+            
+            $search2 = $bdd->query("SELECT nom FROM liste_oeuvre WHERE id = $key_val ");
+
+    
+            while ($donnee1 = $search1->fetch() ){
+                while ($donnee2 = $search2->fetch() ){
+                    if( $donnee2['nom'] != $_POST['nom_oeuvre_mod']){
+                        if($donnee1['nom'] == $_POST['nom_oeuvre_mod']){
+
+                            $_SESSION['total_error']['repeter_valeur']= true;
+                            header('Location: page_modifie_documentation.php');
+                            exit();
+                        }
+                    }
+                }
+            }
 
             $fichier_final_nom = (string)($fichier_partiel_nom.".".$ext_image);
 
@@ -110,11 +152,7 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
         }
 
     }
-    else{
 
-        $error='erreur inconnu';
-
-    }
 }
 
 
@@ -306,6 +344,18 @@ actived_link_page(identifation_page);
         }
       };
     </script>
+
+<?php 
+        if ( $_SESSION['total_error']['repeter_valeur'] == true) {
+            echo "<script>
+            alert('Cette oeuvre existe deja. veuillez en saisir une autre');
+            </script>";
+        }else if( $_SESSION['total_error']['error'] == 1){
+            echo "<script>
+            'alert(L'image envoyer est trop lourd);');
+            </script>";
+        }   
+        ?>
 
 </body>
 </html>

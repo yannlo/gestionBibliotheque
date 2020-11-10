@@ -215,34 +215,34 @@ admin connecté:
 	page gestion des livres:
 
 	     contenu:
-		-> zone de recherche pour un livre
-		-> ajout de nouveau livre
+		-> zone de recherche pour un livre (OK)
+		-> ajout de nouveau livre(OK)
 		-> suppression de livre
 		-> gestion de stock et d'etat
 		-> modification de la page de documentation d'un livre(lien vers la sous²-page de modif dans la sous-page
-		   de documentation )
+		   de documentation )(OK)
 
 	     Sous-page:
 		-> page de documentation sur un livre:
 
 			contenu:
-			    -> la photo de couverture du livre
-			    -> caracteristique du livre
-			    -> resumé du livre
-			    -> stock total, note, disponible a l'emprunt, en cour d'emprunt, controle d'etat 
+			    -> la photo de couverture du livre(OK)
+			    -> caracteristique du livre(OK)
+			    -> resumé du livre(OK)
+			    -> stock total(OK), note, disponible a l'emprunt, en cour d'emprunt, controle d'etat 
 			    -> option modification de documentation
 
 			Sous page:
-			    -> page de modification de document:
+			    -> page de modification de document:(OK)
 
 			    	contenu:
-				    -> Nom du livre
-				    -> categorie du livre
-				    -> type de livre
-				    -> auteur
+				    -> Nom du livre(OK)
+				    -> categorie du livre(OK)
+				    -> type de livre(OK)
+				    -> auteur(OK)
 				    -> date d'edition
 				    -> editeur
-				    -> Stock et etat
+				    -> Stock(OK) et etat(next)
 				    -> la photo de couverture du livre
 				    -> caracteristique du livre
 				    -> resumé du livre
