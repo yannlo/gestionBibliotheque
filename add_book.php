@@ -5,48 +5,162 @@ include('function/count_stock_element.php');
 if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST['categorie_oeuvre']) AND isset($_POST['auteur_oeuvre']) AND isset($_POST['stock_exemplaire']) AND isset($_POST['description_oeuvre'])){
 
     $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-    
     $request =  $bdd -> prepare('INSERT INTO liste_oeuvre (nom, id_type, id_categorie, description_oeuvre, id_auteur) VALUES (:nom, :id_type, :id_categorie, :description_oeuvre, :id_auteur)');
 
     $search = $bdd->query('SELECT nom FROM liste_oeuvre');
+    $_SESSION['total_error']['error']= false;
+    $_SESSION['total_error']['repeter_valeur'] = false;
 
-    $repeter_valeur = false;
     while ($donnee = $search->fetch() ){
-        if(preg_match('#'.$donnee['nom'].'#i',$_POST['nom_oeuvre'])){
-            $repeter_valeur = true;
+        if($donnee['nom'] == $_POST['nom_oeuvre']){
+            $_SESSION['total_error']['repeter_valeur']= true;
             header('Location: add_book.php');
             exit();
         }
     }
 
-
-    $request -> execute(array(
-        'nom' => htmlspecialchars($_POST['nom_oeuvre']),
-        'id_type' => $_POST['type_oeuvre'],
-        'id_categorie' => $_POST['categorie_oeuvre'],
-        'description_oeuvre' => htmlspecialchars($_POST['description_oeuvre']),
-        'id_auteur' => $_POST['auteur_oeuvre']
-    ));
-    $_SESSION['exemplaire'] = array();
-    $search = $bdd->prepare('SELECT id FROM liste_oeuvre WHERE nom = :nom');
-    $search -> execute(array(
-        'nom' => $_POST['nom'],
-    ));
-    $_SESSION['exemplaire']['nom_oeuvre'] = $_POST['nom_oeuvre'];
-
-
-    $_SESSION['exemplaire']['nombre'] = 1;
+    if (!empty($_FILES)){
+        print_r($_FILES);
+        $image = $_FILES['cover_image'];
+        
+        if($image['error'] == 4 ){
+            
+                $request -> execute(array(
+                    'nom' => htmlspecialchars($_POST['nom_oeuvre']),
+                    'id_type' => $_POST['type_oeuvre'],
+                    'id_categorie' => $_POST['categorie_oeuvre'],
+                'description_oeuvre' => htmlspecialchars($_POST['description_oeuvre']),
+                'id_auteur' => $_POST['auteur_oeuvre']
+            ));
+            
+            $_SESSION['exemplaire'] = array();
+            $search = $bdd->prepare('SELECT id FROM liste_oeuvre WHERE nom = :nom');
+            $search -> execute(array(
+                'nom' => $_POST['nom_oeuvre'],
+            ));
+            
+            
+            $_SESSION['exemplaire']['nom_oeuvre'] = $_POST['nom_oeuvre'];
+            
+            
+            $_SESSION['exemplaire']['nombre'] = 1;
+            
+        
+            $_SESSION['exemplaire']['nombre_finale'] = $_POST['stock_exemplaire'];
+            
+            header('Location: add_exemplaire_2.php');
+            exit();
+        
+        }
     
+        else if($image['error'] == 1) {
 
-    $_SESSION['exemplaire']['nombre_finale'] = $_POST['stock_exemplaire'];
+            $_SESSION['total_error']['error'] = true;
+            header('Location: add_book.php');
+            
+        }
+        
+        else if($image['error'] == 0 ){
 
-    header('Location: add_exemplaire_2.php');
-    exit();
+            $request -> execute(array(
+                'nom' => htmlspecialchars($_POST['nom_oeuvre']),
+                'id_type' => $_POST['type_oeuvre'],
+                'id_categorie' => $_POST['categorie_oeuvre'],
+                'description_oeuvre' => htmlspecialchars($_POST['description_oeuvre']),
+                'id_auteur' => $_POST['auteur_oeuvre']
+            ));
+            
+            $select_champ = $bdd -> prepare('SELECT id, nom FROM liste_oeuvre WHERE nom = :nom ');
+            
+            $select_champ -> execute(array(
+                'nom' => htmlspecialchars($_POST['nom_oeuvre'])
+            ));
+            
+            
+            $ext_image = strtolower(substr($image['name'], -3));
+            
+            $allow_ext = array('jpg', 'gif', 'png');
+            
+            if (in_array($ext_image, $allow_ext)) {
+                
+                $key_val ='';
+                
+                while ($select = $select_champ->fetch()){
+                    $key_val = $select['id'];
+                }
+                
+                $nom_oeuvre = htmlspecialchars($_POST['nom_oeuvre']);
+                
+                $fichier_partiel_nom = str_replace(' ','_',$key_val);
+                
+                $fichier_final_nom = (string)($fichier_partiel_nom.".".$ext_image);
+                
+                move_uploaded_file($image['tmp_name'], "imageAndLogo/image_book/".$fichier_final_nom);
+                
+                if(!empty($_FILES) ){
+                    $add_cover_image = $bdd -> prepare('UPDATE liste_oeuvre SET nom_photo_couverture = :nom_photo_couverture WHERE id = :id ');
+
+                    $add_cover_image -> execute(array(
+                        'id'=> $key_val ,
+                        'nom_photo_couverture'=> $fichier_final_nom
+                    ));
+                    $_SESSION['exemplaire'] = array();
+
+                    $search = $bdd->prepare('SELECT id , nom_photo_couverture FROM liste_oeuvre WHERE nom = :nom');
+                    $search -> execute(array(
+                        'nom' => $_POST['nom_oeuvre'],
+                    ));
+                    
+
+                    $_SESSION['exemplaire']['nom_oeuvre'] = $_POST['nom_oeuvre'];
+                    
+                    
+                    $_SESSION['exemplaire']['nombre'] = 1;
+                    
+                    
+                    $_SESSION['exemplaire']['nombre_finale'] = $_POST['stock_exemplaire'];
+                    
+                    header('Location: add_exemplaire_2.php');
+                    exit();
+                
+                }
+            
+            }
+        
+        }
+    }else{
+        print_r($_FILES);
+        $request -> execute(array(
+            'nom' => htmlspecialchars($_POST['nom_oeuvre']),
+            'id_type' => $_POST['type_oeuvre'],
+            'id_categorie' => $_POST['categorie_oeuvre'],
+            'description_oeuvre' => htmlspecialchars($_POST['description_oeuvre']),
+            'id_auteur' => $_POST['auteur_oeuvre']
+        ));
+
+        $_SESSION['exemplaire'] = array();
+        $search = $bdd->prepare('SELECT id FROM liste_oeuvre WHERE nom = :nom');
+        $search -> execute(array(
+            'nom' => htmlspecialchars($_POST['nom_oeuvre']),
+        ));
+    
+    
+        $_SESSION['exemplaire']['nom_oeuvre'] = $_POST['nom_oeuvre'];
+    
+    
+        $_SESSION['exemplaire']['nombre'] = 1;
+        
+    
+        $_SESSION['exemplaire']['nombre_finale'] = $_POST['stock_exemplaire'];
+    
+        header('Location: add_exemplaire_2.php');
+        exit();
+    }
 
 
+}
 
-
-}else if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST['editeur_exemplaire'])){
+else if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST['editeur_exemplaire'])){
     $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
     $request =  $bdd -> prepare('INSERT INTO liste_exemplaire (id_oeuvre, id_etat, editeur) VALUES (:id_oeuvre, :id_etat, :editeur)');
@@ -74,7 +188,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style4.css" />
     <link rel="stylesheet" href="general-style-element.css" />
-    <link rel="stylesheet" href="add_book/style_add_parti.css" />
+    <link rel="stylesheet" href="add_book/style_add_parti2.css" />
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <title>Ajout de livre - Gestionnaire</title>
@@ -111,7 +225,12 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
 
                 <h2>Formulaire d'ajout d'oeuvre</h2>
 
-                <form method="POST"action="add_book.php">
+                <form method="POST"action="add_book.php" enctype="multipart/form-data" >
+                    <p>
+                        <label for="cover_image">Ajouter la couverture de l'oeuvre</label>
+                        <img src="imageAndLogo/uncknown_book.png" alt="icon absence de photo de converture"   id="output"/>
+                        <input type="file" name="cover_image" id="cover_image" accept="image/*" onchange="loadFile(event)"  />
+                    </p>
 
                     <p>
                         <label for="nom_oeuvre">Entrer le nom de l'oeuvre:</label>
@@ -183,6 +302,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
             <h2>Formulaire d'ajout d'exemplaire</h2>
 
                 <form method="POST"action="#">
+
                     <p>
                         <label for="nom_oeuvre">Entrer le nom de l'oeuvre:</label>
                         <select  name="nom_oeuvre" id="nom_oeuvre" required="required" >
@@ -242,17 +362,31 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
         }
     </script>
 
-    <script>
+
         <?php 
-        if ($repeter_valeur === true) {
-            echo "alert('Cette oeuvre existe deja. veuillez en saisir une autre');";
-        }
+        if ( $_SESSION['total_error']['repeter_valeur'] == true) {
+            echo "<script>
+            alert('Cette oeuvre existe deja. veuillez en saisir une autre');
+            </script>";
+        }else if( $_SESSION['total_error']['error'] == 1){
+            echo "<script>
+            'alert(L'image envoyer est trop lourd);');
+            </script>";
+        }   
         ?>
-    </script>
     <script>
 		const identifation_page ='connect-book';
        	actived_link_page(identifation_page);
-	</script>
+    </script>
+    <script>
+      var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+      };
+    </script>
 
 
 </body>

@@ -41,7 +41,7 @@ if (isset($_SESSION['oeuvre'])) {
             <meta http-equiv="content-type" content="text/html" charset="utf-8" />
             <title>documentation de livre - Gestionnaire </title>
             <link rel="stylesheet" href="../../../style4.css"/>
-            <link rel="stylesheet" href="style_document2.css"/>
+            <link rel="stylesheet" href="style_document4.css"/>
             <link rel="stylesheet" href="../../../general-style-element.css"/>
             <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         </head>
@@ -60,8 +60,17 @@ if (isset($_SESSION['oeuvre'])) {
     
                     <section id="information_oeuvre">
                         <div class="parti1">
-    
-                            <img src="../../../imageAndLogo/uncknown_book.png" alt="couverture de livre" />
+<?php                         
+if( $oeuvre['nom_photo_couverture'] == NULL){
+?>
+<img src="../../../imageAndLogo/uncknown_book.png" alt="icon absence de photo de converture" />           
+<?Php
+  }else{
+   ?>
+<img src="../../../imageAndLogo/image_book/<?php echo $oeuvre['nom_photo_couverture'] ;?>" alt="couverture de l'oeuvre <?php echo $oeuvre['nom_photo_couverture'] ;?>" />
+   <?php   
+  }
+  ?> 
                             <div class="parti2">
                                 <h2><strong>Titre:</strong> <?php echo $oeuvre['nom'] ?></h2>
                                 <h2><strong>Type d'oeuvre:</strong> <?php  echo $type['nom'] ;?></h2>
@@ -78,7 +87,10 @@ if (isset($_SESSION['oeuvre'])) {
     
                             <h2 class ='moyen'><strong>Nombre d'exemplaire : </strong> <?php if ($oeuvre['stock_exemplaire'] > 1){echo $oeuvre['stock_exemplaire']. ' exemplaires';}else{echo $oeuvre['stock_exemplaire']. ' exemplaire';} ?>  </h2>  
                         </div>
-                        <a href="page_modifie_documentation.php">Modifier la documentation</a>
+                        <div class="bottom_link">
+                            <a href="page_modifie_documentation.php">Modifier la documentation</a>
+                            <a href="page_documentation_book.php">Retour</a>
+                        </div>
                     </section>
     
     

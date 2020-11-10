@@ -26,7 +26,7 @@ if(isset($_GET["session"])){
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>documentation de livre - Gestionnaire </title>
         <link rel="stylesheet" href="../../../style4.css"/>
-        <link rel="stylesheet" href="style_document2.css"/>
+        <link rel="stylesheet" href="style_document4.css"/>
         <link rel="stylesheet" href="../../../general-style-element.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
@@ -107,7 +107,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
     $increment = 0;
     $_SESSION['oeuvre'] = array();
     foreach ($decomp_result as $element){
-        if(strlen($element) > 2){
+        if(strlen($element) > 0 ){
             if($increment == 0){
                 $sql_request .= ' WHERE ';
             }
@@ -280,4 +280,3 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
 </body>
 </html>
 
-<?php print_r($_SESSION['oeuvre']); ?>

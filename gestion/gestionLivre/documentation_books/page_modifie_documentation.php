@@ -4,54 +4,125 @@ $_SESSION['type']= 'admin';
 include('../../../function/acces_admin_verification.php');
 include('../../../function/geturl.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-if(isset($_POST['nom_oeuvre_mod']) AND isset($_POST['type_oeuvre_mod']) AND isset($_POST['categorie_oeuvre_mod']) AND isset($_POST['auteur_oeuvre_mod']) AND isset($_POST['description_oeuvre_mod']) ){
-    $remplace = $bdd -> prepare('INSERT TO liste_oeuvre (nom, id_type, id_categorie, id_auteur, description_oeuvre, id_photo_couverture) VALUES(:nom, :id_type, :id_categorie, :id_auteur, :description_oeuvre, :id_photo_couverture)');
-    
-    function transfert(){
-        $ret        = false;
-        $img_bdd   = '';
-        $img_taille = 0;
-        $img_type   = '';
-        $img_nom    = '';
-        $taille_max = 250000;
-        $ret        = is_uploaded_file($_FILES['photo_oeuvre_mod']['tmp_name']);
+
+if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND isset($_POST['categorie_oeuvre_mod'])  AND isset($_POST['auteur_oeuvre_mod']) AND isset($_POST['description_oeuvre_mod'])) {
+    $image = $_FILES['photo_oeuvre_mod'];
+    if($image['error'] == 4 ){
         
-        if (!$ret) {
-            echo "<script>alert('Problème de transfert'); </script>";
-            return false;
-        } else {
-            // Le fichier a bien été reçu
-            $img_taille = $_FILES['fic']['size'];
+        $modifie_oeuvre_request = $bdd -> prepare('UPDATE liste_oeuvre SET nom = :nom, id_type = :id_type, id_auteur = :id_auteur, id_categorie = :id_categorie, description_oeuvre = :description_oeuvre
+        WHERE id = :id ');
+
+        $key_val ='';
+        $valeur_key = '';
+        $nom_oeuvre_mod = htmlspecialchars($_POST['nom_oeuvre_mod']);
+
+        foreach($_SESSION['oeuvre'] as $key => $value){
+            $key_val = $key;
+            $value = $nom_oeuvre_mod;
+        }
+
+        $id_oeuvre = 0;
+        foreach($_SESSION['oeuvre'] as $key => $value){
+            $id_oeuvre =(int) $key;
+            $valeur_key = $value;
+        }
+
+        $take_inf_oeuvre = $bdd -> query("SELECT nom FROM liste_oeuvre WHERE id = $id_oeuvre");
+
+            $modifie_oeuvre_request -> execute(array(
+                'id' => $id_oeuvre,
+                'nom'=>$nom_oeuvre_mod,
+                'id_type'=>$_POST['type_oeuvre_mod'],
+                'id_auteur'=>$_POST['auteur_oeuvre_mod'],
+                'id_categorie'=>$_POST['categorie_oeuvre_mod'],
+                'description_oeuvre'=>$_POST['description_oeuvre_mod']
+            ));
+            unset($_SESSION['oeuvre']);
+            $take_inf_oeuvre = $bdd -> query("SELECT nom, id FROM liste_oeuvre WHERE id = $id_oeuvre");
+            while ($nom = $take_inf_oeuvre->fetch() ){
+                $_SESSION['oeuvre'] = array($nom['id'] => $nom['nom']);
+            }
+            print_r($_SESSION['oeuvre']);
+            header('Location: affiche_doc_page.php');
+        
+
+
+
+                        
+    }
+    else if($image['error'] == 1) {
+        $error = 'L\'image envoyer est trop lourd';
+    }
+    else if($image['error'] == 0) {
+        $modifie_oeuvre_request = $bdd -> prepare('UPDATE liste_oeuvre SET nom = :nom, id_type = :id_type, id_auteur = :id_auteur, id_categorie = :id_categorie,  nom_photo_couverture = :nom_photo_couverture, description_oeuvre = :description_oeuvre
+        WHERE id = :id ');
+
+        $ext_image = strtolower(substr($image['name'], -3));
+        $allow_ext = array('jpg', 'gif', 'png');
+        if (in_array($ext_image, $allow_ext)) {
+
+            $key_val ='';
+            $valeur_key = '';
+            $nom_oeuvre_mod = htmlspecialchars($_POST['nom_oeuvre_mod']);
             
-            if ($img_taille > $taille_max) {
-                echo "<script>alert('fichier trop volumineux'); </script>";
-                return false;
+            foreach($_SESSION['oeuvre'] as $key => $value){
+                $key_val = $key;
+                $valeur_key = $value;
+            }
+            $fichier_partiel_nom = str_replace(' ','_',$key_val);
+
+            $fichier_final_nom = (string)($fichier_partiel_nom.".".$ext_image);
+
+            move_uploaded_file($image['tmp_name'], "../../../imageAndLogo/image_book/".$fichier_final_nom);
+
+            if(!empty($_FILES) ){
+
+                $id_oeuvre = 0;
+                foreach($_SESSION['oeuvre'] as $key => $value){
+                    $id_oeuvre =(int) $key;
+                }
+
+                $take_inf_oeuvre = $bdd -> query("SELECT nom FROM liste_oeuvre WHERE id = $id_oeuvre");
+
+                    $modifie_oeuvre_request -> execute(array(
+                        'id' => $id_oeuvre,
+                        'nom'=>$nom_oeuvre_mod,
+                        'id_type'=>$_POST['type_oeuvre_mod'],
+                        'id_auteur'=>$_POST['auteur_oeuvre_mod'],
+                        'id_categorie'=>$_POST['categorie_oeuvre_mod'],
+                        'description_oeuvre'=>$_POST['description_oeuvre_mod'],
+                        'nom_photo_couverture'=> $fichier_final_nom
+                    ));
+                    unset($_SESSION['oeuvre']);
+                    $take_inf_oeuvre = $bdd -> query("SELECT nom, id FROM liste_oeuvre WHERE id = $id_oeuvre");
+                    while ($nom = $take_inf_oeuvre->fetch() ){
+                        $_SESSION['oeuvre'] = array($nom['id'] => $nom['nom']);
+                    }
+                    print_r($_SESSION['oeuvre']);
+                    header('Location: affiche_doc_page.php');
+                    
             }
 
-            $img_type = $_FILES['photo_oeuvre_mod']['type'];
-            $img_nom  = $_FILES['photo_oeuvre_mod']['name'];
-            $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-            $img_bdd = file_get_contents ($_FILES['photo_oeuvre_mod']['tmp_name']);
-            include ("connexion.php");
-            $img_blob = file_get_contents ($_FILES['photo_oeuvre_mod']['tmp_name']);
-            $req = "INSERT INTO all_photos_and_image (" .
-                                "img_name, img_size, img_type, img_blob " .
-                                ") VALUES (" .
-                                "'" . $img_nom . "', " .
-                                "'" . $img_taille . "', " .
-                                "'" . $img_type . "', " .
-                                "'" . addslashes ($img_blob) . "') ";
-            $ret = $bdd -> query ($req);
-            return true;
 
+
+        } 
+        else {
+            $error = 'ce fichier n\'est pas une image';
         }
+
     }
+    else{
 
-    transfert();
+        $error='erreur inconnu';
 
+    }
 }
 
+
+
+
 if (isset($_SESSION['oeuvre'])) {
+    unset($_FILES);
     $oeuvre_choose = $bdd -> prepare('SELECT * FROM liste_oeuvre WHERE id = :id AND nom = :nom');
     foreach($_SESSION['oeuvre'] as $key => $val) {
     
@@ -110,24 +181,32 @@ if (isset($_SESSION['oeuvre'])) {
             $saisie_category = $bdd ->  query('SELECT * FROM categorie_livre ');
             $saisie_type = $bdd -> query('SELECT * FROM type_oeuvre ');
             
-                // AND  AND 
+            if(isset($error)){
+                echo '<script> 
+                alert("'.$error.'");
+                </script>';
+            }
+            
 ?>
                         <p>
                             <label for="photo_oeuvre_mod">Modifier le la photo</label>
   <?php 
-  if($oeuvre['id_photo_couverture'] !== NULL){
-    $id_image = $oeuvre['id_photo_couverture'];
-    $req = "SELECT img_id, img_type, img_blob " . 
-           "FROM images WHERE img_id =  "
+  if( $oeuvre['nom_photo_couverture'] == NULL){
 ?>
-                            
-
+<img src="../../../imageAndLogo/uncknown_book.png" alt="icon absence de photo de converture"   id="output"/>
+<input type="file" name="photo_oeuvre_mod" id="photo_oeuvre_mod" required="required" accept="image/*" onchange="loadFile(event)"  />
+           
 <?Php
+  }else{
+   ?>
+<img src="../../../imageAndLogo/image_book/<?php echo $oeuvre['nom_photo_couverture'] ;?>" alt="couverture de l'oeuvre <?php echo $oeuvre['nom_photo_couverture'] ;?>" id="output" />
+<input type="file" name="photo_oeuvre_mod" id="photo_oeuvre_mod" accept="image/*" onchange="loadFile(event)"/>  
+   <?php   
   }
   ?>                      
   
-                            <input type="hidden" name="max_file_photo_oeuvre_mod" id="photo_oeuvre_mod" value='250000'/>
-                            <input type="file" name="photo_oeuvre_mod" id="photo_oeuvre_mod" size="50" required="required"/>
+
+                            
                         </p>
 
                         <p>
@@ -136,19 +215,18 @@ if (isset($_SESSION['oeuvre'])) {
                         </p>
                         <p>
                             <label for="type_oeuvre_mod">Modifier le type d'oeuvre:</label>
-                            <select type="text" name="type_oeuvree_mod" id="type_oeuvree_mod"  required>
+                            <select type="text" name="type_oeuvre_mod" id="type_oeuvree_mod"  required>
 <?php 
 while ($type = $saisie_type ->fetch()){
-if($oeuvre['id_type'] == $saisie_type['id'] ){
-        echo '<option value="'. $saisie_type['id'] .'" selected ="selected" >' . $saisie_type['nom'] . '</option>';
+if($oeuvre['id_type'] == $type['id'] ){
+        echo '<option value="'. $type['id'] .'" selected ="selected" >' . $type['nom'] . '</option>';
     }else{
-        echo '<option value="'. $saisie_type['id'] .'" >' . $saisie_type['nom'] . '</option>';
+        echo '<option value="'. $type['id'] .'" >' . $type['nom'] . '</option>';
     }
 }
 
 
 ?> 
-
                             </select>
                         </p>
                         <p>
@@ -156,10 +234,10 @@ if($oeuvre['id_type'] == $saisie_type['id'] ){
                             <select type="text" name="categorie_oeuvre_mod" id="categorie_oeuvre_mod"  required="required"> 
 <?php 
 while ($categorie = $saisie_category -> fetch()){
-if($oeuvre['id_categorie'] ==  $saisie_category['id'] ){
-        echo '<option value="'.  $saisie_category['id'] .'" selected ="selected" >' . $saisie_category['nom'] . '</option>';
+if($oeuvre['id_categorie'] ==  $categorie['id'] ){
+        echo '<option value="'.  $categorie['id'] .'" selected ="selected" >' . $categorie['nom'] . '</option>';
     }else{
-        echo '<option value="'.  $saisie_category['id'] .'" >' .  $saisie_category['nom'] . '</option>';
+        echo '<option value="'.  $categorie['id'] .'" >' .  $categorie['nom'] . '</option>';
     }
 }
 
@@ -174,10 +252,10 @@ if($oeuvre['id_categorie'] ==  $saisie_category['id'] ){
                             <?php 
 
 while ( $auteur = $saisie_auteur -> fetch()){
-if($oeuvre['id_auteur'] ==  $saisie_auteur['id'] ){
-        echo '<option value="'.  $saisie_auteur['id'] .'" selected ="selected" >' . $saisie_auteur['nom'] . '</option>';
+if($oeuvre['id_auteur'] ==  $auteur['id'] ){
+        echo '<option value="'.  $auteur['id'] .'" selected ="selected" >' . $auteur['nom'] . '</option>';
     }else{
-        echo '<option value="'.  $saisie_auteur['id'] .'" >' .  $saisie_auteur['nom'] . '</option>';
+        echo '<option value="'.  $auteur['id'] .'" >' .  $auteur['nom'] . '</option>';
     }
 }
 
@@ -187,7 +265,7 @@ if($oeuvre['id_auteur'] ==  $saisie_auteur['id'] ){
                         </p>
                         <p>
                             <label for="description_oeuvre_mod">Modifier la description de l'oeuvre:</label>
-                            <textarea type="text" name="description_oeuvre_mod" id="description_oeuvre_mod"  required="required">bla bla bla</textarea>
+                            <textarea type="text" name="description_oeuvre_mod" id="description_oeuvre_mod"  required="required"><?php echo $oeuvre['description_oeuvre'] ;?></textarea>
                         </p>
 
 
@@ -218,6 +296,17 @@ ver1.style.height= '60vh';
 const identifation_page ='connect-book';
 actived_link_page(identifation_page);
 </script>
+
+
+    <script>
+      var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+      };
+    </script>
 
 </body>
 </html>
