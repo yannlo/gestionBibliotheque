@@ -39,7 +39,7 @@ input[type="submit"]{
 	width:200px;
 
 }	
-input[type="submit"]:hover{
+input[type="submit"]:hover, #information_oeuvre a:hover{
 	background:#0066ff;
 	transition: all .6s;
 	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.548);
@@ -218,4 +218,21 @@ text-align: right;
     font-size:1.14em;
 
 
+}
+
+
+#information_oeuvre a{
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.4em;
+    min-width: 400px;
+    max-width: 60%;
+    display: block;
+    padding: 10px 0;
+    margin: 50px 20%;
+    background-color: #0066ff;
+    color: white; ;
+    text-decoration: none;
+    transition: all .3s;
 }

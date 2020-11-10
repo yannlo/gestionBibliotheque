@@ -3,14 +3,16 @@ include('../../../function/verified_session.php');
 $_SESSION['type']= 'admin';
 include('../../../function/acces_admin_verification.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-if (isset($_GET['id']) AND isset($_GET['nom'])) {
+if (isset($_SESSION['oeuvre'])) {
     $oeuvre_choose = $bdd -> prepare('SELECT * FROM liste_oeuvre WHERE id = :id AND nom = :nom');
-    $oeuvre_choose -> execute(array(
-        'id' => htmlspecialchars($_GET['id']),
-        'nom' => htmlspecialchars($_GET['nom'])
-    ));
+    foreach($_SESSION['oeuvre'] as $key => $val) {
+
+        $oeuvre_choose -> execute(array(
+            'id' => htmlspecialchars($key),
+            'nom' => htmlspecialchars($val)
+        ));
+    }
     $compteur = $oeuvre_choose -> rowCount();
-    echo $compteur;
     if ($compteur == 0 OR $compteur > 1 ){
         header('Location: ../../../index.php');
         exit();
@@ -74,9 +76,9 @@ if (isset($_GET['id']) AND isset($_GET['nom'])) {
                                 <?php echo $oeuvre['description_oeuvre']; ?>
                             </p>
     
-                            <h2 class ='moyen'><strong>Nombre d'exemplaire : </strong> <?php if ($oeuvre['stock_exemplaire'] > 1){echo $oeuvre['stock_exemplaire']. ' exemplaires';}else{echo $oeuvre['stock_exemplaire']. ' exemplaire';} ?>  </h2>
-                            
+                            <h2 class ='moyen'><strong>Nombre d'exemplaire : </strong> <?php if ($oeuvre['stock_exemplaire'] > 1){echo $oeuvre['stock_exemplaire']. ' exemplaires';}else{echo $oeuvre['stock_exemplaire']. ' exemplaire';} ?>  </h2>  
                         </div>
+                        <a href="page_modifie_documentation.php">Modifier la documentation</a>
                     </section>
     
     

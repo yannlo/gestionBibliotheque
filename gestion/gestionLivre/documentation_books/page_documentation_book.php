@@ -4,6 +4,15 @@ $_SESSION['type']= 'admin';
 include('../../../function/acces_admin_verification.php');
 include('../../../function/geturl.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+if(isset($_GET["session"])){
+    foreach($_SESSION['oeuvre'] as $key => $value){
+        if($key != $_GET["session"]){
+            unset($_SESSION['oeuvre'][$key]);
+        }
+    }
+    header("Location:affiche_doc_page.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -96,6 +105,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
     $decomp_result = explode(' ', $result);
     $sql_request = 'SELECT * FROM liste_oeuvre ';
     $increment = 0;
+    $_SESSION['oeuvre'] = array();
     foreach ($decomp_result as $element){
         if(strlen($element) > 2){
             if($increment == 0){
@@ -150,6 +160,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
             $found_search = $bdd -> query($sql_request);
             
             
+            
     
             ?>
             <section id="list_oeuvre">
@@ -157,6 +168,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                 <h2>Resultat de la recherche: (<?php if($compteur >=2){echo $compteur . ' resultats';}else{echo $compteur . ' resultat';} ?> )</h2>
         <?php 
             while ($oeuvre = $found_search ->fetch()){
+                $_SESSION['oeuvre'][$oeuvre['id']] =  $oeuvre['nom'];
                 $saisie_auteur = $bdd -> prepare('SELECT * FROM autheur_livre WHERE id = :id ');
                 $saisie_auteur -> execute(array(
                     'id'=>$oeuvre['id_auteur']
@@ -168,7 +180,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                 while ($auteur = $saisie_auteur ->fetch() AND $categorie = $saisie_category -> fetch() AND $type = $saisie_type -> fetch()){
                     
                     ?>     
-                            <a href="affiche_doc_page.php?id=<?php echo $oeuvre['id'] ;?>&nom=<?php echo $oeuvre['nom'] ;?>"> 
+                            <a href="page_documentation_book.php?session=<?php  echo  $oeuvre['id'] ;?>?>"> 
                             <div class="oeuvre">
                                 <h3><strong>Titre:</strong> <?php  echo  $oeuvre['nom'] ;?></h3>
                                 <h3><strong>Auteur:</strong> <?php echo $auteur['nom'] ;?></h3>
@@ -231,7 +243,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
         </div>
 <script> const search_activate = true; </script>
 <?php
-}else
+}
 ?>
 
 <script> const search_activate = false; </script>
@@ -267,3 +279,5 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
 
 </body>
 </html>
+
+<?php print_r($_SESSION['oeuvre']); ?>
