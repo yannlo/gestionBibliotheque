@@ -1,8 +1,7 @@
 <?php
-include('../../../function/verified_session.php');
-$_SESSION['type']= 'admin';
-include('../../../function/acces_admin_verification.php');
-include('../../../function/geturl.php');
+include('function/verified_session.php');
+include('function/acces_admin_verification.php');
+include('function/geturl.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 if(isset($_GET["session"])){
     foreach($_SESSION['oeuvre'] as $key => $value){
@@ -25,9 +24,9 @@ if(isset($_GET["session"])){
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>documentation de livre - Gestionnaire </title>
-        <link rel="stylesheet" href="../../../style4.css"/>
-        <link rel="stylesheet" href="style_document4.css"/>
-        <link rel="stylesheet" href="../../../general-style-element.css"/>
+        <link rel="stylesheet" href="style5.css"/>
+        <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+        <link rel="stylesheet" href="general-style-element.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
 
@@ -35,7 +34,7 @@ if(isset($_GET["session"])){
 		
 		<div class="container">
 			<header>
-				<?php  include("../../../headerAndFooter/menu.php") ?>
+				<?php  include("headerAndFooter/menu.php") ?>
             </header>
 
             <div class="center">
@@ -112,7 +111,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                 $sql_request .= ' WHERE ';
             }
             else{
-                $sql_request .= ' OR ';
+                $sql_request .= ' AND ';
             }
             $sql_request .= ' nom LIKE \'%'. $element . '%\' ';
             $increment++;
@@ -252,7 +251,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
 
 ?>        
   
-            <?php include('../../../headerAndFooter/footer.php'); ?>
+            <?php include('headerAndFooter/footer.php'); ?>
         
         </div>
             

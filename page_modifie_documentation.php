@@ -1,8 +1,7 @@
 <?php
-include('../../../function/verified_session.php');
-$_SESSION['type']= 'admin';
-include('../../../function/acces_admin_verification.php');
-include('../../../function/geturl.php');
+include('function/verified_session.php');
+include('function/acces_admin_verification.php');
+include('function/geturl.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND isset($_POST['categorie_oeuvre_mod'])  AND isset($_POST['auteur_oeuvre_mod']) AND isset($_POST['description_oeuvre_mod'])) {
@@ -73,7 +72,7 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
 
             $fichier_final_nom = (string)($fichier_partiel_nom.".".$ext_image);
 
-            move_uploaded_file($image['tmp_name'], "../../../imageAndLogo/image_book/".$fichier_final_nom);
+            move_uploaded_file($image['tmp_name'], "imageAndLogo/image_book/".$fichier_final_nom);
 
             if(!empty($_FILES) ){
 
@@ -150,9 +149,9 @@ if (isset($_SESSION['oeuvre'])) {
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>documentation de livre - Gestionnaire </title>
-        <link rel="stylesheet" href="../../../style4.css"/>
-        <link rel="stylesheet" href="style_document3.css"/>
-        <link rel="stylesheet" href="../../../general-style-element.css"/>
+        <link rel="stylesheet" href="style5.css"/>
+        <link rel="stylesheet" href="documentation_books/style_document3.css"/>
+        <link rel="stylesheet" href="general-style-element.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
 
@@ -160,7 +159,7 @@ if (isset($_SESSION['oeuvre'])) {
 		
 		<div class="container">
 			<header>
-				<?php  include("../../../headerAndFooter/menu.php") ?>
+				<?php  include("headerAndFooter/menu.php") ?>
             </header>
 
             <div class="center">
@@ -193,13 +192,13 @@ if (isset($_SESSION['oeuvre'])) {
   <?php 
   if( $oeuvre['nom_photo_couverture'] == NULL){
 ?>
-<img src="../../../imageAndLogo/uncknown_book.png" alt="icon absence de photo de converture"   id="output"/>
+<img src="imageAndLogo/uncknown_book.png" alt="icon absence de photo de converture"   id="output"/>
 <input type="file" name="photo_oeuvre_mod" id="photo_oeuvre_mod" required="required" accept="image/*" onchange="loadFile(event)"  />
            
 <?Php
   }else{
    ?>
-<img src="../../../imageAndLogo/image_book/<?php echo $oeuvre['nom_photo_couverture'] ;?>" alt="couverture de l'oeuvre <?php echo $oeuvre['nom_photo_couverture'] ;?>" id="output" />
+<img src="imageAndLogo/image_book/<?php echo $oeuvre['nom_photo_couverture'] ;?>" alt="couverture de l'oeuvre <?php echo $oeuvre['nom_photo_couverture'] ;?>" id="output" />
 <input type="file" name="photo_oeuvre_mod" id="photo_oeuvre_mod" accept="image/*" onchange="loadFile(event)"/>  
    <?php   
   }
@@ -284,7 +283,7 @@ if($oeuvre['id_auteur'] ==  $auteur['id'] ){
 
 </div>
 
-<?php include('../../../headerAndFooter/footer.php'); ?>
+<?php include('headerAndFooter/footer.php'); ?>
 
 </div>
 <script>

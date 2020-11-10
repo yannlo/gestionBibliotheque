@@ -21,7 +21,7 @@ if(isset($_SESSION['type'])){
 
 							<input type="checkbox" id="btn-1" onclick="changed_angle('fleche-1','link1','list1');" />
 							<ul id='list1'>
-								<li><a href="#">Documentation d'un livre</a></li>
+								<li><a href="page_documentation_book.php">Documentation d'un livre</a></li>
 								<li><a href="add_book.php">Ajout de livre</a></li>
 								<li><a href="#">Gestion des stocks et d'etats</a></li>
 							</ul>
@@ -39,6 +39,7 @@ if(isset($_SESSION['type'])){
 								<li><a href="#">Confirmation de restitution de livre</a></li>
 							</ul>
 						</li>
+						<li><a id='id-link1' href="#">Changer de gestionnaire</a></li>
 						<li><a href="deconnection.php" class="connect">Deconnexion</a></li>
 					</ul>
 				</div>

@@ -1,4 +1,3 @@
-
 *{
     padding:0;
     margin:0;
@@ -81,11 +80,13 @@ header{
     height: 80px;
 }
 nav{
-    background: #3399FF;
-    height: 80px;
+  position: fixed;
+  background: #3399FF;
+  height: 80px;
 	width: 100%;
 	border-collapse: collapse;
-	border-bottom:10px solid #0066FF;
+  border-bottom:10px solid #0066FF;
+  z-index: 1000;
   }
   label.logo{
     color: white;
@@ -96,7 +97,7 @@ nav{
   }
   nav ul{
     float: right;
-	margin-right: 20px;
+  margin-right: 20px;
 	
   }
   nav ul li{
@@ -294,124 +295,166 @@ nav{
     }
   }
 
+/* container */
+
+
+.container{
+  min-height: 100vh;
+  height: 100%;
+}
+section{
+  width: 100%;
+  padding: 60px 15% 100px 15%;
+  min-height:500px ;
+  height: 100%;
+}
+
+section h2{
+  padding:10px 5%;
+}
+
+h1{
+  padding: 20px 0 0 25%;
+  width: 100%;
+}
+
+@media (max-width:1100px){
+  h1{
+    padding: 20 20% 0 20%;
+  }
+  section{
+    padding: 60px 10% 60px 10%;
+  }
+}
+
+
+@media (max-width:800px){
+  h1{
+    padding: 20px 10% 0 10%;
+  }
+  section{
+    padding: 60px 4% 40px 4%;
+  }
+}
 
 
 
 
 /* footer of the page */
 footer{
-    position: absolute;
-    bottom: 0;
-    background-color:#0066CC;
-    width:100%;
-    z-index: 500;
+  position: relative;
+  bottom: 0;
+  background-color:#0066CC;
+  width:100%;
+  z-index: 500;
 }
 footer div.footer-content{
-    display: flex;
-    margin: 0 5%;
+  display: flex;
+  margin: 0 5%;
 }
 
 footer .part{
-    padding: 30px ;
-    width:100%;
+  padding: 30px ;
+  width:100%;
 }
 
 footer .part h2{
-    margin: 0 0  7px  4% ;
-    color:#33CCFF;
-    font-size: 1.4em;
-    font-weight: 800;
+  margin: 0 0  7px  4% ;
+  color:#33CCFF;
+  font-size: 1.4em;
+  font-weight: 800;
 }
 
 footer .part p{
-    
-    color:rgb(255, 255, 255);
-    font-size: 1.1em;
-    text-align: justify;
+  
+  color:rgb(255, 255, 255);
+  font-size: 1.1em;
+  text-align: justify;
 }
 
 
 /* specifique footer client */
 
 footer .part form p{
-    
-    color:rgb(255, 255, 255);
-    font-size: 1.1em;
-    text-align: justify;
-    margin:10px 0;
+  
+  color:rgb(255, 255, 255);
+  font-size: 1.1em;
+  text-align: justify;
+  margin:10px 0;
 }
 
 footer .part form textarea{
-    border:2px solid #818181;
-    width: 80%;
-    height: 100px;
+  border:2px solid #818181;
+  width: 80%;
+  height: 100px;
 }
 
 
 
 footer .part form input[type="email"]{
-    display: inline-block;
+  display: inline-block;
 }
 
 footer .part form input[type="submit"]{
-    display: inline-block;
-    height: 40px;
-    width:40%;
-    overflow: visible;
-    margin: 0  0 0  20% ;
-    background-color: #3399FF;
-    border: 0;
-    border-radius:10px;
-    font-size: 1.2em;
-    color: #fff;
-    transition: all .4s;
+  display: inline-block;
+  height: 40px;
+  width:40%;
+  overflow: visible;
+  margin: 0  0 0  20% ;
+  background-color: #3399FF;
+  border: 0;
+  border-radius:10px;
+  font-size: 1.2em;
+  color: #fff;
+  transition: all .4s;
 }
 
 footer .part form input[type="submit"]:hover {
-     background:#33CCFF;
-     transition: all .4s;
+   background:#33CCFF;
+   transition: all .4s;
 }
 
-    /* specific footer gestionnaire */
+  /* specific footer gestionnaire */
 
-    footer ul li{
-        list-style:none;
-        padding:5px 0;
-    }
+  footer ul li{
+      list-style:none;
+      padding:5px 0;
+  }
 
-    footer ul li a{
-        text-decoration:none;
-        color:white;
-        font-size: 1.1em;
-        transition: all .4s;
-    }
+  footer ul li a{
+      text-decoration:none;
+      color:white;
+      font-size: 1.1em;
+      transition: all .4s;
+  }
 
-    footer ul li a:hover{
-        color:#3399FF;
-        font-weight: bold;
-        text-decoration:underline;
-        transition: all .4s;
-    }
-
-
+  footer ul li a:hover{
+      color:#3399FF;
+      font-weight: bold;
+      text-decoration:underline;
+      transition: all .4s;
+  }
 
 
-    /* copyright */
+
+
+  /* copyright */
 
 footer p.copyright{
-    display: inline-block;
-    bottom: 0;
-    text-align: center;
-    width:100%;
-    background-color:#184b7e;
-    color:rgb(150, 150, 150);
-    font-weight: bolder;
+  font-size: 0.9em;
+  display: inline-block;
+  bottom: 0;
+  text-align: center;
+  width:100%;
+  background-color:#184b7e;
+  color:rgb(150, 150, 150);
+  font-weight: bolder;
 }
 
 /* responsive footer */
 
 @media (max-width:800px){
-	footer div.footer-content{
-		flex-direction:column;
-	}
+footer div.footer-content{
+  flex-direction:column;
+}
 }

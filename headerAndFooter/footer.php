@@ -11,7 +11,7 @@
 					<h2>lien de gestion de livre</h2>
 					<p>
 						<ul>
-							<li><a href="#">documentation sur un livre</a></li>
+							<li><a href="page_documentation_book.php">documentation sur un livre</a></li>
 							<li><a href="add_book.php">ajout de livre</a></li>
 							<li><a href="#">supression de livre</a></li>
 							<li><a href="#">gestion des stocks et d'etats</a></li>
