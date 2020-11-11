@@ -242,7 +242,7 @@ admin connecté:
 				    -> auteur(OK)
 				    -> date d'edition
 				    -> editeur
-				    -> Stock(OK) et etat(next)
+				    -> Stock(OK) et etat (next)
 				    -> la photo de couverture du livre
 				    -> caracteristique du livre
 				    -> resumé du livre
@@ -267,22 +267,12 @@ admin connecté:
 				    -> message de confirmation de l'ajout de l'element dans le stock ou d'erreur
 
 
-		-> page de supression de livre:
-			Contenu:
-			    -> barre de recherche du livre
-			    -> checkbox de confirmation d'action
-
-			Sous-page:
-			    -> page de confirmation de suppression:
-			    	contenu:
-				    -> message de confirmation de l'suppression de l'element dans le stock ou d'erreur
-
-
 		-> page de gestion des stocks et d'etats:
 
 			Contenu:
-			    -> section ajouter Stock
-			    -> section supprimer du stock
+			    -> zone de rechercher d'oeuvre (part 1)
+
+			    -> section information d'oeuvre (nom de l'oeuvre, tableau des etats par exemplaire, state annexe, supprimer du 				               oeuvre, supprimer exemplaire) (parti 2)
 
 			Sous page:
 
@@ -299,19 +289,33 @@ admin connecté:
 				    	contenu:
 					    -> message de confirmation de l'ajout de l'element dans le stock ou d'erreur
 
-			    -> section supprimer du stock:
 
-			    	contenu:
-				    -> quantité
-				    -> etat par nombre d'element
-				    -> checkbox de confirmation
+			-> page de supression de livre:
+				Contenu:
+				    -> barre de recherche du livre
+				    -> checkbox de confirmation d'action
 
-				Sous page:
+				Sous-page:
 
-				    -> page de confirmation d'ajout:
+				    -> page de confirmation de suppression:
+				    	contenu:
+				 	   -> message de confirmation de l'suppression de l'element dans le stock ou d'erreur
+
+
+
+				    -> section supprimer du stock:
 
 				    	contenu:
-					    -> message de confirmation de l'ajout de l'element dans le stock ou d'erreur
+					    -> quantité
+					    -> etat par nombre d'element
+					    -> checkbox de confirmation
+
+					Sous page:
+	
+					    -> page de confirmation d'ajout:
+	
+					    	contenu:
+						    -> message de confirmation de l'ajout de l'element dans le stock ou d'erreur
 				
 
 			
@@ -414,18 +418,18 @@ admin connecté:
 ///// acces connecté
 
 
- -> page de demande d'emprunt							
+ -> page de demande d'emprunt								 4
  -> page de confirmation(de demande d'emprunt)(modification, ajout, suppression )	 5
  -> page d'emprunt									 6
 
 ///// acces admin
 
  -> page de gestion de livre								 7
- -> page de modification de livre							 8
- -> page d'ajout de livre								 9
+ -> page de modification de livre	(OK)						 8
+ -> page d'ajout de livre	(OK)							 9
  -> page de suppression de livre							10
  -> page de gestion de stock et d'etat							11
- -> page d'ajout de stock et d'etat							12
+ -> page d'ajout de stock et d'etat	(OK)						12
  -> page de suppression de stock							13
  -> page de gestion client								14
  -> page de documentation client							15

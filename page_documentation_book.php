@@ -9,6 +9,7 @@ if(isset($_GET["session"])){
             unset($_SESSION['oeuvre'][$key]);
         }
     }
+    print_r($_SESSION['oeuvre']);
     header("Location:affiche_doc_page.php");
     exit();
 }

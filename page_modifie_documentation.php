@@ -8,7 +8,7 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
     $_SESSION['total_error']['error']= false;
     $_SESSION['total_error']['repeter_valeur'] = false;
     $image = $_FILES['photo_oeuvre_mod'];
-    $search1 = $bdd->query('SELECT nom FROM liste_oeuvre');
+    $search1 = $bdd->prepare('SELECT nom FROM liste_oeuvre WHERE id NOT IN ( :id )');
     if($image['error'] == 4 ){   
         $modifie_oeuvre_request = $bdd -> prepare('UPDATE liste_oeuvre SET nom = :nom, id_type = :id_type, id_auteur = :id_auteur, id_categorie = :id_categorie, description_oeuvre = :description_oeuvre
         WHERE id = :id ');
@@ -22,18 +22,19 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
             $value = $nom_oeuvre_mod;
         }
 
-        
-        $search2 = $bdd->query("SELECT nom FROM liste_oeuvre WHERE id = $key_val ");
+        $search1 -> execute(array(
+            'id' => $key_val
+        ));
 
     
             while ($donnee1 = $search1->fetch() ){
-                while ($donnee2 = $search2->fetch() ){
-                    if($donnee1['nom'] == $_POST['nom_oeuvre_mod'] AND $donnee2['nom'] != $_POST['nom_oeuvre_mod']){
+
+                    if($donnee1['nom'] == $_POST['nom_oeuvre_mod']){
                         $_SESSION['total_error']['repeter_valeur']= true;
-                        header('Location: page-mpage_modifie_documentation.phpodifie_documentation.php');
+                        header('Location: page_modifie_documentation.php');
                         exit();
                     }
-                }
+
             }
 
         $id_oeuvre = 0;
@@ -71,6 +72,10 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
     }
     else if($image['error'] == 0) {
 
+        $search1 -> execute(array(
+            'id' => $key_val
+        ));
+
         while ($donnee = $search1->fetch() ){
             if($donnee['nom'] == $_POST['nom_oeuvre_mod']){
                 $_SESSION['total_error']['repeter_valeur']= true;
@@ -96,19 +101,15 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
             }
             $fichier_partiel_nom = str_replace(' ','_',$key_val);
             
-            $search2 = $bdd->query("SELECT nom FROM liste_oeuvre WHERE id = $key_val ");
-
+            $search1 -> execute(array(
+                'id' => $key_val
+            ));
     
             while ($donnee1 = $search1->fetch() ){
-                while ($donnee2 = $search2->fetch() ){
-                    if( $donnee2['nom'] != $_POST['nom_oeuvre_mod']){
-                        if($donnee1['nom'] == $_POST['nom_oeuvre_mod']){
-
-                            $_SESSION['total_error']['repeter_valeur']= true;
-                            header('Location: page_modifie_documentation.php');
-                            exit();
-                        }
-                    }
+                if($donnee1['nom'] == $_POST['nom_oeuvre_mod']){
+                    $_SESSION['total_error']['repeter_valeur']= true;
+                    header('Location: page_modifie_documentation.php');
+                    exit();
                 }
             }
 
@@ -160,12 +161,11 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
 
 if (isset($_SESSION['oeuvre'])) {
     unset($_FILES);
-    $oeuvre_choose = $bdd -> prepare('SELECT * FROM liste_oeuvre WHERE id = :id AND nom = :nom');
+    $oeuvre_choose = $bdd -> prepare('SELECT * FROM liste_oeuvre WHERE id = :id ');
     foreach($_SESSION['oeuvre'] as $key => $val) {
     
          $oeuvre_choose -> execute(array(
-            'id' => htmlspecialchars($key),
-            'nom' => htmlspecialchars($val)
+            'id' => htmlspecialchars($key)
          ));
     }
     $compteur = $oeuvre_choose -> rowCount();
