@@ -162,7 +162,8 @@ $count_etat = $request_count_etat -> rowCount();
                         <div class="bottom_link">
                             <a href="#">Modifier la documentation</a>
                             <a href="#">suprimer l'oeuvre documentation</a>
-                            <a href="general_list_stock.php">Retour</a>
+
+                            <a href=" <?php echo $_SESSION['url_precedant']  ; ?>">Retour</a>
                             
                         </div>
                     </section>

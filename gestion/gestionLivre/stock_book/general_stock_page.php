@@ -2,6 +2,7 @@
 include('../../../function/verified_session.php');
 include('../../../function/acces_admin_verification.php');
 include('../../../function/geturl.php');
+$_SESSION['url_precedant'] = 'general_stock_page.php';
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 if(isset($_GET["session"])){
     foreach($_SESSION['oeuvre'] as $key => $value){
@@ -159,7 +160,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                 $current_page_search = 1;
             }
     
-            $per_search_page = 3;
+            $per_search_page = 5;
             $all_pages_search = ceil($compteur / $per_search_page);
             if ($current_page_search > $all_pages_search) {
                 $current_page_search = $all_pages_search;
@@ -181,7 +182,6 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                 <table>
 
             <tr>
-                <th>N°</th>
                 <th>Nom</th>
                 <th>Type</th>
                 <th>Categorie</th>
@@ -203,8 +203,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                 $saisie_type ->execute(array('id'=> $oeuvre['id_type']));
                 while ($auteur = $saisie_auteur ->fetch() AND $categorie = $saisie_category -> fetch() AND $type = $saisie_type -> fetch()){
                     ?>     
-                                        <tr <?php if($_SESSION['increment'] %2 != 0){echo "class='select'";} ?> >
-                                            <td><?php  echo  ($_SESSION['increment'] + 1) ;?></td>    
+                                        <tr <?php if($_SESSION['increment'] %2 != 0){echo "class='select'";} ?> >    
                                             <td><?php  echo  $oeuvre['nom'] ;?></td>
                                             <td><?php  echo $type['nom'] ;?></td>
                                             <td><?php  echo $categorie['nom'] ;?></td>

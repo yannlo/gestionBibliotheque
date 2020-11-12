@@ -3,6 +3,7 @@ include('../../../function/verified_session.php');
 $_SESSION['type'] = 'admin';
 include('../../../function/acces_admin_verification.php');
 include('../../../function/geturl.php'); 
+$_SESSION['url_precedant'] = 'general_list_stock.php';
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 $list_oeuvre = $bdd->query('SELECT * FROM liste_oeuvre ');
 
