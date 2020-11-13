@@ -22,8 +22,10 @@ if(isset($_POST['check_sup_conf'])){
         while ($sup_cover_ops = $sup_cover->fetch()) {
             $cover_name = $sup_cover_ops['nom_photo_couverture'];
         }
-
-        unlink("imageAndLogo/image_book/$cover_name");
+        
+        if($cover_name != NULL) {
+            unlink("imageAndLogo/image_book/$cover_name");
+        }
 
         $sup_oeuvre_request = $bdd -> query("DELETE FROM liste_oeuvre WHERE id = '". $take_id_oeuvre . "' " );
 
