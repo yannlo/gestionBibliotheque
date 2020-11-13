@@ -88,7 +88,7 @@ if( $oeuvre['nom_photo_couverture'] == NULL){
                         </div>
 
                         <div class="parti4">
-                            <h2><strong>Tableau des etats</strong></h2>
+                            <h2 style="color : #3399FF; font-size:1.8em; margin-top:40px;"><strong>Tableau des etats</strong></h2>
                             <table>
                                 <tr>
                                     <th>etat</th>
@@ -157,14 +157,32 @@ $count_etat = $request_count_etat -> rowCount();
                             </table>
                         </div>
 
-
-
                         <div class="bottom_link">
-                            <a href="#">Modifier la documentation</a>
-                            <a href="#">suprimer l'oeuvre documentation</a>
+<?php 
 
-                            <a href=" <?php echo $_SESSION['url_precedant']  ; ?>">Retour</a>
-                            
+$request_count_exemplaire = $bdd -> prepare("SELECT liste_oeuvre.id, liste_exemplaire.id_oeuvre FROM liste_oeuvre INNER JOIN liste_exemplaire ON liste_exemplaire.id_oeuvre = liste_oeuvre.id WHERE  liste_oeuvre.id = :id ");
+
+foreach($_SESSION['oeuvre'] as $key => $val) {
+
+    $request_count_exemplaire -> execute(array(
+        'id' => htmlspecialchars($key)
+    ));
+}
+$count_exemplaire = $request_count_exemplaire -> rowCount();
+if($count_exemplaire == 0) {
+?>
+
+
+                            <a href="#">Modifier oeuvre</a>
+                            <a href="sup_oeuvre.php">suppression oeuvre</a>
+<?php } else { ?>
+
+
+                            <a href="gestion_livre_mod.php">Modifier oeuvre / exemplaire</a>
+                            <a href="gestion_livre_sup.php">suppression oeuvre / exemplaire</a>
+<?php } ?>
+                            <a href=" <?php if($_SESSION['url_ok'] == 26 ){ echo 'general_list_stock.php';}else if($_SESSION['url_ok'] == 10 ){ echo 'general_stock_page.php';} ; ?>">Retour</a>
+                             
                         </div>
                     </section>
     

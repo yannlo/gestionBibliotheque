@@ -1,8 +1,26 @@
 <?php
+
 include('../../../function/verified_session.php');
 include('../../../function/acces_admin_verification.php');
 include('../../../function/geturl.php');
-$_SESSION['url_precedant'] = 'general_stock_page.php';
+$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+
+
+if(isset($_SESSION['url_ok'])){
+    unset($_SESSION['url_ok']);
+}
+$_SESSION['url_ok'] = 10;
+
+if(isset($_GET["affiche"])){
+    foreach($_SESSION['oeuvre'] as $key => $value){
+        if($key != $_GET["affiche"]){
+            unset($_SESSION['oeuvre'][$key]);
+        }
+    }
+    print_r($_SESSION['oeuvre']);
+    header("Location:affiche_doc_page_complet.php");
+    exit();
+}
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 if(isset($_GET["session"])){
     foreach($_SESSION['oeuvre'] as $key => $value){
@@ -14,6 +32,7 @@ if(isset($_GET["session"])){
     header("Location: affiche_doc_page_complet.php");
     exit();
 }
+
 
 if(isset($_POST['nombre_element_page'])){
     $_SESSION['nombre_element_page'] = $_POST['nombre_element_page'];
@@ -127,7 +146,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
             else{
                 $sql_request .= ' OR ';
             }
-            $sql_request .= ' nom LIKE \'%'. $element . '%\' ';
+            $sql_request .= " nom LIKE '%". $element . "%' ";
             $increment++;
 
         }
@@ -209,7 +228,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                                             <td><?php  echo $categorie['nom'] ;?></td>
                                             <td><?php echo $auteur['nom'] ;?></td>
                                             <td><?php  echo  $oeuvre['stock_exemplaire'] ;?></td>
-                                            <td><a href="general_list_stock.php?affiche=<?php  echo  $oeuvre['id'] ;?>">affiches plus...</a></td>
+                                            <td><a href="general_stock_page.php?affiche=<?php  echo  $oeuvre['id'] ;?>">affiches plus...</a></td>
                                         </tr>
                                         
                     <?php 

@@ -183,7 +183,7 @@ text-align: right;
 }
 
 
-#information_oeuvre .parti2 h2 strong {
+#information_oeuvre .parti2 h2 strong,#information_oeuvre .parti4 h2 strong {
     display: block;
     font-size:1.06em;
     color:#33a7ff;
