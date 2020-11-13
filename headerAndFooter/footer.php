@@ -13,8 +13,7 @@
 						<ul>
 							<li><a href="page_documentation_book.php">documentation sur un livre</a></li>
 							<li><a href="add_book.php">ajout de livre</a></li>
-							<li><a href="#">supression de livre</a></li>
-							<li><a href="#">gestion des stocks et d'etats</a></li>
+							<li><a href="gestion_livre_index.php">gestion des stocks et d'etats</a></li>
 						</ul>
 					</p>
 

@@ -1,8 +1,7 @@
 <?php
-include('../../../function/verified_session.php');
-$_SESSION['type'] = 'admin';
-include('../../../function/acces_admin_verification.php');
-include('../../../function/geturl.php'); 
+include('function/verified_session.php');
+include('function/acces_admin_verification.php');
+include('function/geturl.php'); 
 
 ?>
 <!DOCTYPE html
@@ -13,9 +12,9 @@ include('../../../function/geturl.php');
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="../../../style5.css" />
-    <link rel="stylesheet" href="gestion_livre_style.css" />
-    <link rel="stylesheet" href="../../../general-style-element.css" />
+    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
+    <link rel="stylesheet" href="general-style-element.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
@@ -23,7 +22,7 @@ include('../../../function/geturl.php');
 
     <div class="container">
         <header>
-            <?php  include("../../../headerAndFooter/menu.php") ?>
+            <?php  include("headerAndFooter/menu.php") ?>
         </header>
 
 
@@ -33,7 +32,7 @@ include('../../../function/geturl.php');
             <section id="choose_search">
             <h2>Selectionner l'element a suprimer</h2>
 
-          <form action="general_redirection.php" method="POST">
+          <form action="stock_book/general_redirection.php" method="POST">
                 <p>
                     Souhaitez vous supprimer l'oeuvre  ou un exemplaire de l'oeuvre: <br />
                     <div class='radio-style'>
@@ -55,7 +54,7 @@ include('../../../function/geturl.php');
         </div>
 
 
-        <?php include('../../../headerAndFooter/footer.php'); ?>
+        <?php include('headerAndFooter/footer.php'); ?>
 
 
 

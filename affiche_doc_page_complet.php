@@ -1,6 +1,10 @@
 <?php
-include('../../../function/verified_session.php');
-include('../../../function/acces_admin_verification.php');
+include('function/verified_session.php');
+include('function/acces_admin_verification.php');
+if(isset($_SESSION['url_val'])){
+    unset($_SESSION['url_val']);
+}
+$_SESSION['url_val'] = 50;
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 if (isset($_SESSION['oeuvre'])) {
     $oeuvre_choose = $bdd -> prepare('SELECT * FROM liste_oeuvre WHERE id = :id ');
@@ -38,10 +42,10 @@ if (isset($_SESSION['oeuvre'])) {
         <head>
             <meta http-equiv="content-type" content="text/html" charset="utf-8" />
             <title>Gestion de stock de livre - Gestionnaire </title>
-            <link rel="stylesheet" href="../../../style5.css"/>
-            <link rel="stylesheet" href="../../../documentation_books/style_document4.css"/>
-            <link rel="stylesheet" href="../../../general-style-element.css"/>
-            <link rel="stylesheet" href="gestion_livre_style.css"/>
+            <link rel="stylesheet" href="style5.css"/>
+            <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+            <link rel="stylesheet" href="general-style-element.css"/>
+            <link rel="stylesheet" href="stock_book/gestion_livre_style.css"/>
             <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         </head>
     
@@ -50,7 +54,7 @@ if (isset($_SESSION['oeuvre'])) {
             <div class="container">
     
                 <header>
-                    <?php  include("../../../headerAndFooter/menu.php") ?>
+                    <?php  include("headerAndFooter/menu.php") ?>
                 </header>
     
                 <div class="center">
@@ -62,11 +66,11 @@ if (isset($_SESSION['oeuvre'])) {
 <?php                         
 if( $oeuvre['nom_photo_couverture'] == NULL){
 ?>
-<img src="../../../imageAndLogo/uncknown_book.png" alt="icon absence de photo de converture" />           
+<img src="imageAndLogo/uncknown_book.png" alt="icon absence de photo de converture" />           
 <?Php
   }else{
    ?>
-<img src="../../../imageAndLogo/image_book/<?php echo $oeuvre['nom_photo_couverture'] ;?>" alt="couverture de l'oeuvre <?php echo $oeuvre['nom_photo_couverture'] ;?>" />
+<img src="imageAndLogo/image_book/<?php echo $oeuvre['nom_photo_couverture'] ;?>" alt="couverture de l'oeuvre <?php echo $oeuvre['nom_photo_couverture'] ;?>" />
    <?php   
   }
   ?> 
@@ -173,7 +177,7 @@ if($count_exemplaire == 0) {
 ?>
 
 
-                            <a href="#">Modifier oeuvre</a>
+                            <a href="page_modifie_documentation.php">Modifier oeuvre</a>
                             <a href="sup_oeuvre.php">suppression oeuvre</a>
 <?php } else { ?>
 
@@ -189,7 +193,7 @@ if($count_exemplaire == 0) {
     
                 </div>
     
-                <?php include('../../../headerAndFooter/footer.php'); ?>
+                <?php include('headerAndFooter/footer.php'); ?>
             </div>
     
                 

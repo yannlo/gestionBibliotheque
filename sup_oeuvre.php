@@ -1,8 +1,7 @@
 <?php
-include('../../../function/verified_session.php');
-$_SESSION['type'] = 'admin';
-include('../../../function/acces_admin_verification.php');
-include('../../../function/geturl.php'); 
+include('function/verified_session.php');
+include('function/acces_admin_verification.php');
+include('function/geturl.php'); 
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 if(isset($_POST['check_sup_conf'])){
@@ -18,6 +17,14 @@ if(isset($_POST['check_sup_conf'])){
 
         }
 
+        $sup_cover = $bdd -> query("SELECT nom_photo_couverture FROM liste_oeuvre WHERE id = '". $take_id_oeuvre . "' ");
+        $cover_name ='';
+        while ($sup_cover_ops = $sup_cover->fetch()) {
+            $cover_name = $sup_cover_ops['nom_photo_couverture'];
+        }
+
+        unlink("imageAndLogo/image_book/$cover_name");
+
         $sup_oeuvre_request = $bdd -> query("DELETE FROM liste_oeuvre WHERE id = '". $take_id_oeuvre . "' " );
 
         $sup_exemplaire_request = $bdd -> query("DELETE FROM liste_exemplaire WHERE id_oeuvre = '". $take_id_oeuvre . "' " );
@@ -31,10 +38,10 @@ if(isset($_POST['check_sup_conf'])){
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="../../../style5.css" />
-    <link rel="stylesheet" href="gestion_livre_style.css" />
-    <link rel="stylesheet" href="gestion_sup2.css" />
-    <link rel="stylesheet" href="../../../general-style-element.css" />
+    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
+    <link rel="stylesheet" href="stock_book/gestion_sup2.css" />
+    <link rel="stylesheet" href="general-style-element.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
@@ -42,7 +49,7 @@ if(isset($_POST['check_sup_conf'])){
 
     <div class="container">
         <header>
-            <?php  include("../../../headerAndFooter/menu.php") ?>
+            <?php  include("headerAndFooter/menu.php") ?>
         </header>
 
 
@@ -66,7 +73,7 @@ if(isset($_POST['check_sup_conf'])){
 
         </div>
 
-        <?php include('../../../headerAndFooter/footer.php'); ?>
+        <?php include('headerAndFooter/footer.php'); ?>
 
     </div>
     
@@ -105,10 +112,10 @@ else{
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="../../../style5.css" />
-    <link rel="stylesheet" href="gestion_livre_style.css" />
-    <link rel="stylesheet" href="gestion_sup2.css" />
-    <link rel="stylesheet" href="../../../general-style-element.css" />
+    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
+    <link rel="stylesheet" href="stock_book/gestion_sup2.css" />
+    <link rel="stylesheet" href="general-style-element.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
@@ -116,7 +123,7 @@ else{
 
     <div class="container">
         <header>
-            <?php  include("../../../headerAndFooter/menu.php") ?>
+            <?php  include("headerAndFooter/menu.php") ?>
         </header>
 
 
@@ -153,7 +160,7 @@ else{
 
         </div>
 
-        <?php include('../../../headerAndFooter/footer.php'); ?>
+        <?php include('headerAndFooter/footer.php'); ?>
 
     </div>
     

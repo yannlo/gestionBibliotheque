@@ -1,8 +1,7 @@
 <?php
-include('../../../function/verified_session.php');
-$_SESSION['type'] = 'admin';
-include('../../../function/acces_admin_verification.php');
-include('../../../function/geturl.php'); 
+include('function/verified_session.php');
+include('function/acces_admin_verification.php');
+include('function/geturl.php'); 
 if(isset($_SESSION['url_ok'])){
     unset($_SESSION['url_ok']);
 }
@@ -41,9 +40,9 @@ $compteur = $list_oeuvre -> rowCount();
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="../../../style5.css" />
-    <link rel="stylesheet" href="gestion_livre_style.css" />
-    <link rel="stylesheet" href="../../../general-style-element.css" />
+    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
+    <link rel="stylesheet" href="general-style-element.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
@@ -51,7 +50,7 @@ $compteur = $list_oeuvre -> rowCount();
 
     <div class="container">
         <header>
-            <?php  include("../../../headerAndFooter/menu.php") ?>
+            <?php  include("headerAndFooter/menu.php") ?>
         </header>
 
 
@@ -162,7 +161,7 @@ if ($compteur != 0){
         </div>
 
 
-        <?php include('../../../headerAndFooter/footer.php'); ?>
+        <?php include('headerAndFooter/footer.php'); ?>
 
 
 

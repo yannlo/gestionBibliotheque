@@ -59,7 +59,15 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
                 $_SESSION['oeuvre'] = array($nom['id'] => $nom['nom']);
             }
             print_r($_SESSION['oeuvre']);
-            header('Location: affiche_doc_page.php');
+            if ($_SESSION['url_val'] == 50){
+
+                header('Location: affiche_doc_page_complet.php');
+            }
+            else if ($_SESSION['url_val'] == 20){
+
+                header('Location: affiche_doc_page.php');
+            }
+
         
 
 
@@ -141,7 +149,14 @@ if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND is
                         $_SESSION['oeuvre'] = array($nom['id'] => $nom['nom']);
                     }
                     print_r($_SESSION['oeuvre']);
-                    header('Location: affiche_doc_page.php');
+                    if ($_SESSION['url_val'] == 50){
+
+                        header('Location: affiche_doc_page_complet.php');
+                    }
+                    else if ($_SESSION['url_val'] == 20){
+        
+                        header('Location: affiche_doc_page.php');
+                    }
                     
             }
 
