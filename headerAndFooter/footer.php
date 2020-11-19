@@ -25,9 +25,8 @@
 					<h2>lien de gestion des clients</h2>
 					<p>
 						<ul>
-							<li><a href="#">documentation sur un client</a></li>
-							<li><a href="#">ajout de client</a></li>
-							<li><a href="#">suppression de client</a></li>
+							<li><a href="client_doc_index.php">documentation sur un client</a></li>
+							<li><a href="add_client.php">ajout de client</a></li>
 							<li><a href="#">confirmation de restitution de livre</a></li>
 						</ul>
 					</p>

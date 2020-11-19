@@ -32,10 +32,9 @@ if(isset($_SESSION['type'])){
 							</label>
 							<input type="checkbox" id="btn-2" onclick="changed_angle('fleche-2','link2','list2');" />
 							<ul id="list2">
-								<li><a href="#">Documentation sur un client</a></li>
-								<li><a href="#">Ajout de client</a></li>
-								<li><a href="#">Suppression de client</a></li>
-								<li><a href="#">Liste d'emprunt</a></li>
+								<li><a href="client_doc_index.php">Documentation sur un client</a></li>
+								<li><a href="add_client.php">Ajout de client</a></li>
+								<li><a href="list_emprunt.php">Liste d'emprunt</a></li>
 								<li><a href="#">Confirmation de restitution de livre</a></li>
 							</ul>
 						</li>

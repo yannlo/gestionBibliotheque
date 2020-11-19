@@ -16,7 +16,7 @@
 		<?php 
 		if(isset($_SESSION['type'])){
 			if($_SESSION['type'] == 'admin'){	
-				echo' <link rel="stylesheet" href="gestion/style.css"/>';
+				echo' <link rel="stylesheet" href="gestion/style1.css"/>';
 			}
 			else if($_SESSION['type'] == 'user'){
 				include("clientConnect/indexClientConnect.php");	

@@ -81,3 +81,45 @@ form img{
     margin: 20px  3%;
     max-width:350px;
 }
+table
+{
+	width:100%;
+	
+}
+
+td, th
+{
+	border: 1.9px solid black;
+	text-align: center;
+	height:50px;
+	padding:4px;
+}
+
+td{
+    font-size: 1.1em;
+    font-weight: 500;
+}
+td a{
+	color:#0066ff;
+	text-decoration: none;
+}
+td a:hover{
+	color:#33CCff;
+}
+
+
+th{ 
+    background-color: #0066ff;
+    font-size: 1.2em;
+    color: white;
+	
+	
+}
+
+tr{
+     background-color: #ffffff;
+}
+
+tr.select{
+    background-color: rgb(240, 240, 240);
+}
