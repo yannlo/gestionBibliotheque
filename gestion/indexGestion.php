@@ -80,58 +80,6 @@
 
 			</section>
 
-			<section id="nouveauClient">
 
-				<h2>Enregistrer un nouveau client:</h2>
-				<form method="POST" action="#">
-					<!-- enctype="multipart/form-data" -->
-					<fieldset id="form-parti1">
-						<legend>information personnel (1/3)</legend>
-						<p>
-							<label for="firstName">Entrer votre nom:</label>
-							<input type="text" name="firstName" id="firstName" placeholder="Nom" required="required" />
-						</p>
-						<p>
-							<label for="lastName">Entrer votre prenom:</label>
-							<input type="text" name="lastName" id="lastName" placeholder="Prenom" required="required" />
-						</p>
-						<p>
-							<label for="Birthdate">Entrer date de naissance:</label>
-							<input type="date" name="Birthdate" id="Birthdate" required="" />
-						</p>
-					</fieldset>
-
-					<fieldset id="form-parti2">
-						<legend>email et mot de passe (2/3)</legend>
-						<p>
-							<label for="mail">Entrer votre email:</label>
-							<input type="email" name="mail" id="mail" placeholder="mon.email@exemple.com"
-								required="required" />
-						</p>
-						<p>
-							<label for="password">Entrer votre mot de passe:</label>
-							<input type="password" name="password" id="password" required="required" />
-						</p>
-						<p>
-							<label for="passwordVerif">Entrer votre mot de passe:</label>
-							<input type="password" name="passwordVerif" id="passwordVerif" required="required" />
-						</p>
-					</fieldset>
-
-					<fieldset id="form-parti3">
-						<legend>contactes (3/3)</legend>
-						<p>
-							<label for="contact">Entrer votre contacte 1:</label>
-							<input type="tel" name="contact" id="contact" placeholder="01 02 03 04" required="required" />
-						</p>
-						<p>
-							<label for="contact2">Entrer votre contacte 2:</label>
-							<input type="tel" name="contact2" id="contact2" placeholder="01 02 03 04" />
-						</p>
-						<input type="submit" name="valider" value="valider" />
-					</fieldset>
-				</form>
-
-			</section>
 
 		</div>

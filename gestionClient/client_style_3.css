@@ -1,0 +1,207 @@
+form fieldset{
+	margin:40px 0;
+	padding: 20px;
+	min-height: 250px;
+	border: none;
+}
+form fieldset legend{
+	font-size: 1.5em;
+	color: #3366ff;
+
+}
+form fieldset p{
+	padding:10px 0;
+}
+
+form fieldset input,form fieldset select{
+    font-size: 1.1em;
+	display:block;
+	border: 2px solid #CCC;
+	height: 40px;
+	padding-left: 10px;
+	border-radius: 5px;
+	width: 100%;
+	max-width: 500px;
+}
+.button_element button{	
+	padding:2px;
+	margin:20px 10%;
+	min-width:240px;
+	font-size: 1.3em;
+	height: 35px;
+	min-width: 200px;
+	text-transform : none;
+
+}
+form img{
+    display:block;
+    margin: 20px  3%;
+    max-width:350px;
+}
+
+#message1 ,#message2 {
+    display:none;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+  }
+  .afficher {
+    background: none;
+  }
+  
+  #message1 p, #message2 p {
+    padding: 10px 35px;
+    font-size: 18px;
+  }
+  #ident {
+    display: none;
+  }
+
+  .valid, #ident {
+    color: #33ccff;
+  }
+  
+  .valid:before, #ident:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+  }
+  
+  .invalid, #dif {
+    color: rgb(168, 168, 168);
+  }
+  
+  .invalid:before ,#dif:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+  }
+
+  table a.afficher{
+    display: inline;
+  }
+
+  table
+{
+	width:100%;
+	
+}
+
+td, th
+{
+	border: 1.9px solid black;
+	text-align: center;
+	height:50px;
+	padding:4px;
+}
+
+td{
+    font-size: 1.1em;
+    font-weight: 500;
+}
+td a{
+	color:#0066ff;
+	text-decoration: none;
+}
+td a:hover{
+	color:#33CCff;
+}
+
+
+th{ 
+    background-color: #0066ff;
+    font-size: 1.2em;
+    color: white;
+	
+	
+}
+
+tr{
+     background-color: #ffffff;
+}
+
+tr.select{
+    background-color: rgb(240, 240, 240);
+}
+
+#information_user{
+  padding-bottom: 200px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#information_user .parti1{
+  display: flex;
+  padding-top: 30px;
+  flex-direction:row;
+}
+#information_user .parti2{
+  padding: 15px 0;
+  width:100%;
+}
+
+#information_user img {
+  margin-right: 3%;
+  margin-bottom: 40px;
+  width: 350px;
+}
+
+
+#information_user h2 {
+  margin-right: 0;
+  margin-left: 2%;
+  color: black;
+  font-size: 1.5em;
+  padding: 8px 0;
+  width:100%;
+
+
+}
+
+
+#information_user .parti2 h2 strong,#information_user .parti4 h2 strong {
+  display: block;
+  font-size:1.06em;
+  color:#33a7ff;
+  padding-bottom: 3px;
+}
+#information_user .parti3 h2{
+padding:3px 2%;
+
+}
+
+#information_user .parti3 p{
+  max-width:900px;
+  text-align: justify;
+}
+
+@media (min-width:1550px) {
+  #information_user{
+      padding-bottom: 200px;
+      padding-top: 10px;
+      padding-left:  27%;
+      padding-right: 27%;
+  }
+  .h1_doc_liv{
+      padding:10px 32%;
+  }
+}
+
+.bottom_link a{
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.4em;
+  min-width: 400px;
+  max-width: 60%;
+  display: block;
+  padding: 10px 0;
+  margin: 50px 20%;
+  background-color: #0066ff;
+  color: white; ;
+  text-decoration: none;
+  transition: all .3s;
+}
+

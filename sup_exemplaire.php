@@ -305,7 +305,7 @@ if ($compteur != 0){
     <?php
     } 
     ?>     
-
+            <a href="affiche_doc_page_complete.php">Retour</a>
 
             </section>
         </div>

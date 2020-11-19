@@ -212,13 +212,13 @@ admin connecté:
 
 
 
-	page gestion des livres:
+	page gestion des livres: (OK)
 
 	     contenu:
 		-> zone de recherche pour un livre (OK)
 		-> ajout de nouveau livre(OK)
-		-> suppression de livre
-		-> gestion de stock et d'etat
+		-> suppression de livre(OK)
+		-> gestion de stock et d'etat (OK)
 		-> modification de la page de documentation d'un livre(lien vers la sous²-page de modif dans la sous-page
 		   de documentation )(OK)
 
@@ -230,7 +230,7 @@ admin connecté:
 			    -> caracteristique du livre(OK)
 			    -> resumé du livre(OK)
 			    -> stock total(OK), note, disponible a l'emprunt, en cour d'emprunt, controle d'etat 
-			    -> option modification de documentation
+			    -> option modification de documentation (OK)
 
 			Sous page:
 			    -> page de modification de document:(OK)
@@ -248,7 +248,7 @@ admin connecté:
 				    -> resumé du livre
 				
 				Sous-page:
-			    	    -> page de confirmation de modification:
+			    	    -> page de confirmation de modification(OK):
 			    		contenu:
 				    	    -> message de confirmation de la modification de l'element dans le stock ou d'erreur
 
@@ -427,10 +427,10 @@ admin connecté:
  -> page de gestion de livre								 7
  -> page de modification de livre	(OK)						 8
  -> page d'ajout de livre	(OK)							 9
- -> page de suppression de livre							10
+ -> page de suppression de livre  (OK)						10
  -> page de gestion de stock et d'etat							11
  -> page d'ajout de stock et d'etat	(OK)						12
- -> page de suppression de stock							13
+ -> page de suppression de stock	(OK)						13
  -> page de gestion client								14
  -> page de documentation client							15
  -> page d'ajout client									16

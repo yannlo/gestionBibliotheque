@@ -8,17 +8,26 @@ $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', ar
 if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST['editeur_exemplaire'])){
     
     
-    $request =  $bdd -> prepare('INSERT INTO liste_exemplaire (id_oeuvre, id_etat, editeur) VALUES (:id_oeuvre, :id_etat, :editeur)');
+    $request =  $bdd -> prepare('INSERT INTO liste_exemplaire (id_oeuvre, id_etat,numero_exemplaire, editeur) VALUES (:id_oeuvre, :id_etat, :numero_exemplaire, :editeur)');
+
+    $ident_exemplaire = $bdd -> prepare('SELECT * FROM liste_exemplaire WHERE id_oeuvre = :id_oeuvre'); 
+    $ident_exemplaire-> execute(array(
+        'id_oeuvre' => $_POST['nom_oeuvre']
+    ));
+    $compteur = $ident_exemplaire -> rowCount();
 
     $request -> execute(array(
         'id_oeuvre' => $_POST['nom_oeuvre'],
         'id_etat' => $_POST['etat_oeuvre'],
+        'numero_exemplaire' => $compteur + 1,
         'editeur' => htmlspecialchars($_POST['editeur_exemplaire'])
     ));
 
     update_stock($_POST['nom_oeuvre']);
 
-    ;   
+
+
+
     
     if($_SESSION['exemplaire']['nombre'] >= $_SESSION['exemplaire']['nombre_finale']){
         echo "finished";
@@ -45,7 +54,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href=" style5.css" />
-    <link rel="stylesheet" href=" general-style-element2.css" />
+    <link rel="stylesheet" href=" general-style-element.css" />
     <link rel="stylesheet" href="add_book/style_add_parti2.css" />
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>

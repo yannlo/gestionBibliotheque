@@ -6,7 +6,18 @@ $_SESSION['total_error']['error']= false;
 $_SESSION['total_error']['repeter_valeur'] = false;
 if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST['categorie_oeuvre']) AND isset($_POST['auteur_oeuvre']) AND isset($_POST['stock_exemplaire']) AND isset($_POST['description_oeuvre'])){
 
+
+
+
+    
+
     $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+
+
+
+
+
+
     $request =  $bdd -> prepare('INSERT INTO liste_oeuvre (nom, id_type, id_categorie, description_oeuvre, id_auteur) VALUES (:nom, :id_type, :id_categorie, :description_oeuvre, :id_auteur)');
 
     $search = $bdd->query('SELECT nom FROM liste_oeuvre');
@@ -130,7 +141,9 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['type_oeuvre']) AND isset($_POST
             }
         
         }
-    }else{
+    }
+    else
+    {
         print_r($_FILES);
         $request -> execute(array(
             'nom' => htmlspecialchars($_POST['nom_oeuvre']),
@@ -257,7 +270,7 @@ else if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($
                         <select  name="categorie_oeuvre" id="categorie_oeuvre" required="required">
 
                         <?php 
-                        $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                        $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
                         $categorie_list = $bdd->query('SELECT * FROM categorie_livre  ORDER BY nom');
                         while($donnee = $categorie_list->fetch() ){
                             echo '<option  value='.$donnee['id'].'>'. $donnee['nom'].'</option>';
@@ -274,7 +287,7 @@ else if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($
                         <select  name="auteur_oeuvre" id="auteur_oeuvre" required="required" >
 
                         <?php 
-                        $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                        $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
                         $auteur_livre = $bdd->query('SELECT * FROM autheur_livre  ORDER BY nom');
                         while($donnee = $auteur_livre->fetch() ){
                             echo '<option  value='.$donnee['id'].'>'. $donnee['nom'].'</option>';

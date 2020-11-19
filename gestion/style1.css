@@ -5,6 +5,10 @@
 	padding-top:100px;
 }
 
+section{
+	min-height:80vh;
+}
+
 .center> section:nth-child(odd){
 	background-color:#33ccff;
 }
@@ -129,27 +133,39 @@ table
 
 td, th
 {
-	border: 1.5px solid black;
+	border: 1.9px solid black;
 	text-align: center;
 	height:50px;
 	padding:4px;
 }
 
 td{
-	font-size: 1em;
+    font-size: 1.1em;
+    font-weight: 500;
 }
 td a{
 	color:#0066ff;
 	text-decoration: none;
 }
 td a:hover{
-	color:#33ccff;
+	color:#33CCff;
 }
 
-th{
-	font-size: 1.2em;
+
+th{ 
+    background-color: #0066ff;
+    font-size: 1.2em;
+    color: white;
 	
 	
+}
+
+tr{
+     background-color: #ffffff;
+}
+
+tr.select{
+    background-color: rgb(240, 240, 240);
 }
 
 
