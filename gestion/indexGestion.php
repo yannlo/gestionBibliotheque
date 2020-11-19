@@ -34,11 +34,12 @@
 			<section id="confirmerRestitution">
 
 				<h2>Confirmation de restitution de livre</h2>
-				<form method="POST" action="recherche_emprunt.php">
+				<form method="GET" action="search_client.php">
 					<p>
 						<label for="search">rechercher un emprunt en cour: </label> <br />
-						<input type="search" name="search" id="search" placeholder="Entrer nom du client"
-							required="required" />
+						<input type="search" name="search_nom_client" id="search" placeholder="Entrer nom du client" required="required" />
+						<input type="hidden" name="sexe_client"  value="0" />
+							
 						<input type="submit" name="valider" value="valider" />
 					</p>
 				</form>
@@ -73,9 +74,9 @@
 				</p>
 
 				<div class="bouttonBox">
-					<a href="#"><button>nouveau livre</button></a>
+					<a href="add_book.php"><button>nouveau livre</button></a>
 
-					<a href="#"><button>modifier Stock</button></a>
+					<a href="gestion_livre_index.php"><button>modifier Stock</button></a>
 				</div>
 
 			</section>

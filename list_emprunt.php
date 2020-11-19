@@ -126,7 +126,6 @@ $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','y
                 $date = date('Y-m-d');
                 $date_val1 =  new DateTime($date);
                 $date_val2 = new DateTime($emprunt['date_retour_supposer']);
-
                 $date_diff = $date_val1 -> diff($date_val2);
 
                 $date_actu = $date_diff->format('%a');
@@ -147,9 +146,9 @@ $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','y
                         <td><?php while($user = $select_user ->fetch()){  echo  $user['first_name'].' '. $user['last_name'] ;}?></td>
 						<td><?php  echo $oeuvre_choose['nom'] ;?></td>
 						<td><?php   echo  $date1 ;?></td>
-                        <td><?php echo $emprunt['id_etat_initial'] ;?></td>
-						<td><?php  echo  $date2 ;?></td>
-                        <td><?php  echo  $date_actu . ' jours' ;?></td>
+                        <td><?php echo $etat['nom_etat'] ;?></td>
+						<td><?php  echo  $date2 ;  ?></td>
+                        <td><?php if($date > $date_val2 ){echo  $date_actu . ' jours' ;}else {echo 'none';}  ?></td>
 						<td><a href="list_emprunt.php?affiche=<?php  echo  $emprunt['id'] ;?>">affiches plus...</a></td>
                     </tr>
                     

@@ -21,7 +21,6 @@ if(isset($_SESSION['type'])){
 
 							<input type="checkbox" id="btn-1" onclick="changed_angle('fleche-1','link1','list1');" />
 							<ul id='list1'>
-								<li><a href="page_documentation_book.php">Documentation d'un livre</a></li>
 								<li><a href="add_book.php">Ajout de livre</a></li>
 								<li><a href="gestion_livre_index.php">Gestion des stocks et d'etats</a></li>
 							</ul>
@@ -65,7 +64,7 @@ if(isset($_SESSION['type'])){
 
 							<input type="checkbox" id="btn-1" onclick="changed_angle('fleche-1','link1','list1');" />
 							<ul id='list1'>
-								<li><a href="#">listes des livres</a></li>
+								<li><a href="page_documentation_book.php">recherche de livre</a></li>
 								<li><a href="#">Demander un emprunt</a></li>
 							</ul>
 						</li>
@@ -111,7 +110,7 @@ if(isset($_SESSION['type'])){
 			<div class="menu">
 				<ul>
 					<li><a id='id-link1' href="index.php">Acceuil</a></li>
-					<li><a  href="#" id='id-link2' >Nos livres</a></li>
+					<li><a  href="page_documentation_book.php" id='id-link2' >Nos livres</a></li>
 					<li><a href="connection.php"  id="id-link-connect" class="connect">Connexion</a></li>
 				</ul>
 			</div>
@@ -131,7 +130,21 @@ if(isset($_SESSION['type'])){
 		const elt = document.getElementById(fleche);
 		const elt2 = document.getElementById(link);
 		const elt3 = document.getElementById(list);
-		if(elt.className !='active'){
+
+		if(elt2.className =='active'){
+			if (elt.className == 'fas fa-angle-down') {
+				elt.setAttribute("class", "fas fa-angle-up");
+				elt2.style.background = "#0066ff";
+				elt3.style.visibility = "visible";
+				elt3.style.opacity = '1';
+				elt3.style.top = '70px';
+			} else if (elt.className == 'fas fa-angle-up') {
+				elt.setAttribute("class", "fas fa-angle-down");
+				elt3.style.visibility = "hidden";
+				elt3.style.opacity = '0';
+				elt3.style.top = '90px';
+			}
+		}else{
 			if (elt.className == 'fas fa-angle-down') {
 				elt.setAttribute("class", "fas fa-angle-up");
 				elt2.style.background = "#0066ff";
@@ -145,8 +158,6 @@ if(isset($_SESSION['type'])){
 				elt3.style.opacity = '0';
 				elt3.style.top = '90px';
 			}
-		}else{
-			elt2.style.background = "#0066ff";
 
 		}
 	}

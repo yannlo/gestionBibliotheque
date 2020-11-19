@@ -16,7 +16,7 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
 
 	while($donnees = $recherche->fetch()){
 
-		if(($donnees['email'] === $_POST['mail']) AND ($donnees['pass_word'] === $_POST['password'])){
+		if((($donnees['email'] === $_POST['mail']) AND ($donnees['pass_word'] === $_POST['password'])) OR ( ($donnees['email'] === $_POST['mail']) AND ( password_verify ( $_POST['password'] , $donnees['pass_word'] ) ) )){
             echo"<p style='background:white'> OK </p>";
             $verifcation -> execute(array(
                 'id' => $donnees['id_type_compte']

@@ -1,6 +1,6 @@
 <?php
 include('function/verified_session.php');
-include('function/acces_admin_verification.php');
+include('function/mixed_acces_verification.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 if(isset($_SESSION['url_val'])){
     unset($_SESSION['url_val']);
