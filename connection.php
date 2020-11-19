@@ -94,6 +94,7 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>connexion - Bibliotheque</title>
     <link rel="stylesheet" href="style2.css" />
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="style-connection.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>

@@ -202,6 +202,7 @@ else if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style5.css" />
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="general-style-element.css" />
     <link rel="stylesheet" href="add_book/style_add_parti2.css" />
 

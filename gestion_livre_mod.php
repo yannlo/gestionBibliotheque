@@ -14,6 +14,7 @@ include('function/geturl.php');
     <title>Gestion de stock de livre - Gestionnaire </title>
     <link rel="stylesheet" href="style5.css" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="general-style-element.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>

@@ -205,6 +205,8 @@ if (isset($_SESSION['oeuvre'])) {
         <link rel="stylesheet" href="style5.css"/>
         <link rel="stylesheet" href="documentation_books/style_document3.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>
+        <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
+
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
 

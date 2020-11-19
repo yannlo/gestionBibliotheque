@@ -126,6 +126,7 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>documentation de livre - Gestionnaire </title>
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="style5.css"/>
         <link rel="stylesheet" href="documentation_books/style_document4.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>
@@ -187,6 +188,7 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>documentation de livre - Gestionnaire </title>
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="style5.css"/>
         <link rel="stylesheet" href="documentation_books/style_document4.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>

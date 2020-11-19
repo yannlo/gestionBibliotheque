@@ -55,6 +55,7 @@ if(!isset($_SESSION['nombre_element_page'])){
 		<title>documentation de livre - Gestionnaire </title>
         <link rel="stylesheet" href="style5.css"/>
         <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
+        <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="add_book/style_add_parti2.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>

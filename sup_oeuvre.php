@@ -41,6 +41,7 @@ if(isset($_POST['check_sup_conf'])){
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
     <link rel="stylesheet" href="style5.css" />
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="stock_book/gestion_sup2.css" />
     <link rel="stylesheet" href="general-style-element.css" />
@@ -114,6 +115,7 @@ else{
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="style5.css" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="stock_book/gestion_sup2.css" />

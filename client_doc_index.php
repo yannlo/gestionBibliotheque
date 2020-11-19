@@ -12,6 +12,7 @@ include('function/geturl.php');
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Documentation de client - Gestionnaire </title>
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="style5.css" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="general-style-element.css" />

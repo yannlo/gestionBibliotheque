@@ -66,6 +66,7 @@ if (isset($_SESSION['user'])) {
             <title>Gestion de stock de livre - Gestionnaire </title>
             <link rel="stylesheet" href="documentation_books/style_document4.css"/>
             <link rel="stylesheet" href="style5.css"/>
+            <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
             <link rel="stylesheet" href="gestionClient/client_style_3.css"/>
             <link rel="stylesheet" href="general-style-element.css"/>
             <link rel="stylesheet" href="stock_book/gestion_livre_style.css"/>

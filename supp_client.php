@@ -31,8 +31,9 @@ if(isset($_POST['check_sup_conf'])){
             $cover_name = $inf['nom_photo_user'];
         }
 
-        unlink("imageAndLogo/photo_user/$cover_name");
-
+        if($cover_name != NULL) {
+            unlink("imageAndLogo/photo_user/$cover_name");
+        }
         $sup_user_request = $bdd -> query("DELETE FROM all_comptes WHERE id = '". $take_id_user . "' " );
 
         $sup_inf_request = $bdd -> query("DELETE FROM users WHERE id = '". $inf_comp . "' " );
@@ -47,6 +48,7 @@ if(isset($_POST['check_sup_conf'])){
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>documentation du client - Gestionnaire </title>
     <link rel="stylesheet" href="style5.css" />
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="stock_book/gestion_sup2.css" />
     <link rel="stylesheet" href="general-style-element.css" />
@@ -121,6 +123,7 @@ else{
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Documentation client - Gestionnaire </title>
     <link rel="stylesheet" href="style5.css" />
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="stock_book/gestion_sup2.css" />
     <link rel="stylesheet" href="general-style-element.css" />
