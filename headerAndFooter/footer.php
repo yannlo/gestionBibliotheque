@@ -66,7 +66,7 @@
 				<div class ="part p2" >
 					
 					<h2>Contactez-nous</h2>
-					<form action="">
+					<form method="POST" action="send_message.php">
 						<p>
 							<label for="mail">enter votre email:*</label> <br/>
 							<input type="email" name="mail" id="mail" placeholder="mon.mail@exemple.com" required="required" />
@@ -111,9 +111,8 @@
 		</div>
 		
 		<div class ="part p2" >
-			
 			<h2>Contactez-nous</h2>
-			<form action="">
+			<form method="POST" action="send_message.php">
 				<p>
 					<label for="mail">enter votre email:*</label> <br/>
 					<input type="email" name="mail" id="mail" placeholder="mon.mail@exemple.com" required="required" />
@@ -133,7 +132,15 @@
 	<p class="copyright">copyright 2020 Bibliotheque Project All right reserved</p>
 </footer>
 
+	
+
 	<?php
+	if(isset($_SESSION['send_message'])){
+		if($_SESSION['send_message'] == 1){
+			echo '<script> alert("le message a bien été envoyée.") </script>';
+			unset($_SESSION['send_message']);
+		}
+	}
 
 }
 ?>

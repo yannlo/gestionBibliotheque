@@ -34,7 +34,7 @@ if(isset($_POST['check_sup_conf'])){
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="style6.css" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="stock_book/gestion_sup2.css" />
@@ -112,7 +112,7 @@ $_SESSION['sup_exp_val'] = (int) ($_GET['sup_exemplaire']);
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="style6.css" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="stock_book/gestion_sup2.css" />
@@ -191,7 +191,7 @@ $_SESSION['sup_exp_val'] = (int) ($_GET['sup_exemplaire']);
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="style6.css" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_sup2.css" />

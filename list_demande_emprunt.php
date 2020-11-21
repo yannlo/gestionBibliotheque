@@ -1,26 +1,9 @@
 <?php
 include('function/verified_session.php');
-include('function/acces_admin_verification.php');
+include('function/acces_user_verification.php');
 include('function/geturl.php'); 
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-
-if(isset($_SESSION['url_ok_good'])){
-    unset($_SESSION['url_ok_good']);
-}
-$_SESSION['url_ok_good'] = 53;
-
-$list_user = $bdd->query('SELECT * FROM all_comptes WHERE id_type_compte = "2"');
-
-if(isset($_GET["affiche"])){
-    foreach($_SESSION['user'] as $key => $value){
-        if($key != $_GET["affiche"]){
-            unset($_SESSION['user'][$key]);
-        }
-    }
-    print_r($_SESSION['user']);
-    header("Location:doc_user_complet.php");
-    exit();
-}
+$list_emprunt = $bdd->query('SELECT * FROM demande_emprunt WHERE id_demandeur = "'. $_SESSION['id_user'].'" ');
 
 if(isset($_POST['nombre_element_page'])){
     $_SESSION['nombre_element_page'] = $_POST['nombre_element_page'];
@@ -30,7 +13,7 @@ if(!isset($_SESSION['nombre_element_page'])){
 }
 
 
-$compteur = $list_user -> rowCount();
+$compteur = $list_emprunt -> rowCount();
 
 ?>
 <!DOCTYPE html
@@ -40,14 +23,14 @@ $compteur = $list_user -> rowCount();
 
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
-    <title>Documentation de client - Gestionnaire </title>
-    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
+    <title> Listes des emprunts - Gestionnaire </title>
     <link rel="stylesheet" href="style6.css" />
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="general-style-element.css" />
+    <link rel="stylesheet" href="documentation_books/information_comp.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
-
 <body>
 
     <div class="container">
@@ -58,7 +41,7 @@ $compteur = $list_user -> rowCount();
 
 
         <div class="center">
-            <h1>Documentation de client</h1>
+            <h1>Listes des demande d'emprunts</h1>
             <section id="list_element">
                 <form action="client_list.php" method="POST">
                     <p>
@@ -67,21 +50,17 @@ $compteur = $list_user -> rowCount();
                         <input type="submit" valeur="valider"/>
                     </p>
                 </form>
-                <h2>Liste des clients</h2>
+                <h2>Liste des demandes d'emprunts</h2>
                 <table>
 
 					<tr>
                         <th>N°</th>
-						<th>Nom</th>
-						<th>Prenom</th>
-						<th>Email</th>
-						<th>Statut</th>
-                        <th>Contact 1</th>
-                        <th>Detail</th>
+						<th>Nom du livre</th>
+						<th>Date d'emprunt</th>
+                        <th>Etat de la demande</th>
                     </tr>
-<?php
-
-$_SESSION['user'] = array();
+ 
+                    <?php
 
 
 if ($compteur != 0){
@@ -102,38 +81,37 @@ if ($compteur != 0){
     
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
-    $list_user = $bdd->query(" SELECT * FROM all_comptes WHERE id_type_compte = '2' ORDER BY  first_name   LIMIT $per_search_page OFFSET $offset ");
+    $list_emprunt = $bdd->query(" SELECT * FROM demande_emprunt WHERE id_demandeur = '". $_SESSION['id_user'] ."' ORDER BY date_demande DESC LIMIT $per_search_page OFFSET $offset ");
 
     if(!isset($_SESSION['increment']) OR !isset($_GET['page']) OR $_GET['page'] == 1 ){ 
         $_SESSION['increment'] = 0;                    
 
     }
             
-            while ($user = $list_user ->fetch()){
-                $_SESSION['user'][$user['id']] =  $user['first_name'] . ' ' . $user['last_name'];
-                $select_user = $bdd -> prepare('SELECT * FROM users WHERE id = :id');
-                $select_user->execute(array(
-                    'id' => $user['id_other_information']
+            while ($emprunt = $list_emprunt -> fetch()){
+            
+
+                $select_oeuvre = $bdd -> prepare('SELECT * FROM liste_oeuvre WHERE id = :id');
+                $select_oeuvre->execute(array(
+                    'id' => $emprunt['id_oeuvre']
                 ));
 
-                while ($user_selected = $select_user ->fetch()){
+                $date1 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_demande']);
+
+
+                while($oeuvre_choose = $select_oeuvre ->fetch()){
                     
-                    $saisie_type = $bdd -> prepare('SELECT * FROM type_users WHERE id = :id');
-                    $saisie_type ->execute(array('id'=> $user_selected['id_type_user']));
-                    while ($type = $saisie_type ->fetch()){
+
 ?>     
 					<tr <?php if($_SESSION['increment'] %2 != 0){echo "class='select'";} ?> >
                         <td><?php  echo  ($_SESSION['increment'] + 1) ;?></td>    
-                        <td><?php  echo  $user['first_name'] ;?></td>
-						<td><?php  echo $user['last_name'] ;?></td>
-						<td><?php  echo $user['email'] ;?></td>
-                        <td><?php echo $type['nom'] ;?></td>
-                        <td><?php  echo  $user['contact1'] ;?></td>
-						<td><a href="client_list.php?affiche=<?php  echo  $user['id'] ;?>">affiches plus...</a></td>
+						<td><?php  echo $oeuvre_choose['nom'] ;?></td>
+						<td><?php   echo  $date1 ;?></td>
+                        <td><?php if($emprunt['confirmation'] == NULL){ echo 'En cour analyse';}else if($emprunt['confirmation'] == 0 ){echo 'refuser';}else if($emprunt['confirmation'] == 1 ){echo 'Autoriser';}?></td>
                     </tr>
                     
 <?php 
-                    }
+   
                 } $_SESSION['increment'] ++; 
             }
 ?> 
@@ -153,17 +131,24 @@ $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','y
 <?php        
         }else{
  ?>
-    
-        <p>
-            Aucun client enregister.
-        </p>
+                                <tr class='select'>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>            
+        </table>
+
     
     
     <?php
     } 
-    ?>     
-                
-    </section>
+    ?>                         
+
+                        <p class="information_comp"><span>NB:</span> <br/>
+                         Verifier dans la liste de vos emprunts lorsque l'etat de la demande est :<span style ="color:#3366ff;"> autoriser </span> 
+                        </p>               
+            </section>
         </div>
 
 
@@ -186,4 +171,4 @@ $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','y
 
 </body>
 
-</html>
+</html> 

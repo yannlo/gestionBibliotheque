@@ -41,10 +41,11 @@ if (isset($_SESSION['oeuvre'])) {
     >
         <head>
             <meta http-equiv="content-type" content="text/html" charset="utf-8" />
-            <title>documentation de livre - Gestionnaire </title>
+            <title>documentation de livre - client </title>
             <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
-            <link rel="stylesheet" href="style5.css"/>
+            <link rel="stylesheet" href="style6.css"/>
             <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+            <link rel="stylesheet" href="documentation_books/information_comp.css"/>
             <link rel="stylesheet" href="general-style-element.css"/>
             <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         </head>
@@ -91,7 +92,29 @@ if( $oeuvre['nom_photo_couverture'] == NULL){
                             <h2 class ='moyen'><strong>Nombre d'exemplaire : </strong> <?php if ($oeuvre['stock_exemplaire'] > 1){echo $oeuvre['stock_exemplaire']. ' exemplaires';}else{echo $oeuvre['stock_exemplaire']. ' exemplaire';} ?>  </h2>  
                         </div>
                         <div class="bottom_link">
-                            <a href="page_modifie_documentation.php">Modifier la documentation</a>
+                            <?php if(isset($_SESSION['type']) AND $_SESSION['type'] == 'user' AND $oeuvre['stock_exemplaire'] != 0){
+                            ?>
+                            <a href="demande_emprunt.php">Faire une demande d'emprunt</a>
+                            <?php
+                        }else if($oeuvre['stock_exemplaire'] ==  0){
+                            ?> 
+                            
+                            <p class="information_comp"><span>Alert:</span> <br/>
+                            Cette oeuvre n'est pas disponible a l'emprunt.
+                            </p>
+    
+                            <?php
+                        }else{
+                        ?> 
+                        
+                        <p class="information_comp"><span>NB:</span> <br/>
+                          connectez-vous pour avoir la possibilité de
+                        deposer une demande d'emprunt pour ce livre. 
+                        </p>
+
+                        <?php
+                        }
+                        ?>
                             <a href="page_documentation_book.php">Retour</a>
                         </div>
                     </section>
@@ -102,7 +125,10 @@ if( $oeuvre['nom_photo_couverture'] == NULL){
                 <?php include('headerAndFooter/footer.php'); ?>
             </div>
     
-                
+            <script>
+		const identifation_page ='connect-book';
+       	actived_link_page(identifation_page);
+	</script>      
         </body>
     </html>
     

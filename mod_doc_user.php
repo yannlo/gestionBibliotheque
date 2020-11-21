@@ -1,86 +1,101 @@
 <?php
 include('function/verified_session.php');
-include('function/acces_admin_verification.php');
+include('function/acces_user_verification.php');
 include('function/geturl.php'); 
 include('function/get_matricule.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
-if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST['Birthdate'])) AND (isset($_POST['type_user'])) AND (isset($_POST['mail'])) AND (isset($_POST['password'])) AND (isset($_POST['contact'])) AND (isset($_POST['sexe_user']))){
+if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST['type_user'])) AND (isset($_POST['mail'])) AND (isset($_POST['contact']))){
+    if(isset($_POST['password_actu']) AND !empty($_POST['password_actu'])){
+        $verif_password = $bdd -> query('SELECT pass_word FROM all_comptes WHERE id ="'. $_SESSION['id_user'].'" ');
+        $verif= false;
+        while($donnee = $verif_password->fetch()){
+            $verif= password_verify ( $_POST['password_actu'] , $donnee['pass_word'] ) ;
+        }
+        if($verif == true){
+            $update_password=$bdd -> prepare("UPDATE all_comptes SET pass_word = :pass_word WHERE id =' " . $_SESSION['id_user'] . "'");
+            $update_password -> execute(array(
+                'pass_word' => $pass_hashed = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT)
+            ));
+            $add_user_request= $bdd -> prepare('UPDATE all_comptes  SET first_name= :first_name, last_name =:last_name, email= :email,  contact1 = :contact1 ');
+        
+            $verif_email = $bdd -> prepare('SELECT * FROM all_comptes WHERE email = :email AND id = "'. $_SESSION['id_user'].'" ');
+            $verif_email  -> execute(array(
+                'email' => $_POST['mail']
+            ));
+            $compte = $verif_email -> rowCount();
+            if($compte != 1) {
+                $verif_email = $bdd -> prepare('SELECT * FROM all_comptes WHERE email = :email AND id_type_compte = 2');
+                $compte = $verif_email -> rowCount();
+                if($compte != 0) {
+                    header("Location: mod_doc_user.php");
+                    $_SESSION['error'] = 1;
+                    exit();
+                }
+            }
+            
+            $add_user_request -> execute(array(
+                'first_name' => htmlspecialchars($_POST['firstName']),
+                'last_name' => htmlspecialchars($_POST['lastName']),
+                'email' => htmlspecialchars($_POST['mail']),
+                'contact1' => htmlspecialchars($_POST['contact'])
+            ));
+        }else{ 
+            $_SESSION['error'] = 2;
+        }
+    }
+    else{
+        $add_user_request= $bdd -> prepare('UPDATE all_comptes  SET first_name= :first_name, last_name =:last_name, email= :email,  contact1 = :contact1 WHERE id = "'. $_SESSION['id_user'].'" ');
 
-    $add_user_request= $bdd -> prepare('INSERT INTO all_comptes ( id_type_compte, first_name, last_name, email, id_sexe_compte,  pass_word, birth_date, contact1 , creation_date)
-                                        VALUES ( :id_type_compte, :first_name, :last_name, :email, :id_sexe_compte , :pass_word, :birth_date, :contact1, CURDATE()) ');
+        $verif_email = $bdd -> prepare('SELECT * FROM all_comptes WHERE email = :email AND id = "'. $_SESSION['id_user'].'" ');
+        $verif_email  -> execute(array(
+            'email' => $_POST['mail']
+        ));
+        $compte = $verif_email -> rowCount();
+        if($compte != 1) {
+            $verif_email = $bdd -> prepare('SELECT * FROM all_comptes WHERE email = :email AND id_type_compte = 2');
+            $compte = $verif_email -> rowCount();
+            if($compte != 0) {
+                header("Location: mod_doc_user.php");
+                $_SESSION['error'] = 1;
+                exit();
+            }
+        }
+        
+        $add_user_request -> execute(array(
+            'first_name' => htmlspecialchars($_POST['firstName']),
+            'last_name' => htmlspecialchars($_POST['lastName']),
+            'email' => htmlspecialchars($_POST['mail']),
+            'contact1' => htmlspecialchars($_POST['contact'])
+        ));
+        $select_user = $bdd -> query('SELECT * FROM all_comptes WHERE id = "'.$_SESSION['id_user'].'" ');
+        while ($donnee = $select_user ->fetch()){
 
-    $pass_hashed = password_hash(htmlspecialchars($_POST['password']), PASSWORD_DEFAULT);
-
-    $convert_birth_date = preg_replace('#^([0-9]{2})/([0-9]{2})/([0-9]{4})$#', '$1-$2-$3', $_POST['Birthdate']);
-    
-    $add_user = $bdd -> prepare('INSERT INTO users (matricule, id_type_user ) VALUE (:matricule, :id_type_user)');
-
-    $verif_email = $bdd -> prepare('SELECT * FROM all_comptes WHERE email = :email AND id_type_compte = 2');
-    $verif_email  -> execute(array(
-        'email' => $_POST['mail']
-    ));
-    $compte = $verif_email -> rowCount();
-    if($compte != 0) {
-      header("Location: add_client.php");
-      $_SESSION['error'] = 1;
-      exit();
+            $update_status = $bdd -> prepare("UPDATE users SET id_type_user = :id_type_user WHERE id = :id");
+            
+            $update_status -> execute(array(
+                'id' => $donnee['id_other_information'],
+                'id_type_user'=> $_POST['type_user']
+            ));
+        }
     }
 
-
-    $add_user_request -> execute(array(
-        'id_type_compte' => '2',
-        'first_name' => htmlspecialchars($_POST['firstName']),
-        'last_name' => htmlspecialchars($_POST['lastName']),
-        'email' => htmlspecialchars($_POST['mail']),
-        'id_sexe_compte' => htmlspecialchars($_POST['sexe_user']),
-        'pass_word' => $pass_hashed,
-        'birth_date'=> $convert_birth_date,
-        'contact1' => htmlspecialchars($_POST['contact'])
-    ));
-
-    $take_id = $bdd -> prepare('SELECT id FROM all_comptes WHERE email = :email');
-    $take_id -> execute(array(
-        'email' =>  htmlspecialchars($_POST['mail'])
-    ));
-    $id_user = 0;
-    while ($id_user_list = $take_id->fetch()){
-        $id_user = (int) $id_user_list['id'];
-    }
-
-    $matricule = getMatricule($id_user);
-
-    $add_user -> execute(array(
-        'matricule' =>  $matricule,
-        'id_type_user' => $_POST['type_user']      
-
-    ));   
-
-    $get_user_in_user_list = $bdd -> query("SELECT id FROM users ORDER BY id DESC LIMIT 1");
-
-    $id_user_in_user = 0;
-
-    while ($id_user_list = $get_user_in_user_list->fetch()){
-
-        $id_user_in_user = $id_user_list['id'];
-    }
-    
-
-    $update_user = $bdd -> query("UPDATE all_comptes SET id_other_information = $id_user_in_user  WHERE id = $id_user ");    
     
 
     if(isset($_POST['contact2']) AND !empty($_POST['contact2'])){
-        $update_user = $bdd -> prepare("UPDATE all_comptes SET contact2 = :contact  WHERE id = $id_user ");
+        $update_user = $bdd -> prepare("UPDATE all_comptes SET contact2 = :contact  WHERE id ='".$_SESSION['id_user']."' ");
         $update_user -> execute(array(
             'contact' => htmlspecialchars($_POST['contact2'])
         ));
+
+
     }
 
 
 
     if (!empty($_FILES)){
         
-        $image = $_FILES['photo_user'];
+        $image = $_FILES['photo_user_mod'];
         
 
         if($image['error'] == 0 ){
@@ -93,18 +108,24 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
                 
                 // $nom_oeuvre = htmlspecialchars($_POST['nom_oeuvre']);
                 
-                $fichier_partiel_nom = str_replace(' ','_',$id_user);
+                $fichier_partiel_nom = str_replace(' ','_',$_SESSION['id_user']);
                 
                 $fichier_final_nom = (string)($fichier_partiel_nom.".".$ext_image);
                 
                 move_uploaded_file($image['tmp_name'], "imageAndLogo/photo_user/".$fichier_final_nom);
                 
-                $add_cover_image = $bdd -> prepare("UPDATE users SET nom_photo_user = :nom_photo_user ORDER BY id DESC LIMIT 1");
+                $select_user = $bdd -> query('SELECT * FROM all_comptes WHERE id = "'.$_SESSION['id_user'].'" ');
 
-                $add_cover_image -> execute(array(
+                while ($donnee = $select_user ->fetch()){
+                            
+                    $add_cover_image = $bdd -> prepare("UPDATE users SET nom_photo_user = :nom_photo_user WHERE id = :id");
 
-                    'nom_photo_user'=> $fichier_final_nom
-                ));
+                    $add_cover_image -> execute(array(
+                        'id' => $donnee['id_other_information'],
+                        'nom_photo_user'=> $fichier_final_nom
+                    ));
+                }
+
 
             
             }
@@ -124,7 +145,7 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 >
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
-		<title>documentation de livre - Gestionnaire </title>
+		<title>Informations personnels - Client </title>
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="style6.css"/>
         <link rel="stylesheet" href="documentation_books/style_document4.css"/>
@@ -145,14 +166,16 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 
             <div class="center">
 
-                <h1>Ajout de client</h1>
+                <h1>Modification des informations personnels</h1>
                 <section id='confirmation'>
                     <h2>Message de confirmation de creation de compte</h2>
                     <p>
-                        Le compte du client a bien été crée.
+                        Les informations personnels a bien modifié.
                     </p>
+                    <div class="bottom_link">
+                    <a href="doc_user.php">Revenir a mes informations</a>
+                    </div>
                 </section>
-
 
             </div>
         
@@ -165,7 +188,7 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
         ver1.style.height= '60vh';
     </script>
     <script>
-		const identifation_page ='client';
+		const identifation_page ='information';
        	actived_link_page(identifation_page);
 	</script>
 
@@ -174,6 +197,13 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 
 <?php   
 }else{
+    $information_user = $bdd -> query("SELECT * FROM all_comptes WHERE id ='". $_SESSION["id_user"]."' ");
+    while ($informations = $information_user->fetch()){
+        $date = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$informations['birth_date']);
+        $other_information = $bdd-> query('SELECT * FROM users WHERE id ="'. $informations["id_other_information"].'" ');
+        while ($other = $other_information->fetch()){
+
+
 ?>
 
 
@@ -186,8 +216,8 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 >
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
-		<title>documentation de livre - Gestionnaire </title>
-    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
+		<title>Informations personnels - Client </title>
+        <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="style6.css"/>
         <link rel="stylesheet" href="documentation_books/style_document4.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>
@@ -207,52 +237,44 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 
             <div class="center">
 
-                <h1>Ajout de client</h1>
+                <h1>Modification des informations personnels</h1>
 
                 <section id="nouveauClient">
 
-        <h2>Enregistrer un nouveau client:</h2>
+        <h2>Modifier mes informations personnels:</h2>
         <form method="POST" action="#" enctype="multipart/form-data">
 
             <fieldset id="form-parti1">
                 <legend>information personnel </legend>
 
                 <p>
-                    <label for="photo_user">Ajouter la couverture de l'oeuvre</label>
+                    <label for="photo_user_mod">modifier votre photo profile:</label>
+                    <?php 
+                    if( $other['nom_photo_user'] == NULL){
+                    ?>
                     <img src="imageAndLogo/uncknown_user.png" alt="icon absence de photo de converture"   id="output"/>
-                    <input type="file" name="photo_user" id="photo_user" accept="image/*" onchange="loadFile(event)"  />
+                    <input type="file" name="photo_user_mod" id="photo_user_mod" required="required" accept="image/*" onchange="loadFile(event)"  />
+                            
+                    <?Php
+                    }else{
+                    ?>
+                    <img src="imageAndLogo/photo_user/<?php echo $other['nom_photo_user'] ;?>" alt="couverture de l'oeuvre <?php echo $other['nom_photo_user'] ;?>" id="output" />
+                    <input type="file" name="photo_user_mod" id="photo_user_mod" accept="image/*" onchange="loadFile(event)"/>  
+                    <?php   
+                    }
+                    ?> 
                  </p>
 
                 <p>
-                    <label for="firstName">Entrer votre nom:</label>
-                    <input type="text" name="firstName" id="firstName" placeholder="Nom" required="required" />
+                    <label for="firstName">Modifier votre nom:</label>
+                    <input type="text" name="firstName" id="firstName" placeholder="Nom" required="required" value="<?php echo $informations['first_name']; ?>"/>
                 </p>
                 <p>
-                    <label for="lastName">Entrer votre prenom:</label>
-                    <input type="text" name="lastName" id="lastName" placeholder="Prenom" required="required" />
+                    <label for="lastName">Modifier votre prenom:</label>
+                    <input type="text" name="lastName" id="lastName" placeholder="Prenom" required="required" value="<?php echo $informations['last_name'];?>" />
                 </p>
                 <p>
-                    <label for="Birthdate">Entrer votre date de naissance:</label>
-                    <input type="date" name="Birthdate" id="Birthdate" required="" />
-                </p>
-                <p>
-                    <label for="sexe_user">Entrer votre sexe:</label>
-                    <select  name="sexe_user" id="sexe_user" required="required" >
-
-                <?php 
-                $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-
-                $type_users = $bdd->query('SELECT * FROM sexe_compte  ORDER BY id');
-                while($donnee = $type_users->fetch() ){
-                    echo '<option  value='.$donnee['id'].'>'. $donnee['nom'].'</option>';
-                }
-
-                ?>
-
-                </select>
-                </p>
-                <p>
-                    <label for="type_user">Entrer votre statut:</label>
+                    <label for="type_user">Modifier votre statut:</label>
                     <select  name="type_user" id="type_user" required="required" >
 
                 <?php 
@@ -260,8 +282,13 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 
                 $type_users = $bdd->query('SELECT * FROM type_users  ORDER BY nom');
                 while($donnee = $type_users->fetch() ){
-                    echo '<option  value='.$donnee['id'].'>'. $donnee['nom'].'</option>';
+                    if($donnee['id_categorie'] == $other['id_type_user'] ){
+                        echo '<option value="'.  $donnee['id'] .'" selected ="selected" >' . $donnee['nom'] . '</option>';
+                    }else{
+                        echo '<option value="'.  $donnee['id'] .'" >' .  $donnee['nom'] . '</option>';
+                    }
                 }
+
 
                 ?>
 
@@ -274,12 +301,15 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
                 <legend>email et mot de passe </legend>
                 <p>
                     <label for="mail">Entrer votre email:</label>
-                    <input type="email" name="mail" id="mail" placeholder="mon.email@exemple.com"
-                        required="required" />
+                    <input type="email" name="mail" id="mail" placeholder="mon.email@exemple.com" value="<?php echo $informations['email']; ?>"required="required" />
                 </p>
                 <p>
-                    <label for="password">Entrer votre mot de passe:</label>
-                    <input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="le mot de passe doit contenir au moins : 1 lettre minuscule, 1, lettre majuscule, 1 chiffre, 8 caracteres" required="required" />
+                    <label for="password_actu">Entrer votre mot de passe Actuel:</label>
+                    <input type="password" name="password_actu" id="password_actu" />
+                </p>
+                <p>
+                    <label for="password">Entrer votre nouveau mot de passe:</label>
+                    <input type="password" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="le mot de passe doit contenir au moins : 1 lettre minuscule, 1, lettre majuscule, 1 chiffre, 8 caracteres"/>
                     <div id="message1">
                         <h3>le mot de passe doit contenir:</h3>
                         <p id="letter" class="invalid">1 lettre <b>minuscule</b> </p>
@@ -289,8 +319,8 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
                      </div>
                 </p>
                 <p>
-                    <label for="passwordVerif">Entrer votre mot de passe:</label>
-                    <input type="password" name="passwordVerif" id="passwordVerif" required="required" />
+                    <label for="passwordVerif">verification nouveau mot de passe:</label>
+                    <input type="password" name="passwordVerif" id="passwordVerif" />
                     <div id="message2">
                         <h3>le mot de passe est:</h3>
                         <p id="ident"> <b>indentique</b> </p>
@@ -304,12 +334,12 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
                 <legend>contacts </legend>
                 <p>
                     <label for="contact">Entrer votre contact 1:</label>
-                    <input type="tel" name="contact" id="contact" placeholder="01 02 03 04" required="required" title='Format: XX XX XX XX' pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
-                    />
+                    <input type="tel" name="contact" id="contact" placeholder="01 02 03 04" required="required" title='Format: XX XX XX XX' pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"  value="<?php echo $informations['contact1'];?>"
+                     required = "required"/>
                 </p>
                 <p>
                     <label for="contact2">Entrer votre contact 2:</label>
-                    <input type="tel" name="contact2" id="contact2" placeholder="01 02 03 04" title='Format: XX XX XX XX' pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"/>
+                    <input type="tel" name="contact2" id="contact2" placeholder="01 02 03 04" title='Format: XX XX XX XX' pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}" value="<?php echo $informations['contact2'];?>"/>
                 </p>
                 <input type="submit" name="valider" id="valider" value="valider" />
             </fieldset>
@@ -332,10 +362,13 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
         if ($_SESSION['error'] == 1){
            echo " <script> alert('Ce email est deja utiliser') </script>";
         }
+        if ($_SESSION['error'] == 2){
+            echo " <script> alert('le mot de passe actuel est incorect') </script>";
+         }
         ?>
 
     <script>
-        const identifation_page = 'client';
+        const identifation_page = 'information';
         actived_link_page(identifation_page);
     </script>
     <script>
@@ -452,6 +485,8 @@ verif_input.onkeyup = function() {
 </html>
 
 <?php
+        }
+    }
 $_SESSION['error'] = 0;
 }
 ?>

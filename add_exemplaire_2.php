@@ -1,6 +1,5 @@
 <?php
 include('function/verified_session.php');
-// print_r($_SESSION['exemplaire']);
 include('function/acces_admin_verification.php');
 include('function/count_stock_element.php');
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -54,7 +53,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href=" style5.css" />
+    <link rel="stylesheet" href=" style6.css" />
     <link rel="stylesheet" href=" general-style-element.css" />
     <link rel="stylesheet" href="add_book/style_add_parti2.css" />
 

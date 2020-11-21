@@ -11,7 +11,7 @@
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>Acceuil - Gestionnaire </title>
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
-		<link rel="stylesheet" href="style5.css"/>
+		<link rel="stylesheet" href="style6.css"/>
 		<link rel="stylesheet" href="general-style-element.css" />
 		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 		<?php 
@@ -20,7 +20,7 @@
 				echo' <link rel="stylesheet" href="gestion/style1.css"/>';
 			}
 		}else{
-			include("clientNoConnect/indexClientNoConnect.php");	
+	
 		}
 
 		?>
@@ -48,7 +48,7 @@
 		}
 		
 		else{
-			include("clientNoConnect/indexClientNoConnect.php");	
+			include("clientConnect/indexClientConnect.php");	
 		}
 
 		?>

@@ -202,7 +202,7 @@ if (isset($_SESSION['oeuvre'])) {
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>documentation de livre - Gestionnaire </title>
-        <link rel="stylesheet" href="style5.css"/>
+        <link rel="stylesheet" href="style6.css"/>
         <link rel="stylesheet" href="documentation_books/style_document3.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>
         <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />

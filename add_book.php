@@ -201,7 +201,7 @@ else if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="style6.css" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="general-style-element.css" />
     <link rel="stylesheet" href="add_book/style_add_parti2.css" />
@@ -362,7 +362,7 @@ else if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($
         const ver1 = document.getElementById('formulaire_ajout_exemplaire');
         const ver2 = document.getElementById('formulaire_ajout_oeuvre');
         const ver3 = document.getElementById('choose_form');
-        ver3.style.height ='60vh';
+        ver3.style.height ='70vh';
         ver1.style.display = 'none';
         ver2.style.display = 'none';
         function change (element,id_form) {

@@ -1,13 +1,13 @@
 <?php
 include('function/verified_session.php');
-include('function/acces_admin_verification.php');
+include('function/acces_user_verification.php');
 include('function/geturl.php'); 
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
-if(isset($_POST['check_sup_conf'])){
+if(isset($_POST['check_envoie_demande'])){
 
 
-    if($_POST['check_sup_conf'] == 'sup_confirmation'){
+    if($_POST['check_envoie_demande'] == 'demande_confirmation'){
        
         $take_id_oeuvre = 0 ;
 
@@ -17,19 +17,25 @@ if(isset($_POST['check_sup_conf'])){
 
         }
 
-        $sup_cover = $bdd -> query("SELECT nom_photo_couverture FROM liste_oeuvre WHERE id = '". $take_id_oeuvre . "' ");
-        $cover_name ='';
-        while ($sup_cover_ops = $sup_cover->fetch()) {
-            $cover_name = $sup_cover_ops['nom_photo_couverture'];
-        }
-        
-        if($cover_name != NULL) {
-            unlink("imageAndLogo/image_book/$cover_name");
-        }
 
-        $sup_oeuvre_request = $bdd -> query("DELETE FROM liste_oeuvre WHERE id = '". $take_id_oeuvre . "' " );
+        $verified_demande = $bdd -> prepare('SELECT * FROM demande_emprunt WHERE id_oeuvre = :id_oeuvre   AND id_demandeur = :id_demandeur ');
+        $verified_demande -> execute(array(
+            'id_oeuvre' => $take_id_oeuvre,
+            'id_demandeur' =>  $_SESSION['id_user']
+        ));
 
-        $sup_exemplaire_request = $bdd -> query("DELETE FROM liste_exemplaire WHERE id_oeuvre = '". $take_id_oeuvre . "' " );
+        $compte_element = $verified_demande -> rowCount();
+
+       if ($compte_element == 0){
+        $envoie_demande = $bdd -> prepare("INSERT INTO demande_emprunt( id_demandeur, id_oeuvre, date_demande) VALUES ( :id_demandeur , :id_oeuvre, CURDATE() )");
+        $envoie_demande -> execute(array(
+            'id_demandeur' => $_SESSION['id_user'],
+            'id_oeuvre' => $take_id_oeuvre
+        ));
+        $message = ' La demande d\'emprunt a bien été envoyée.';
+       }else{ 
+        $message = 'Une demande a deja été envoyé. ';
+       }
  
 ?>
 <!DOCTYPE html
@@ -39,7 +45,7 @@ if(isset($_POST['check_sup_conf'])){
 
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
-    <title>Gestion de stock de livre - Gestionnaire </title>
+    <title>Demande d'emprunt - client </title>
     <link rel="stylesheet" href="style6.css" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
@@ -59,14 +65,14 @@ if(isset($_POST['check_sup_conf'])){
 
         <div class="center">
 
-            <h1>Gestion des stocks de livre</h1>
+            <h1>Demande d'emprunt</h1>
 
             <section id="exemplaire_liste">
 
-                <h2>Message de confirmation de suppression</h2>
+                <h2>Message de confirmation d'envoie de demande</h2>
 
                 <p class='p_end'>
-                    L'oeuvre a bien été suprimé.
+                   <?php echo $message; ?>
                 </p>
 
                 <a href="gestion_livre_index.php">Retour a la page principale</a>
@@ -94,8 +100,8 @@ if(isset($_POST['check_sup_conf'])){
 <?php
 
 
-    }else if($_POST['check_sup_conf'] == 'sup_annulation'){
-        header('Location: affiche_doc_page_complet.php');
+    }else if($_POST['check_envoie_demande'] == 'demande_annulation'){
+        header('Location: affiche_doc_page.php');
         exit();
     }
 
@@ -114,7 +120,7 @@ else{
 
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
-    <title>Gestion de stock de livre - Gestionnaire </title>
+    <title>Demande d'emprunt - Client </title>
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="style6.css" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
@@ -134,24 +140,23 @@ else{
 
         <div class="center">
 
-            <h1>Gestion des stocks de livre</h1>
+            <h1>Demande d'emprunt</h1>
 
             <section id="confirm_sup_oeuvre">
 
-                <h2>Confirmation de suppresion</h2>
+                <h2>Confirmation de demande d'emprunt</h2>
 
-                <form action="sup_oeuvre.php" method="POST">
+                <form action="demande_emprunt.php" method="POST">
                 <p >
-                    Souhaitez vous supprimer vraiment supprimer cette oeuvre??<br />
-                    Gardez en tete que cette action est definitive
+                    Souhaitez vous envoyez une demande d'emprunt pour cette oeuvre??<br />
                     <div class='radio-style'>
                         <label for="check_oeuvre">
-                            <input type="radio" name="check_sup_conf" value ="sup_confirmation" id="check_oeuvre" />
-                            Oui, supprimer cette oeuvre
+                            <input type="radio" name="check_envoie_demande" value ="demande_confirmation" id="check_oeuvre" />
+                            Oui, envoyer une demande.
                         </label>
 
                         <label for="check_exemplaire">
-                            <input type="radio" name="check_sup_conf" value ="sup_annulation" id="check_exemplaire" />
+                            <input type="radio" name="check_envoie_demande" value ="demande_annulation" id="check_exemplaire" />
                             Non, revenir a la documentation de l'oeuvre
                         </label>
                         </div>

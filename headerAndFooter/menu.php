@@ -31,8 +31,9 @@ if(isset($_SESSION['type'])){
 							</label>
 							<input type="checkbox" id="btn-2" onclick="changed_angle('fleche-2','link2','list2');" />
 							<ul id="list2">
-								<li><a href="client_doc_index.php">Documentation sur un client</a></li>
 								<li><a href="add_client.php">Ajout de client</a></li>
+								<li><a href="client_doc_index.php">Documentation sur un client</a></li>
+								<li><a href="#">Liste des demandes d'emprunt</a></li>
 								<li><a href="list_emprunt.php">Liste d'emprunt</a></li>
 								<li><a href="#">Confirmation de restitution de livre</a></li>
 							</ul>
@@ -57,18 +58,19 @@ if(isset($_SESSION['type'])){
 				<div class="menu">
 					<ul>
 						<li><a id='id-link1'  href="index.php">Acceuil</a></li>
+						<li><a href="page_documentation_book.php" id="link1">Nos livres</a></li>
 						<li>
-							<label for="btn-1" class="show1">
-								<a id="link1">Nos livres <i id="fleche-1" class="fas fa-angle-down"></i></a>
+							<label for="btn-3" class="show2">
+								<a id='link2'>Vos emprunts <i id="fleche-2" class="fas fa-angle-down"></i></a>
 							</label>
-
-							<input type="checkbox" id="btn-1" onclick="changed_angle('fleche-1','link1','list1');" />
-							<ul id='list1'>
-								<li><a href="page_documentation_book.php">recherche de livre</a></li>
-								<li><a href="#">Demander un emprunt</a></li>
+							<input type="checkbox" id="btn-3" onclick="changed_angle('fleche-2','link2','list2');" />
+							<ul id="list2">
+								<li><a href="user_emprunt.php">Listes de vos emprunts</a></li>
+								<li><a href="list_demande_emprunt.php">Liste des demandes d'emprunt</a></li>
 							</ul>
 						</li>
-						<li><a href="#" id='link2'>Vos emprunts</a></li>
+						
+						<li><a href="doc_user.php" id='link3'>information personnel</a></li>
 						<li><a href="deconnection.php" class="connect">Deconnexion</a></li>
 					</ul>
 				</div>
@@ -88,7 +90,7 @@ if(isset($_SESSION['type'])){
 			<div class="menu">
 				<ul>
 					<li><a  href="index.php" id='id-link1'>Acceuil</a></li>
-					<li><a  href="#" id='id-link2'>Nos livres</a></li>
+					<li><a  href="page_documentation_book.php" id='id-link2'>Nos livres</a></li>
 					<li><a href="connection.php"  id="id-link-connect" class="connect">Connexion</a></li>
 				</ul>
 			</div>
@@ -168,6 +170,7 @@ if(isset($_SESSION['type'])){
 		const link3 = document.getElementById('id-link-connect');
 		const link4 = document.getElementById('link1');
 		const link5 = document.getElementById('link2');
+		const link6 = document.getElementById('link3');
 		switch (valeur) {
 			case 'index':
 				link1.setAttribute("class", "active");
@@ -183,6 +186,10 @@ if(isset($_SESSION['type'])){
 				break;
 			case 'client':
 				link5.setAttribute("class", "active");
+				console.log('ok');
+				break;
+			case 'information':
+				link6.setAttribute("class", "active");
 				console.log('ok');
 				break;
 			case 'connect':

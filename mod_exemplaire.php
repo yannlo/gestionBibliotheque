@@ -34,7 +34,7 @@ if(isset($_GET['mod_exemplaire']) AND !empty($_GET['mod_exemplaire'])){
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="style6.css" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="stylesheet" href="general-style-element.css" />
@@ -135,7 +135,7 @@ else{
 <head>
     <meta http-equiv="content-type" content="text/html" charset="utf-8" />
     <title>Gestion de stock de livre - Gestionnaire </title>
-    <link rel="stylesheet" href="style5.css" />
+    <link rel="stylesheet" href="style6.css" />
     <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="stock_book/gestion_sup2.css" />
@@ -215,7 +215,7 @@ if ($compteur != 0){
                 while ($etat = $saisie_etat ->fetch()){
 ?>     
 					<tr <?php if($_SESSION['increment'] %2 != 0){echo "class='select'";} ?> >
-                        <td><?php  echo  $exemplaire['numero_exemplaire'] ;?></td>    
+                        <td><?php  echo (int) ($_SESSION['increment'] + 1) ;?></td>    
                         <td><?php  echo  $exemplaire['editeur'] ;?></td>
                         <td><?php  echo $etat['nom_etat'] ;?></td>
                         <td><?php  echo  $exemplaire['nombre_emprunt'] ;?></td>
@@ -252,7 +252,7 @@ if ($compteur != 0){
     <?php
     } 
     ?>     
-            <a href="affiche_doc_page_complete.php">Retour</a>
+            <a href="affiche_doc_page_complet.php">Retour</a>
 
 
             </section>

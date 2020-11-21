@@ -231,7 +231,7 @@ nav{
 
     #btn-3:checked + ul{
     display: block;
-    height: 100px;
+    height: 120px;
     transition: all .5s;
   }
 

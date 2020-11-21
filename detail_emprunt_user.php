@@ -1,10 +1,8 @@
 <?php
 include('function/verified_session.php');
-include('function/acces_admin_verification.php');
+include('function/acces_user_verification.php');
 
 $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-$list_user = $bdd->query('SELECT * FROM all_comptes WHERE id_type_compte = "2"');
-
 if (isset($_SESSION['emprunt'])) {
     $emprunt_choose = $bdd -> prepare('SELECT * FROM liste_emprunt WHERE id = :id ');
     foreach($_SESSION['emprunt'] as $key => $val) {
@@ -16,7 +14,7 @@ if (isset($_SESSION['emprunt'])) {
     $compteur = $emprunt_choose -> rowCount();
     if ($compteur == 0 OR $compteur > 1 ){
         echo $compteur;
-        // header('Location: index.php');
+        header('Location: index.php');
         exit();
     }else{
 
@@ -27,8 +25,19 @@ if (isset($_SESSION['emprunt'])) {
         ));
         $select_etat = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
         $select_etat->execute(array(
-            'id' => $emprunt['id_oeuvre']
+            'id' => $emprunt['id_etat_initial']
         ));
+        $etat2 = '';
+        if($emprunt['id_etat_final'] == NULL){
+
+            $select_etat2 = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
+            $select_etat2->execute(array(
+                'id' => $emprunt['id_etat_final']
+            ));
+            while ($etat1 = $select_etat2->fetch()){
+                $etat2 = $etat1['nom_etat'];
+            }
+        }
         $date1 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_emprunt']);
         $date = date('Y-m-d');
         $date_val1 =  new DateTime($date);
@@ -92,7 +101,7 @@ if (isset($_SESSION['emprunt'])) {
                         </div>
 
                     
-                        <a href="<?php if($_SESSION['url_valeur'] == 99 ){ echo 'list_emprunt.php';}else if($_SESSION['url_valeur'] == 43 ){ echo 'doc_user_complet.php';} ; ?>">Retour</a>
+                        <a href="user_emprunt.php">Retour</a>
 
 
                     </section>
