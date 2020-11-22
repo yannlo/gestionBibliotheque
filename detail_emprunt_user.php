@@ -27,33 +27,19 @@ if (isset($_SESSION['emprunt'])) {
         $select_etat->execute(array(
             'id' => $emprunt['id_etat_initial']
         ));
-        $etat2 = '';
-        if($emprunt['id_etat_final'] == NULL){
 
-            $select_etat2 = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
-            $select_etat2->execute(array(
-                'id' => $emprunt['id_etat_final']
-            ));
-            while ($etat1 = $select_etat2->fetch()){
-                $etat2 = $etat1['nom_etat'];
-            }
-        }
+
+        $select_etat2 = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
+        $select_etat2->execute(array(
+            'id' => $emprunt['id_etat_final']
+        ));
+
+        
         $date1 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_emprunt']);
         $date = date('Y-m-d');
-        $date_val1 =  new DateTime($date);
-        $date_val2 = new DateTime($emprunt['date_retour_supposer']);
-        $date_diff = $date_val1 -> diff($date_val2);
-        $date_actu = $date_diff->format('%a');
         $date2 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_retour_supposer']);
-        $select_user = $bdd -> prepare('SELECT * FROM all_comptes WHERE id = :id');
-        $select_user->execute(array(
-            'id' => $emprunt['id_user']
-        ));
-        $select_exemplaire = $bdd -> prepare('SELECT * FROM liste_exemplaire WHERE id = :id');
-        $select_exemplaire->execute(array(
-            'id' => $emprunt['id_exemplaire']
-        ));
-        while($oeuvre_choose = $select_oeuvre ->fetch() AND $etat = $select_etat ->fetch() AND $user = $select_user ->fetch() AND $exemplaire = $select_exemplaire ->fetch()){
+        $date3 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_retour_effectif']);
+        while($oeuvre_choose = $select_oeuvre ->fetch() AND $etat = $select_etat ->fetch()){
 
     ?>
 
@@ -90,14 +76,12 @@ if (isset($_SESSION['emprunt'])) {
                     <section id="information_oeuvre">
 
                         <div class="parti2">
-                            <h2><strong>Nom du demandeur:</strong> <?php echo $user['first_name'] . ' ' . $user['last_name']; ?></h2>
                             <h2><strong>Nom de l'oeuvre:</strong> <?php echo $oeuvre_choose['nom']; ?></h2>
-                            <h2><strong>Numero de l'exemplaire:</strong> <?php  echo $exemplaire['numero_exemplaire'] ;?></h2>
                             <h2><strong>Date de l'emprunt:</strong> <?php  echo $date1 ;?></h2>
                             <h2><strong>Etat initial:</strong> <?php echo $etat['nom_etat'] ;?></h2>
-                            <h2><strong>Date de restitution supposer:</strong> <?php echo $date2 ?></h2>
-                            <h2><strong>Date de restitution effective:</strong> <?php if($emprunt['date_retour_effectif'] == NULL){ echo 'none' ;}else{ echo $emprunt['date_retour_effectif'];} ?></h2>
-                            <h2><strong>etat au retour:</strong> <?php if($emprunt['id_etat_final'] == NULL){ echo 'none' ;}else{ echo $etat2['nom_etat'];} ?></h2>
+                            <h2><strong>Date de restitution Programmé:</strong> <?php echo $date2 ?></h2>
+                            <h2><strong>Date de restitution effective:</strong> <?php if($emprunt['date_retour_effectif'] == NULL){ echo 'none' ;}else{ echo $date3;} ?></h2>
+                            <h2><strong>etat au retour:</strong> <?php if($emprunt['id_etat_final'] == NULL){ echo 'none' ;}else{  while($etat2 = $select_etat2->fetch()){echo $etat2['nom_etat'];} } ?></h2>
                         </div>
 
                     

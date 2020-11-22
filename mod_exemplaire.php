@@ -170,7 +170,7 @@ else{
 
 
 $_SESSION['exemplaire'] = array();
-$list_oeuvre = $bdd-> prepare("SELECT id, numero_exemplaire, id_etat, editeur FROM  liste_exemplaire WHERE id_oeuvre = :id_oeuvre ORDER BY numero_exemplaire ");
+$list_oeuvre = $bdd-> prepare("SELECT id,  id_etat, editeur FROM  liste_exemplaire WHERE id_oeuvre = :id_oeuvre ORDER BY id ");
 foreach($_SESSION['oeuvre'] as $key => $val) {
     $list_oeuvre -> execute(array(
         'id_oeuvre' => htmlspecialchars($key)
@@ -196,7 +196,7 @@ if ($compteur != 0){
     
     $offset = $per_search_page * ($current_page_search - 1);
     
-    $list_oeuvre = $bdd->prepare("SELECT * FROM liste_exemplaire WHERE id_oeuvre = :id ORDER BY numero_exemplaire LIMIT $per_search_page OFFSET $offset ");
+    $list_oeuvre = $bdd->prepare("SELECT * FROM liste_exemplaire WHERE id_oeuvre = :id ORDER BY id LIMIT $per_search_page OFFSET $offset ");
     foreach($_SESSION['oeuvre'] as $key => $val) {
 
         $list_oeuvre -> execute(array(
@@ -209,7 +209,7 @@ if ($compteur != 0){
     }
             
             while ($exemplaire = $list_oeuvre ->fetch()){
-                $_SESSION['exemplaire'][$exemplaire['id']] =  $exemplaire['numero_exemplaire'];
+                $_SESSION['exemplaire'][$exemplaire['id']] =  $exemplaire['editeur'];
                 $saisie_etat = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
                 $saisie_etat ->execute(array('id'=> $exemplaire['id_etat']));
                 while ($etat = $saisie_etat ->fetch()){

@@ -27,7 +27,8 @@
 						<ul>
 							<li><a href="client_doc_index.php">documentation sur un client</a></li>
 							<li><a href="add_client.php">ajout de client</a></li>
-							<li><a href="#">confirmation de restitution de livre</a></li>
+							<li><a href="list_all_demande.php">liste des demandes d'emprunts</a></li>
+							<li><a href="list_emprunt.php">liste des emprunts</a></li>
 						</ul>
 					</p>
 

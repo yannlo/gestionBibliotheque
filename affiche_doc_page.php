@@ -28,6 +28,11 @@ if (isset($_SESSION['oeuvre'])) {
         $saisie_category ->execute(array('id'=> $oeuvre['id_categorie']));
         $saisie_type = $bdd -> prepare('SELECT * FROM type_oeuvre WHERE id = :id');
         $saisie_type ->execute(array('id'=> $oeuvre['id_type']));
+        $liste_exemplaire = $bdd -> prepare('SELECT * FROM liste_exemplaire WHERE id_oeuvre = :id_oeuvre AND etat_emprunt = "0"');
+        $liste_exemplaire ->execute(array(
+            'id_oeuvre' => $oeuvre['id']
+        ));
+        $compte_exemplaire =$liste_exemplaire -> rowCount();
         while ($auteur = $saisie_auteur ->fetch() AND $categorie = $saisie_category -> fetch() AND $type = $saisie_type -> fetch()){
     
     ?>
@@ -89,14 +94,14 @@ if( $oeuvre['nom_photo_couverture'] == NULL){
                                 <?php echo $oeuvre['description_oeuvre']; ?>
                             </p>
     
-                            <h2 class ='moyen'><strong>Nombre d'exemplaire : </strong> <?php if ($oeuvre['stock_exemplaire'] > 1){echo $oeuvre['stock_exemplaire']. ' exemplaires';}else{echo $oeuvre['stock_exemplaire']. ' exemplaire';} ?>  </h2>  
+                            <h2 class ='moyen'><strong>Nombre d'exemplaire empruntable : </strong> <?php if ($compte_exemplaire > 1){echo $compte_exemplaire. ' exemplaires';}else{echo $compte_exemplaire. ' exemplaire';} ?>  </h2>  
                         </div>
                         <div class="bottom_link">
                             <?php if(isset($_SESSION['type']) AND $_SESSION['type'] == 'user' AND $oeuvre['stock_exemplaire'] != 0){
                             ?>
                             <a href="demande_emprunt.php">Faire une demande d'emprunt</a>
                             <?php
-                        }else if($oeuvre['stock_exemplaire'] ==  0){
+                        }else if($compte_exemplaire ==  0){
                             ?> 
                             
                             <p class="information_comp"><span>Alert:</span> <br/>

@@ -33,9 +33,8 @@ if(isset($_SESSION['type'])){
 							<ul id="list2">
 								<li><a href="add_client.php">Ajout de client</a></li>
 								<li><a href="client_doc_index.php">Documentation sur un client</a></li>
-								<li><a href="#">Liste des demandes d'emprunt</a></li>
+								<li><a href="list_all_demande.php">Liste des demandes d'emprunt</a></li>
 								<li><a href="list_emprunt.php">Liste d'emprunt</a></li>
-								<li><a href="#">Confirmation de restitution de livre</a></li>
 							</ul>
 						</li>
 						<!-- <li><a id='id-link1' href="#">Changer de gestionnaire</a></li> -->
@@ -65,8 +64,8 @@ if(isset($_SESSION['type'])){
 							</label>
 							<input type="checkbox" id="btn-3" onclick="changed_angle('fleche-2','link2','list2');" />
 							<ul id="list2">
-								<li><a href="user_emprunt.php">Listes de vos emprunts</a></li>
 								<li><a href="list_demande_emprunt.php">Liste des demandes d'emprunt</a></li>
+								<li><a href="user_emprunt.php">Listes de vos emprunts</a></li>
 							</ul>
 						</li>
 						

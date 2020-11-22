@@ -16,7 +16,7 @@ if (isset($_SESSION['emprunt'])) {
     $compteur = $emprunt_choose -> rowCount();
     if ($compteur == 0 OR $compteur > 1 ){
         echo $compteur;
-        // header('Location: index.php');
+        header('Location: index.php');
         exit();
     }else{
 
@@ -36,6 +36,7 @@ if (isset($_SESSION['emprunt'])) {
         $date_diff = $date_val1 -> diff($date_val2);
         $date_actu = $date_diff->format('%a');
         $date2 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_retour_supposer']);
+        $date3 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_retour_effectif']);
         $select_user = $bdd -> prepare('SELECT * FROM all_comptes WHERE id = :id');
         $select_user->execute(array(
             'id' => $emprunt['id_user']
@@ -44,7 +45,15 @@ if (isset($_SESSION['emprunt'])) {
         $select_exemplaire->execute(array(
             'id' => $emprunt['id_exemplaire']
         ));
-        while($oeuvre_choose = $select_oeuvre ->fetch() AND $etat = $select_etat ->fetch() AND $user = $select_user ->fetch() AND $exemplaire = $select_exemplaire ->fetch()){
+        $select_etat = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
+        $select_etat->execute(array(
+            'id' => $emprunt['id_etat_initial']
+        ));
+        $select_etat2 = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
+        $select_etat2->execute(array(
+            'id' => $emprunt['id_etat_final']
+        ));
+        while($oeuvre_choose = $select_oeuvre ->fetch() AND $user = $select_user ->fetch()){
 
     ?>
 
@@ -83,16 +92,24 @@ if (isset($_SESSION['emprunt'])) {
                         <div class="parti2">
                             <h2><strong>Nom du demandeur:</strong> <?php echo $user['first_name'] . ' ' . $user['last_name']; ?></h2>
                             <h2><strong>Nom de l'oeuvre:</strong> <?php echo $oeuvre_choose['nom']; ?></h2>
-                            <h2><strong>Numero de l'exemplaire:</strong> <?php  echo $exemplaire['numero_exemplaire'] ;?></h2>
-                            <h2><strong>Date de l'emprunt:</strong> <?php  echo $date1 ;?></h2>
-                            <h2><strong>Etat initial:</strong> <?php echo $etat['nom_etat'] ;?></h2>
-                            <h2><strong>Date de restitution supposer:</strong> <?php echo $date2 ?></h2>
-                            <h2><strong>Date de restitution effective:</strong> <?php if($emprunt['date_retour_effectif'] == NULL){ echo 'none' ;}else{ echo $emprunt['date_retour_effectif'];} ?></h2>
-                            <h2><strong>etat au retour:</strong> <?php if($emprunt['id_etat_final'] == NULL){ echo 'none' ;}else{ echo $etat2['nom_etat'];} ?></h2>
+                            <h2><strong>Identifiant de l'exemplaire:</strong> <?php if(($compteur = $select_exemplaire->rowCount()) != 0){while($exemplaire = $select_exemplaire->fetch()) {echo $exemplaire['id'] ;}}else{echo'none';}?></h2>
+                            <h2><strong>Date de l'emprunt:</strong> <?php if(!empty($date1)){ echo $date1 ;} else{echo 'none';}?></h2>
+                            <h2><strong>Etat initial:</strong> <?php if(($compteur = $select_etat->rowCount()) != 0){while($etat = $select_etat ->fetch()){ echo $etat['nom_etat'];}}else{ echo 'none' ;} ?></h2>
+                            <h2><strong>Date de restitution supposer:</strong> <?php if(!empty($date2)){ echo $date2 ;} else{echo 'none';}?></h2>
+                            <h2><strong>Date de restitution effective:</strong> <?php if($emprunt['date_retour_effectif'] == NULL){ echo 'none' ;}else{ echo $date3;} ?></h2>
+                            <h2><strong>etat au retour:</strong> <?php if($emprunt['id_etat_final'] == NULL){ echo 'none' ;}else{ if(($compteur = $select_etat2->rowCount()) != 0){while($etat2 = $select_etat2 ->fetch()){ echo $etat2['nom_etat'];}}else{ echo 'none' ;}} ?></h2>
                         </div>
+<?php
+    $saisie_etat = $bdd ->  query('SELECT * FROM etat_books ');
+    if($emprunt['id_exemplaire'] == 0 OR $emprunt['date_emprunt'] == NULL OR $emprunt['date_retour_supposer'] == NULL OR $emprunt['date_retour_effectif'] == NULL OR $emprunt['id_etat_final'] == NULL){
 
-                    
-                        <a href="<?php if($_SESSION['url_valeur'] == 99 ){ echo 'list_emprunt.php';}else if($_SESSION['url_valeur'] == 43 ){ echo 'doc_user_complet.php';} ; ?>">Retour</a>
+?>
+                        <a href="maj_emprunt.php">Mise a jour</a>
+ <?php
+    }
+
+ ?>                   
+                        <a href="list_emprunt.php">Retour</a>
 
 
                     </section>

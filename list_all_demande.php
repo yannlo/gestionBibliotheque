@@ -1,11 +1,66 @@
-		<div class="center">
+<?php
+include('function/verified_session.php');
+include('function/acces_admin_verification.php');
+include('function/geturl.php'); 
+$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+$list_demande = $bdd->query('SELECT * FROM demande_emprunt   ');
 
-			<h1>Acceuil des gestionnaires</h1>
+if(isset($_GET["affiche"])){
+    foreach($_SESSION['demande'] as $key => $value){
+        if($key != $_GET["affiche"]){
+            unset($_SESSION['demande'][$key]);
+        }
+    }
+    print_r($_SESSION['demande']);
+    header("Location: detail_demande.php");
+    exit();
+}
+if(isset($_POST['nombre_element_page'])){
+    $_SESSION['nombre_element_page'] = $_POST['nombre_element_page'];
+}
+if(!isset($_SESSION['nombre_element_page'])){
+    $_SESSION['nombre_element_page'] = 20;
+}
 
-			<section id="listDemande">
 
-				<h2>Listes des demandes recentes :</h2>
-				<table>
+$compteur = $list_demande -> rowCount();
+
+?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd" xml:lang="fr">
+
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8" />
+    <title> Listes des emprunts - Gestionnaire </title>
+    <link rel="stylesheet" href="style6.css" />
+    <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="stock_book/gestion_livre_style.css" />
+    <link rel="stylesheet" href="general-style-element.css" />
+    <link rel="stylesheet" href="documentation_books/information_comp.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <?php  include("headerAndFooter/menu.php") ?>
+        </header>
+
+
+
+        <div class="center">
+            <h1>Listes des demandes d'emprunts</h1>
+            <section id="list_element">
+                <form action="client_list.php" method="POST">
+                    <p>
+                        <label for="nombre_element_page">Indiquer le nombre d'element a afficher sur la page:</label><br/>
+                        <input type="number" name="nombre_element_page" id="nombre_element_page" min="5" max="<?php echo $compteur;?>" value ='20'  />
+                        <input type="submit" valeur="valider"/>
+                    </p>
+                </form>
+                <h2>Liste des demandes d'emprunts</h2>
                 <table>
 
 					<tr>
@@ -112,61 +167,28 @@ $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','y
     <?php
     } 
     ?>                         
-           
-				</table>
+             
+            </section>
+        </div>
 
-			</section>
 
-			<section id="confirmerRestitution">
-
-				<h2>Confirmation de restitution de livre</h2>
-				<form method="GET" action="search_client.php">
-					<p>
-						<label for="search">rechercher un emprunt en cour: </label> <br />
-						<input type="search" name="search_nom_client" id="search" placeholder="Entrer nom du client" required="required" />
-						<input type="hidden" name="sexe_client"  value="0" />
-							
-						<input type="submit" name="valider" value="valider" />
-					</p>
-				</form>
-
-			</section>
-
-			<section id="listRetardDepot">
-
-				<h2>Listes des retard de restitution :</h2>
-				<table>
-					<tr>
-						<th>nom du livre</th>
-						<th>nom du client</th>
-						<th>date de restitution presumé</th>
-						<th>jour de retard</th>
-					</tr>
-					<tr>
-						<td>les fleurs du mal</td>
-						<td>kouakou frederick</td>
-						<td>10/12/2020</td>
-						<td>4 jours</td>
-					</tr>
-				</table>
-
-			</section>
-
-			<section id="gestionStock">
-
-				<h2>Gestion du stock de livre</h2>
-				<p>
-					Souhaitez vous ajouter un nouveau livre a votre stock ou modifier le stock d'un livre deja existant?
-				</p>
-
-				<div class="bouttonBox">
-					<a href="add_book.php"><button>nouveau livre</button></a>
-
-					<a href="gestion_livre_index.php"><button>modifier Stock</button></a>
-				</div>
-
-			</section>
+        <?php include('headerAndFooter/footer.php'); ?>
 
 
 
-		</div>
+    </div>
+    
+    <script>
+        const identifation_page = 'client';
+        actived_link_page(identifation_page);
+    </script>
+
+    <script>
+        const search_book_zone = document.getElementById('search_book_zone');
+        const list_oeuvre = document.getElementById('list_oeuvre');
+    </script>
+
+
+</body>
+
+</html> 

@@ -18,24 +18,46 @@ if(isset($_POST['check_envoie_demande'])){
         }
 
 
-        $verified_demande = $bdd -> prepare('SELECT * FROM demande_emprunt WHERE id_oeuvre = :id_oeuvre   AND id_demandeur = :id_demandeur ');
+        $verified_demande = $bdd -> prepare('SELECT * FROM demande_emprunt WHERE id_oeuvre = :id_oeuvre   AND id_demandeur = :id_demandeur');
         $verified_demande -> execute(array(
             'id_oeuvre' => $take_id_oeuvre,
             'id_demandeur' =>  $_SESSION['id_user']
         ));
-
-        $compte_element = $verified_demande -> rowCount();
-
+        $compte_element = 0;
+        while ($demande = $verified_demande->fetch()){
+            if($demande['confirmation'] == NULL){
+                $compte_element++;
+            }
+        }
        if ($compte_element == 0){
-        $envoie_demande = $bdd -> prepare("INSERT INTO demande_emprunt( id_demandeur, id_oeuvre, date_demande) VALUES ( :id_demandeur , :id_oeuvre, CURDATE() )");
-        $envoie_demande -> execute(array(
-            'id_demandeur' => $_SESSION['id_user'],
-            'id_oeuvre' => $take_id_oeuvre
-        ));
-        $message = ' La demande d\'emprunt a bien été envoyée.';
-       }else{ 
-        $message = 'Une demande a deja été envoyé. ';
+
+        $emprunt_list = $bdd -> prepare('SELECT * FROM liste_emprunt WHERE id_user = :id_demandeur');
+        $emprunt_list -> execute(array(
+             'id_demandeur' => $_SESSION['id_user']
+         ));
+         $incr = 0;
+         while ($emprunt_search = $emprunt_list -> fetch()){
+             if ($emprunt_search['date_retour_effectif'] == NULL AND $emprunt_search['id_oeuvre'] == $take_id_oeuvre ) {
+                 $incr++;
+             }
+         }
+         if ( $incr == 0){
+             $envoie_demande = $bdd -> prepare("INSERT INTO demande_emprunt( id_demandeur, id_oeuvre, date_demande) VALUES ( :id_demandeur , :id_oeuvre, CURDATE() )");
+             $envoie_demande -> execute(array(
+                 'id_demandeur' => $_SESSION['id_user'],
+                 'id_oeuvre' => $take_id_oeuvre
+             ));
+             $message = ' La demande d\'emprunt a bien été envoyée.';
+
+         }else{ 
+            $message = 'Une demande a deja été envoyé ou vous avez deja un emprunt encour avec ce livre. ';
+
+         }
        }
+        else{
+            $message = 'Une demande a deja été envoyé. ';
+
+        }
  
 ?>
 <!DOCTYPE html
