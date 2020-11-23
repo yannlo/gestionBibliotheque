@@ -17,14 +17,14 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
 	while($donnees = $recherche->fetch()){
 
 		if((($donnees['email'] === $_POST['mail']) AND ($donnees['pass_word'] === $_POST['password'])) OR ( ($donnees['email'] === $_POST['mail']) AND ( password_verify ( $_POST['password'] , $donnees['pass_word'] ) ) )){
-            echo"<p style='background:white'> OK </p>";
+            
             $verifcation -> execute(array(
                 'id' => $donnees['id_type_compte']
             ));
 
             while($type_name = $verifcation->fetch()){
 
-                if($type_name['nom'] === 'user'){
+                if($type_name['nom'] == 'user'){
 
                     $validation['valide_email'] = true;
                     $validation['valide_password'] = true;
@@ -39,9 +39,9 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
 
                 }
 
-                else if($type_name['nom'] === 'admin'){
+                else if($type_name['nom'] == 'admin'){
 
-                    $admin_lists = $bdd -> prepare('SELECT active FROM admins WHERE id = :id');
+                    $admin_lists = $bdd -> prepare('SELECT * FROM admins WHERE id = :id');
 
                     $admin_lists -> execute(array(
                         'id' => $donnees['id_other_information']
@@ -50,6 +50,7 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
                     while($admin = $admin_lists->fetch()){
 
                         if($admin['active'] == true ){
+
 
                             $validation['valide_email'] = true;
                             $validation['valide_password'] = true;
@@ -62,7 +63,6 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
                             $_SESSION['user_name'] = $user_name;
                             header('Location: index.php');
                             exit();
-
                         }
 
                         else{
@@ -73,7 +73,6 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
                     }
                 }
             }
-        break;
         }
         else{
             $error ='erronner';

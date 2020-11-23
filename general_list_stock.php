@@ -148,10 +148,7 @@ if ($compteur != 0){
         }else{
 
             ?>
-    
-        <p>
-            Aucune Oeuvre enregister;
-        </p>
+        </table>
     
     
     <?php

@@ -23,6 +23,7 @@ if(isset($_SESSION['type'])){
 							<ul id='list1'>
 								<li><a href="add_book.php">Ajout de livre</a></li>
 								<li><a href="gestion_livre_index.php">Gestion des stocks et d'etats</a></li>
+								<li><a href="sup_information_oeuvre.php">suppression d'information d'oeuvre</a></li>
 							</ul>
 						</li>
 						<li>
@@ -37,7 +38,7 @@ if(isset($_SESSION['type'])){
 								<li><a href="list_emprunt.php">Liste d'emprunt</a></li>
 							</ul>
 						</li>
-						<!-- <li><a id='id-link1' href="#">Changer de gestionnaire</a></li> -->
+						<li><a id='id-link2' href="mod_admin.php">Modifier le gestionnaire</a></li>
 						<li><a href="deconnection.php" class="connect">Deconnexion</a></li>
 					</ul>
 				</div>

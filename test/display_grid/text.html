@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8" />
+	<title>Grid</title>
+    <style>
+        .grid{
+            display: grid;
+            min-height: 90vh;
+            grid-gap: 20px;
+        }
+	</style>
+
+</head>
+<body>
+
+	<div class="grid">
+		<div>- 1 -</div>
+		<div>- 2 -</div>
+		<div>- 3 -</div>
+		<div>- 4 -</div>
+		<div>- 5 -</div>
+		<div>- 6 -</div>
+		<div>- 7 -</div>
+		<div>- 8 -</div>
+        <div>- 9 -</div>
+        <div>- 1 -</div>
+		<div>- 2 -</div>
+		<div>- 3 -</div>
+		<div>- 4 -</div>
+		<div>- 5 -</div>
+		<div>- 6 -</div>
+		<div>- 7 -</div>
+		<div>- 8 -</div>
+        <div>- 9 -</div>
+		<div>- 1 -</div>
+		<div>- 2 -</div>
+		<div>- 3 -</div>
+		<div>- 4 -</div>
+		<div>- 5 -</div>
+		<div>- 6 -</div>
+		<div>- 7 -</div>
+		<div>- 8 -</div>
+		<div>- 9 -</div>
+    </div>
+    
+    <style>
+        /* Style rapide */
+		.grid>* {
+			padding: 5px;
+			font-size: 24px;
+			font-family: monospace;
+			color: #1d1d1d;
+			text-align: center;
+            /*border: 1px solid black;*/
+		}
+
+        .grid>*:nth-child(even) {
+            background-color: #bada55;
+            border: 5px solid #caea00;
+        }
+
+        .grid>*:nth-child(odd) {
+            background-color: #fafafa;
+            border: 5px solid #eaeaea;
+        }
+		
+	</style>
+</body>
+</html>
