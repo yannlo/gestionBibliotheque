@@ -181,7 +181,7 @@ if(isset($_GET['search_nom_oeuvre']) AND isset($_GET['type_oeuvre']) AND isset($
                 while ($auteur = $saisie_auteur ->fetch() AND $categorie = $saisie_category -> fetch() AND $type = $saisie_type -> fetch()){
                     
                     ?>     
-                            <a href="page_documentation_book.php?session=<?php  echo  $oeuvre['id'] ;?>?>"> 
+                            <a href="page_documentation_book.php?session=<?php  echo  $oeuvre['id'] ;?>"> 
                             <div class="oeuvre">
                                 <h3><strong>Titre:</strong> <?php  echo  $oeuvre['nom'] ;?></h3>
                                 <h3><strong>Auteur:</strong> <?php echo $auteur['nom'] ;?></h3>

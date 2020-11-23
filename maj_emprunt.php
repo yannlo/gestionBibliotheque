@@ -24,6 +24,24 @@ if(isset($_POST['exemplaire']) AND isset($_POST['date_emprunt']) AND isset($_POS
     $update_exemplaire -> execute(array(
         'id' => $_POST['exemplaire']
     ));
+    $select_numero_exemplaire = $bdd -> prepare('SELECT * FROM liste_exemplaire WHERE id = :id');
+    $select_numero_exemplaire -> execute(array(
+        'id' => $_POST['exemplaire']
+    ));
+    
+    $numero_exemplaire = 0;
+    while ($numero = $select_numero_exemplaire->fetch()){
+        $numero_exemplaire = $numero['nombre_exemplaire'];
+    }
+
+    $numero_exemplaire++ ;
+
+    $update_exemplaire = $bdd -> prepare('UPDATE liste_exemplaire SET nombre_emprunt = :nombre_emprunt WHERE id = :id');
+    $update_exemplaire -> execute(array(
+        'nombre_emprunt' => $numero_exemplaire,
+        'id' => $_POST['exemplaire']
+    ));
+
     $date1 = preg_replace('#([0-9]{2})/([0-9]{2})/([0-9]{4})#',"$3-$2-$1",$_POST['date_emprunt']);
     $date2 = preg_replace('#([0-9]{2})-([0-9]{2})-([0-9]{4})#',"$3-$2-$1",$_POST['date_fin_emprunt_sup']);
     
@@ -125,6 +143,17 @@ else{
                 'etat_emprunt'=>'0'
             ));
         }
+        // $choose_exemplaire = $bdd-> prepare("SELECT * FROM liste_exemplaire WHERE id = :id ");
+        // while ($emprunt = $emprunt_choose -> fetch()){
+        //     $choose_exemplaire -> execute(array(
+        //         'id' => htmlspecialchars($emprunt['id_exemplaire'])
+        //     ));
+        // }
+        // while ($exemplaire = $choose_exemplaire -> fetch()){
+        
+        // }
+
+        // $choose_exemplaire = $bdd-> prepare("UPDATE liste_exemplaire SET id_etat =:id_etat, etat_emprunt=:etat_emprunt WHERE id = :id ");
     
         foreach($_SESSION['emprunt'] as $key => $val) {
     

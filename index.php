@@ -11,16 +11,19 @@
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>Acceuil - Gestionnaire </title>
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
-		<link rel="stylesheet" href="style6.css"/>
+		<link rel="stylesheet" href="style7.css"/>
 		<link rel="stylesheet" href="general-style-element.css" />
 		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 		<?php 
 		if(isset($_SESSION['type'])){
 			if($_SESSION['type'] == 'admin'){	
 				echo' <link rel="stylesheet" href="gestion/style1.css"/>';
+			}else{ 
+				echo '<link rel="stylesheet" href="clientConnect/style1.css" />';
 			}
 		}else{
-	
+    
+			echo '<link rel="stylesheet" href="clientConnect/style1.css" />';
 		}
 
 		?>
@@ -31,9 +34,38 @@
 	<body>
 		
 		<div class="container">
+		<?php 
+		if(isset($_SESSION['type'])){
+			if($_SESSION['type'] == 'admin'){
+?>
 			<header>
 				<?php  include("headerAndFooter/menu.php") ?>
 			</header>
+<?php
+					
+			}
+		}else{
+?>
+			<header>
+				<?php  include("headerAndFooter/menu.php") ?>
+				<div class=" wrapper">
+					<div class="content">
+						<h1>Bienvenue sur La bibliotheque</h1>
+						<p class="paragraphe">
+							Ici vous trouverez non des oeuvres de grandes divercités afin de parfaire votre culture general,
+							mais aussi des oeuvres pour vous divertir de tout type et de toute categorie pour encourager la lecture 
+							et developper la creativité de  nos lecteurs.
+						</p>
+						
+					</div>
+        		</div>
+			</header>
+<?php
+		}
+
+		?>
+			
+
 
 		<?php 
 		if(isset($_SESSION['type'])){
