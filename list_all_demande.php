@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 include('function/geturl.php'); 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 $list_demande = $bdd->query('SELECT * FROM demande_emprunt   ');
 
 if(isset($_GET["affiche"])){
@@ -91,7 +91,7 @@ if ($compteur != 0){
     
     $offset = $per_search_page * ($current_page_search - 1);
     
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
     
     $list_demande = $bdd->query(" SELECT * FROM  demande_emprunt ORDER BY date_demande LIMIT $per_search_page OFFSET $offset ");
     if(!isset($_SESSION['increment']) OR !isset($_GET['page']) OR $_GET['page'] == 1 ){ 

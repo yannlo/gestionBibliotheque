@@ -20,7 +20,7 @@ if(isset($_GET["affiche"])){
     header("Location:doc_user_complet.php");
     exit();
 }
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 if(isset($_GET["session"])){
     foreach($_SESSION['oeuvre'] as $key => $value){
         if($key != $_GET["session"]){

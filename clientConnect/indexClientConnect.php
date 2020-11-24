@@ -17,7 +17,7 @@ if(isset($_GET["session"])){
             <div class='containt'>
             <?php
 
-            $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            include('function/connexion_bdd.php');
 
 
             $_SESSION['oeuvre'] = array();
@@ -39,8 +39,18 @@ if(isset($_GET["session"])){
                     <a href="page_documentation_book.php?session=<?php  echo  $oeuvre['id'] ;?>"> 
                         <div class="oeuvre">
                             <div class='v1'>
-                                <img src="../imageAndLogo/<?php  echo  $oeuvre['nom_photo_couverture'] ;?>" alt="converture de livre"/>
-                            </div>
+                            <?php 
+  if( $oeuvre['nom_photo_couverture'] == NULL){
+?>
+<img src="imageAndLogo/uncknown_book.png" alt="icon absence de photo de converture"   id="output"/>
+           
+<?Php
+  }else{
+   ?>
+<img src="imageAndLogo/image_book/<?php echo $oeuvre['nom_photo_couverture'] ;?>" alt="couverture de l'oeuvre <?php echo $oeuvre['nom_photo_couverture'] ;?>" id="output" />
+   <?php   
+  }
+  ?>                             </div>
                             <div class='v2'>
                                 <h3><strong>Titre:</strong> <?php  echo  $oeuvre['nom'] ;?></h3>
                                     <h3><strong>Auteur:</strong> <?php echo $auteur['nom'] ;?></h3>

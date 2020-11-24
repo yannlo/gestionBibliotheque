@@ -1,6 +1,6 @@
 <?php
 function update_stock($id_stock){
-        $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        include('function/connexion_bdd.php');
         $compteur_ajout =  $bdd -> prepare('UPDATE  liste_oeuvre SET stock_exemplaire = :stock_exemplaire WHERE id = :id');
         $compte_element = $bdd ->prepare("SELECT liste_exemplaire.id_oeuvre, liste_oeuvre.id 
                                         FROM liste_exemplaire

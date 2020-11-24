@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 include('function/geturl.php');
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 if(isset($_POST['nom_oeuvre_mod'])   AND isset($_POST['type_oeuvre_mod']) AND isset($_POST['categorie_oeuvre_mod'])  AND isset($_POST['auteur_oeuvre_mod']) AND isset($_POST['description_oeuvre_mod'])) {
     $_SESSION['total_error']['error']= false;

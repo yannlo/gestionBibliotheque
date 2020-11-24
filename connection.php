@@ -3,7 +3,7 @@
 $error ='';
 if (isset($_POST['mail']) AND isset($_POST['password'])){
 
-    $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    include('function/connexion_bdd.php');
     
 	$recherche = $bdd->query('SELECT id, id_type_compte, id_other_information, email, pass_word, first_name, last_name
                             FROM all_comptes');
@@ -94,7 +94,7 @@ if (isset($_POST['mail']) AND isset($_POST['password'])){
     <title>connexion - Bibliotheque</title>
     <link rel="stylesheet" href="style2.css" />
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="style-connection.css" />
+    <link rel="stylesheet" href="style-connection1.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 

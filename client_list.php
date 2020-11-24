@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 include('function/geturl.php'); 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 if(isset($_SESSION['url_ok_good'])){
     unset($_SESSION['url_ok_good']);
@@ -100,7 +100,7 @@ if ($compteur != 0){
     
     $offset = $per_search_page * ($current_page_search - 1);
     
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
     
     $list_user = $bdd->query(" SELECT * FROM all_comptes WHERE id_type_compte = '2' ORDER BY  first_name   LIMIT $per_search_page OFFSET $offset ");
 

@@ -1,5 +1,5 @@
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 $list_demande = $bdd->query('SELECT * FROM demande_emprunt   ');
 
 if(isset($_GET["affiche"])){
@@ -89,7 +89,7 @@ if ($compteur != 0){
     
     $offset = $per_search_page * ($current_page_search - 1);
     
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
     
     $list_demande = $bdd->query(" SELECT * FROM  demande_emprunt ORDER BY date_demande LIMIT $per_search_page OFFSET $offset ");
     if(!isset($_SESSION['increment']) OR !isset($_GET['page']) OR $_GET['page'] == 1 ){ 
@@ -222,7 +222,7 @@ $current_page_search = $all_pages_search;
 
 $offset = $per_search_page * ($current_page_search - 1);
 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 $list_emprunt = $bdd->query(" SELECT * FROM liste_emprunt ORDER BY date_emprunt DESC LIMIT $per_search_page OFFSET $offset ");
 
@@ -257,6 +257,7 @@ $select_user = $bdd -> prepare('SELECT * FROM all_comptes WHERE id = :id');
 $select_user->execute(array(
     'id' => $emprunt['id_user']
 ));
+if($emprunt['date_retour_effectif'] == NULL){
 
 ?>     
 <tr <?php if($_SESSION['increment'] %2 != 0){echo "class='select'";} ?> >
@@ -271,6 +272,7 @@ $select_user->execute(array(
 </tr>
 
 <?php 
+}
 } $_SESSION['increment'] ++; 
 }
 }

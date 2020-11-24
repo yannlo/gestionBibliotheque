@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 include('function/count_stock_element.php');
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 if( (isset($_POST['sup_nom_auteur']) AND !empty($_POST['sup_nom_auteur'])) OR (isset($_POST['sup_nom_categorie']) AND !empty($_POST['sup_nom_categorie'])) OR (isset($_POST['sup_nom_type']) AND !empty($_POST['sup_nom_type'])) ){
     $information ='';

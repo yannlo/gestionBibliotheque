@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 $list_user = $bdd->query('SELECT * FROM all_comptes WHERE id_type_compte = "2"');
 
 if (isset($_SESSION['emprunt'])) {

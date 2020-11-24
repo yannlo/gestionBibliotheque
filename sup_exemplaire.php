@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 include('function/geturl.php'); 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 if(isset($_POST['check_sup_conf'])){
 
@@ -226,7 +226,7 @@ $_SESSION['sup_exp_val'] = (int) ($_GET['sup_exemplaire']);
 
 
 $_SESSION['exemplaire'] = array();
-$list_oeuvre = $bdd-> prepare("SELECT id, numero_exemplaire, id_etat, editeur FROM  liste_exemplaire WHERE id_oeuvre = :id_oeuvre ORDER BY numero_exemplaire ");
+$list_oeuvre = $bdd-> prepare("SELECT id, id_etat, editeur FROM  liste_exemplaire WHERE id_oeuvre = :id_oeuvre ORDER BY id ");
 foreach($_SESSION['oeuvre'] as $key => $val) {
     $list_oeuvre -> execute(array(
         'id_oeuvre' => htmlspecialchars($key)
@@ -252,7 +252,7 @@ if ($compteur != 0){
     
     $offset = $per_search_page * ($current_page_search - 1);
     
-    $list_oeuvre = $bdd->prepare("SELECT * FROM liste_exemplaire WHERE id_oeuvre = :id ORDER BY numero_exemplaire LIMIT $per_search_page OFFSET $offset ");
+    $list_oeuvre = $bdd->prepare("SELECT * FROM liste_exemplaire WHERE id_oeuvre = :id ORDER BY id LIMIT $per_search_page OFFSET $offset ");
     foreach($_SESSION['oeuvre'] as $key => $val) {
 
         $list_oeuvre -> execute(array(
@@ -265,13 +265,13 @@ if ($compteur != 0){
     }
             
             while ($exemplaire = $list_oeuvre ->fetch()){
-                $_SESSION['exemplaire'][$exemplaire['id']] =  $exemplaire['numero_exemplaire'];
+                $_SESSION['exemplaire'][$exemplaire['id']] =  $exemplaire['editeur'];
                 $saisie_etat = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
                 $saisie_etat ->execute(array('id'=> $exemplaire['id_etat']));
                 while ($etat = $saisie_etat ->fetch()){
 ?>     
 					<tr <?php if($_SESSION['increment'] %2 != 0){echo "class='select'";} ?> >
-                        <td><?php  echo  $exemplaire['numero_exemplaire'] ;?></td>    
+                        <td><?php  echo  $_SESSION['increment'] ;?></td>    
                         <td><?php  echo  $exemplaire['editeur'] ;?></td>
                         <td><?php  echo $etat['nom_etat'] ;?></td>
                         <td><?php  echo  $exemplaire['nombre_emprunt'] ;?></td>
@@ -308,7 +308,7 @@ if ($compteur != 0){
     <?php
     } 
     ?>     
-            <a href="affiche_doc_page_complete.php">Retour</a>
+            <a href="affiche_doc_page_complet.php">Retour</a>
 
             </section>
         </div>

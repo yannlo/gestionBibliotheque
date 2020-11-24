@@ -7,7 +7,7 @@ if(isset($_SESSION['url_ok'])){
 }
 $_SESSION['url_ok'] = 26;
 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 $list_oeuvre = $bdd->query('SELECT * FROM liste_oeuvre ');
 
 if(isset($_GET["affiche"])){

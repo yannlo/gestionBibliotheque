@@ -11,7 +11,7 @@ if(isset($_SESSION['url_valeur'])){
 $_SESSION['url_valeur'] = 43;
 
 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 $list_user = $bdd->query('SELECT * FROM all_comptes WHERE id_type_compte = "2"');
 
 
@@ -97,7 +97,7 @@ if( $user_inf['nom_photo_user'] == NULL){
                         <div class="parti3">
 
                             <h2><strong>Status:</strong> <?php  
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
                             
                             while($type = $user_type -> fetch()){ echo $type['nom'] ;}?></h2>
                             <h2><strong>Email:</strong> <?php echo $user['email'] ?></h2>

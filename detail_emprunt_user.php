@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_user_verification.php');
 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 if (isset($_SESSION['emprunt'])) {
     $emprunt_choose = $bdd -> prepare('SELECT * FROM liste_emprunt WHERE id = :id ');
     foreach($_SESSION['emprunt'] as $key => $val) {

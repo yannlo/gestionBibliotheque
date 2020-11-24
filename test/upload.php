@@ -3,7 +3,7 @@
 
 <?php 
 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 $all_comptes = $bdd-> query("SELECT * FROM all_comptes WHERE id_type_compte = '2' ORDER BY first_name");
 while ($compte = $all_comptes->fetch()){

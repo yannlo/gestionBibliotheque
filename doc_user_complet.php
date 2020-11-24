@@ -11,7 +11,7 @@ if(isset($_SESSION['url_valeur'])){
 $_SESSION['url_valeur'] = 43;
 
 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 $list_user = $bdd->query('SELECT * FROM all_comptes WHERE id_type_compte = "2"');
 
 if(isset($_GET["affiche"])){
@@ -188,7 +188,12 @@ $current_page_search = (int) ($_GET['page'] ?? 1) ?: 1;
         $select_etat->execute(array(
             'id' => $emprunt['id_oeuvre']
         ));
+        $select_etat2 = $bdd -> prepare('SELECT * FROM etat_books WHERE id = :id');
+        $select_etat2->execute(array(
+            'id' => $emprunt['id_etat_final']
+        ));
         $date1 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_emprunt']);
+        $date3 = preg_replace('#([0-9]{4})-([0-9]{2})-([0-9]{2})#',"$3/$2/$1",$emprunt['date_retour_effectif']);
         $date = date('Y-m-d');
         $date_val1 =  new DateTime($date);
         $date_val2 = new DateTime($emprunt['date_retour_supposer']);
@@ -211,8 +216,8 @@ $current_page_search = (int) ($_GET['page'] ?? 1) ?: 1;
                         <td><?php  echo  $date1 ;?></td>
 						<td><?php  echo $etat['nom_etat'] ;?></td>
 						<td><?php  echo $date2 ;?></td>
-                        <td><?php echo 'none' ;?></td>
-                        <td><?php  echo 'none' ;?></td>
+                        <td><?php  if($emprunt['date_retour_effectif'] == NULL){ echo 'none' ;}else{ echo $date3;}?></td>
+                        <td><?php  if($emprunt['id_etat_final'] == NULL){ echo 'none' ;}else{ if(($compteur = $select_etat2->rowCount()) != 0){while($etat2 = $select_etat2 ->fetch()){ echo $etat2['nom_etat'];}}else{ echo 'none' ;}}?></td>
 						<td><a class='afficher' href="doc_user_complet.php?affiche=<?php  echo  $emprunt['id'] ;?>">affiches plus...</a></td>
                     </tr>
                     

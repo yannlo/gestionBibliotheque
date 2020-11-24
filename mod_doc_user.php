@@ -3,7 +3,7 @@ include('function/verified_session.php');
 include('function/acces_user_verification.php');
 include('function/geturl.php'); 
 include('function/get_matricule.php');
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST['type_user'])) AND (isset($_POST['mail'])) AND (isset($_POST['contact']))){
     if(isset($_POST['password_actu']) AND !empty($_POST['password_actu'])){
@@ -278,7 +278,7 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
                     <select  name="type_user" id="type_user" required="required" >
 
                 <?php 
-                $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                include('function/connexion_bdd.php');
 
                 $type_users = $bdd->query('SELECT * FROM type_users  ORDER BY nom');
                 while($donnee = $type_users->fetch() ){

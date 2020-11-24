@@ -9,7 +9,7 @@
 >
 	<head>
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
-		<title>Acceuil - Gestionnaire </title>
+		<title>Accueil </title>
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
 		<link rel="stylesheet" href="style7.css"/>
 		<link rel="stylesheet" href="general-style-element.css" />
@@ -43,6 +43,24 @@
 			</header>
 <?php
 					
+			}else{
+				?>
+			<header>
+				<?php  include("headerAndFooter/menu.php") ?>
+				<div class=" wrapper">
+					<div class="content">
+						<h1>Bienvenue sur La bibliotheque</h1>
+						<p class="paragraphe">
+							Ici vous trouverez des oeuvres de grandes divercitées afin de parfaire votre culture général,
+							mais aussi des oeuvres pour vous divertir de tout type et de toute categorie. <br/>
+							Notre objectif est de vous encourager à lire et developper votre creativité.
+						</p>
+						
+					</div>
+        		</div>
+			</header>
+<?php
+
 			}
 		}else{
 ?>
@@ -52,9 +70,9 @@
 					<div class="content">
 						<h1>Bienvenue sur La bibliotheque</h1>
 						<p class="paragraphe">
-							Ici vous trouverez non des oeuvres de grandes divercités afin de parfaire votre culture general,
-							mais aussi des oeuvres pour vous divertir de tout type et de toute categorie pour encourager la lecture 
-							et developper la creativité de  nos lecteurs.
+							Ici vous trouverez des oeuvres de grandes divercitées afin de parfaire votre culture général,
+							mais aussi des oeuvres pour vous divertir de tout type et de toute categorie. <br/>
+							Notre objectif est de vous encourager à lire et developper votre creativité.
 						</p>
 						
 					</div>

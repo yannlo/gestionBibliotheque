@@ -4,7 +4,7 @@ include('function/acces_admin_verification.php');
 include('function/geturl.php'); 
 include('function/get_matricule.php');
 $_SESSION['error'] = 0;
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST['Birthdate'])) AND (isset($_POST['mail'])) AND (isset($_POST['password'])) AND (isset($_POST['contact'])) AND (isset($_POST['sexe_user']))){
 
@@ -200,7 +200,7 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
                     <select  name="sexe_user" id="sexe_user" required="required" >
 
                 <?php 
-                $bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                include('function/connexion_bdd.php');
 
                 $type_users = $bdd->query('SELECT * FROM sexe_compte  ORDER BY id');
                 while($donnee = $type_users->fetch() ){

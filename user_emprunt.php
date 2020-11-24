@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_user_verification.php');
 include('function/geturl.php'); 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 if(isset($_SESSION['url_valeur'])){
     unset($_SESSION['url_valeur']);
 }
@@ -99,7 +99,7 @@ if ($compteur != 0){
     
     $offset = $per_search_page * ($current_page_search - 1);
     
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
     
     $list_emprunt = $bdd->query(" SELECT * FROM liste_emprunt WHERE id_user = '". $_SESSION['id_user'] ."' LIMIT $per_search_page OFFSET $offset ");
 
@@ -207,7 +207,7 @@ if ($compteur != 0){
     
     $offset = $per_search_page * ($current_page_search - 1);
     
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque;charset=utf8','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
     
     $list_emprunt = $bdd->query(" SELECT * FROM liste_emprunt WHERE id_user = '". $_SESSION['id_user'] ."' LIMIT $per_search_page OFFSET $offset ");
 

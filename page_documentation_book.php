@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/mixed_acces_verification.php');
 include('function/geturl.php');
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 if(isset($_GET["session"])){
     foreach($_SESSION['oeuvre'] as $key => $value){
         if($key != $_GET["session"]){

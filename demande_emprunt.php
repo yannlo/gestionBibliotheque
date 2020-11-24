@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_user_verification.php');
 include('function/geturl.php'); 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 
 if(isset($_POST['check_envoie_demande'])){
 

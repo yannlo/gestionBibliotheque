@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 include('function/geturl.php'); 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 if(isset($_POST['editeur_mod']) AND $_POST['etat_mod']){
     $choose_exemplaire = $bdd -> prepare('UPDATE liste_exemplaire SET  id_etat =:id_etat, editeur = :editeur    WHERE id = :id');
     $choose_exemplaire->execute(array(

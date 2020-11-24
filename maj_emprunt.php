@@ -2,7 +2,7 @@
 include('function/verified_session.php');
 include('function/acces_admin_verification.php');
 include('function/geturl.php'); 
-$bdd = new PDO('mysql:host=localhost;dbname=gestionbibliotheque','yannlo','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+include('function/connexion_bdd.php');
 $emprunt_choose = $bdd -> prepare('SELECT * FROM liste_emprunt WHERE id = :id ');
 foreach($_SESSION['emprunt'] as $key => $val) {
 
@@ -31,11 +31,10 @@ if(isset($_POST['exemplaire']) AND isset($_POST['date_emprunt']) AND isset($_POS
     
     $numero_exemplaire = 0;
     while ($numero = $select_numero_exemplaire->fetch()){
-        $numero_exemplaire = $numero['nombre_exemplaire'];
+        $numero_exemplaire = $numero['nombre_emprunt'];
     }
-
+    
     $numero_exemplaire++ ;
-
     $update_exemplaire = $bdd -> prepare('UPDATE liste_exemplaire SET nombre_emprunt = :nombre_emprunt WHERE id = :id');
     $update_exemplaire -> execute(array(
         'nombre_emprunt' => $numero_exemplaire,
@@ -395,7 +394,7 @@ xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd" xml:lang="fr">
                 <form action="maj_emprunt.php" method="post">
                     
                     <p>
-                        <label for="date_fin_emprunt_eff">Date de debut de l'emprunt effectif:</label>
+                        <label for="date_fin_emprunt_eff">Date de fin d'emprunt effectif:</label>
                         <input type="date" name="date_fin_emprunt_eff" id="date_fin_emprunt_eff"  required="required"/>
                     </p>
                     
@@ -413,7 +412,6 @@ xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd" xml:lang="fr">
                                     $etat_post_liste = $bdd-> query("SELECT * FROM etat_books WHERE id ");
                                     while ( $etat_post = $etat_post_liste -> fetch()){
                                         if($etat_post['id'] >= $etat_besoin){
-
                                             echo '<option value="'.  $etat_post['id'] .'" >' .  $etat_post['nom_etat'] . '</option>';                
                                         }
                                     }
