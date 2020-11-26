@@ -19,11 +19,11 @@
 			if($_SESSION['type'] == 'admin'){	
 				echo' <link rel="stylesheet" href="gestion/style1.css"/>';
 			}else{ 
-				echo '<link rel="stylesheet" href="clientConnect/style1.css" />';
+				echo '<link rel="stylesheet" href="clientConnect/style2.css" />';
 			}
 		}else{
     
-			echo '<link rel="stylesheet" href="clientConnect/style1.css" />';
+			echo '<link rel="stylesheet" href="clientConnect/style2.css" />';
 		}
 
 		?>

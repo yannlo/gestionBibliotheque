@@ -63,7 +63,7 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST
                             L'oeuvre a bien été ajouté.
                         </p>
                         
-                        <a href="add_book.php">Retour a la d'ajout de livre</a>
+                        <a href="add_book.php">Retour a page d'ajout de livre</a>
                         
                         
                     </section>
@@ -86,9 +86,10 @@ if(isset($_POST['nom_oeuvre']) AND isset($_POST['etat_oeuvre']) AND isset($_POST
         </html>
         
         <?php  
-        header('Location:  add_book.php');
     }else{
         $_SESSION['exemplaire']['nombre']++;
+        header('Location:  add_exemplaire_2.php');
+        
     }
        
 

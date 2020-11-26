@@ -181,7 +181,11 @@ text-align: right;
 
 
 }
-
+@media (max-width: 575px){
+    #information_oeuvre .parti1{
+        flex-direction: column;
+    }
+}
 
 #information_oeuvre .parti2 h2 strong,#information_oeuvre .parti4 h2 strong {
     display: block;

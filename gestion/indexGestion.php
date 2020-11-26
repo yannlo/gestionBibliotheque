@@ -1,5 +1,11 @@
 <?php
+
+// contient le code de la page d'accueil reserver au admin
+
 include('function/connexion_bdd.php');
+
+// parti 1: recuperer l'ensempble des demandes d'emprunt d'oeuvres et les met dans un tableau
+
 $list_demande = $bdd->query('SELECT * FROM demande_emprunt   ');
 
 if(isset($_GET["affiche"])){

@@ -78,7 +78,7 @@ if(isset($_POST['exemplaire']) AND isset($_POST['date_emprunt']) AND isset($_POS
 		<title>Detail de l'emprunt - Gestionnaire </title>
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="style6.css"/>
-        <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+        <link rel="stylesheet" href="documentation_books/style_document5.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>
         <link rel="stylesheet" href="gestionClient/client_style_3.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -176,7 +176,7 @@ else{
                 <title>Detail de l'emprunt - Gestionnaire </title>
             <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
                 <link rel="stylesheet" href="style6.css"/>
-                <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+                <link rel="stylesheet" href="documentation_books/style_document5.css"/>
                 <link rel="stylesheet" href="general-style-element.css"/>
                 <link rel="stylesheet" href="gestionClient/client_style_3.css"/>
                 <script src="https://kit.fontawesome.com/a076d05399.js"></script>

@@ -22,7 +22,7 @@ if(isset($_GET["session"])){
 
             $_SESSION['oeuvre'] = array();
 
-            $found_search = $bdd -> query('SELECT * FROM liste_oeuvre ORDER BY id DESC LIMIT 3');
+            $found_search = $bdd -> query('SELECT * FROM liste_oeuvre ORDER BY id DESC LIMIT 4');
             while ($oeuvre = $found_search ->fetch()){
                 $_SESSION['oeuvre'][$oeuvre['id']] =  $oeuvre['nom'];
                 $saisie_auteur = $bdd -> prepare('SELECT * FROM autheur_livre WHERE id = :id ');

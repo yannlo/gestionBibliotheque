@@ -26,7 +26,7 @@ if(isset($_GET["session"])){
 		<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 		<title>documentation de livre - Client </title>
         <link rel="stylesheet" href="style6.css"/>
-        <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+        <link rel="stylesheet" href="documentation_books/style_document5.css"/>
         <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="general-style-element.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>

@@ -52,7 +52,7 @@ if (isset($_SESSION['id_user'])) {
         <head>
             <meta http-equiv="content-type" content="text/html" charset="utf-8" />
             <title>Gestion de stock de livre - Gestionnaire </title>
-            <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+            <link rel="stylesheet" href="documentation_books/style_document5.css"/>
             <link rel="stylesheet" href="style6.css"/>
             <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
             <link rel="stylesheet" href="gestionClient/client_style_3.css"/>

@@ -1,6 +1,11 @@
 <?php
 function update_stock($id_stock){
+
+        # compte le nombre d'exemplaire d'une oeuvre precise dans le base de donnée et met la valeur
+        # trouver dans le champs stock de l'oeuvre en question
+        
         include('function/connexion_bdd.php');
+
         $compteur_ajout =  $bdd -> prepare('UPDATE  liste_oeuvre SET stock_exemplaire = :stock_exemplaire WHERE id = :id');
         $compte_element = $bdd ->prepare("SELECT liste_exemplaire.id_oeuvre, liste_oeuvre.id 
                                         FROM liste_exemplaire

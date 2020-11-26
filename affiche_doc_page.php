@@ -13,7 +13,9 @@ if (isset($_SESSION['oeuvre'])) {
         $oeuvre_choose -> execute(array(
             'id' => htmlspecialchars($key)
         ));
+
     }
+    
     $compteur = $oeuvre_choose -> rowCount();
     if ($compteur == 0 OR $compteur > 1 ){
         header('Location: index.php');
@@ -49,7 +51,7 @@ if (isset($_SESSION['oeuvre'])) {
             <title>documentation de livre - client </title>
             <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
             <link rel="stylesheet" href="style6.css"/>
-            <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+            <link rel="stylesheet" href="documentation_books/style_document5.css"/>
             <link rel="stylesheet" href="documentation_books/information_comp.css"/>
             <link rel="stylesheet" href="general-style-element.css"/>
             <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -97,7 +99,7 @@ if( $oeuvre['nom_photo_couverture'] == NULL){
                             <h2 class ='moyen'><strong>Nombre d'exemplaire empruntable : </strong> <?php if ($compte_exemplaire > 1){echo $compte_exemplaire. ' exemplaires';}else{echo $compte_exemplaire. ' exemplaire';} ?>  </h2>  
                         </div>
                         <div class="bottom_link">
-                            <?php if(isset($_SESSION['type']) AND $_SESSION['type'] == 'user' AND $oeuvre['stock_exemplaire'] != 0){
+                            <?php if(isset($_SESSION['type']) AND $_SESSION['type'] == 'user' AND $compte_exemplaire != 0){
                             ?>
                             <a href="demande_emprunt.php">Faire une demande d'emprunt</a>
                             <?php

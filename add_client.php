@@ -127,7 +127,7 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 		<title>documentation de livre - Gestionnaire </title>
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="style6.css"/>
-        <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+        <link rel="stylesheet" href="documentation_books/style_document5.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>
         <link rel="stylesheet" href="gestionClient/client_style_3.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -189,7 +189,7 @@ if(isset($_POST['firstName']) AND (isset($_POST['lastName'])) AND (isset($_POST[
 		<title>documentation de livre - Gestionnaire </title>
     <link rel="shortcut icon" href="imageAndLogo/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="style6.css"/>
-        <link rel="stylesheet" href="documentation_books/style_document4.css"/>
+        <link rel="stylesheet" href="documentation_books/style_document5.css"/>
         <link rel="stylesheet" href="general-style-element.css"/>
         <link rel="stylesheet" href="gestionClient/client_style_3.css"/>
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
